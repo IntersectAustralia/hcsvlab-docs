@@ -1,4 +1,3 @@
-hcsvlab-docs
-============
+This contains install and other technical documentation for the HCSvLab project. This is a work in progress.
 
-Documentation for HCSvLab
+* [Galaxy](Galaxy.md)
