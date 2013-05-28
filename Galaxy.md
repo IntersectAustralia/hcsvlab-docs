@@ -17,7 +17,9 @@ Pull down and install the default galaxy distribution
     hg update stable
 
 [Install NLTK](NLTK.md) 
+
 [Install the Johnson Charniak Parser](JCParser.md)
+
 [Install the JC Parser NLTK wrapper](JCPNLTKWrapper.md)
 
 Install Galaxy customisations and tool wrappers
