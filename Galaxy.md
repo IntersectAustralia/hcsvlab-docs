@@ -22,6 +22,25 @@ Pull down and install the default galaxy distribution
 
 [Install the JC Parser NLTK wrapper](JCPNLTKWrapper.md)
 
+Install the following required tools (for displaying parse trees)
+    
+    sudo yum install tkinter
+    sudo yum install python-matplotlib-tk.x86_64
+    sudo yum install xorg-x11-server-Xvfb
+    sudo yum install ImageMagick
+    Xvfb :1 -screen 0 1024x768x24 &
+    export DISPLAY=:1
+    sudo yum install xhost
+    xhost +
+    
+Add the `DISPLAY` configuration to your bashrc
+
+    cd ~
+    nano .bashrc
+        // Paste the following line into the file:
+        export DISPLAY=:1
+    source ~/.bashrc
+
 Install Galaxy customisations and tool wrappers
 
     cd ~/galaxy-dist
@@ -30,5 +49,7 @@ Install Galaxy customisations and tool wrappers
     git pull origin master
     chmod 755 galaxy
     ./galaxy start
+    
+<b> Note: </b> If setting up locally, or there is some issue with the .galaxy start command, nano into galaxy file and check the path to galaxy directory and the user is correct    
 
     
