@@ -7,7 +7,7 @@ You have a fresh CentOS machine. You have a user account on this machine with su
 
 You have already installed:
 [NLTK](NLTK.md) and
-[The JC-Parser](JCParser.mb)
+[The JC-Parser](JCParser.md)
 
 
 ### Setup
