@@ -19,7 +19,7 @@ Obtain the JC Parser source code
     wget http://web.science.mq.edu.au/~mjohnson/code/reranking-parser-2011-12-17.tgz
     tar -zxvf reranking-parser-2011-12-17.tgz
 
-Note: There is a line missing in "reranking-parser/second-stage/programs/features/best-parses.cc". Add the following to best-parses.cc near other #includes.
+<b>Note:</b> There is a line missing in `reranking-parser/second-stage/programs/features/best-parses.cc`. Add the following to `best-parses.cc` near other #includes.
 
     #include <unistd.h>
 
@@ -28,10 +28,10 @@ Compile
     cd /reranking-parser
     make
     
-Note: The compiler may complain about an unsupported O level, in which case open the Makefile and edit the CFLAGS on line 65, the '-O6' flag to just '-O'.    
+<b>Note:</b> The compiler may complain about an unsupported O level, in which case open the Makefile and edit the `CFLAGS` on line 65, the `-O6` flag to just `-O`.    
     
 
-### Run the parser on a .txt file
+### Run the parser on a `.txt` file
   
     ./parse.sh sample-data.txt
 
@@ -42,4 +42,4 @@ The output should look like the following
     (S1 (S (NP (NP (DT A) (JJ second) (NN sentence)) (PRN (-LRB- -LRB-) (PP (ADVP (RB much)) (IN like) (NP (DT the) (JJ first))) (-RRB- -RRB-))) (VP (MD will) (ADVP (RB also)) (VP (VB help))) (. .)))
     (S1 (NP (S (NP (DT This) (NN sentence)) (VP (VBZ contains) (NP (NP (DT some) (ADJP (RB very) (JJ funny)) (NNS tokens)) (, ,) (PP (JJ such) (IN as) (UCP (ADJP (JJ \/)) (CC and) (ADJP (# #) (CC and) (NN %) (NN %)) (CC and) (ADJP (JJ *) (CC &) (JJ *)) (CC and) (. !) (. !) (FRAG (CC and) (NP (NN ~) (CC and) (NN +=) (NNS <)) (. .)) (. .))) (. ?)))) (: ;) (NP (NNP _)) (: -) (CC &) (NP (NNP >))))
 
-Note: Test data sentences need to be sentence indicated with <s> indiciating the start of a sentence, and </s> indicating the end of a sentence
+<b>Note:</b> Test data sentences need to be sentence indicated with `<s>` indiciating the start of a sentence, and `</s>` indicating the end of a sentence
