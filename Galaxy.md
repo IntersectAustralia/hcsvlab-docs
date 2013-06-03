@@ -33,10 +33,7 @@ Pull down and install the default galaxy distribution
 
 Install the following tools (required for displaying parse trees)
     
-    sudo yum install tkinter
-    sudo yum install python-matplotlib-tk.x86_64
-    sudo yum install xorg-x11-server-Xvfb
-    sudo yum install ImageMagick
+    sudo yum install tkinter python-matplotlib-tk.x86_64 xorg-x11-server-Xvfb ImageMagick
     Xvfb :1 -screen 0 1024x768x24 &
     export DISPLAY=:1
     sudo yum install xhost
@@ -45,7 +42,7 @@ Install the following tools (required for displaying parse trees)
 Add the `DISPLAY` configuration to your bashrc
 
     cd ~
-    nano .bashrc
+    vi .bashrc
         // Paste the following line into the file:
         export DISPLAY=:1
     source ~/.bashrc
