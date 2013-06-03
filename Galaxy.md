@@ -25,11 +25,11 @@ Pull down and install the default galaxy distribution
     cd galaxy-dist
     hg update stable
 
-[Install NLTK](NLTK.md) 
+[Install NLTK](NLTK.md) (you should install this as the same user that will run Galaxy)
 
-[Install the Johnson Charniak Parser](JCParser.md)
+[Install the Johnson Charniak Parser](JCParser.md) (you should install this as the same user that will run Galaxy)
 
-[Install the JC Parser NLTK wrapper](JCPNLTKWrapper.md)
+[Install the JC Parser NLTK wrapper](JCPNLTKWrapper.md) (you should install this as the same user that will run Galaxy)
 
 Install the following tools (required for displaying parse trees)
     
