@@ -1,8 +1,17 @@
-### Assumptions:
-You have a fresh CentOS machine. You have a user account on this machine with sudo privileges. You are logged in as this user and are in the home directory.
+### Background
+These instructions are to install Galaxy and the HCSvLab tools on a CentOS machine. This can easily be adapted to other distributions.
+
+The Galaxy instructions are based on the following from the Galaxy website
+* [Basic install](http://wiki.galaxyproject.org/Admin/Get%20Galaxy) 
+* [Running in production](http://wiki.galaxyproject.org/Admin/Config/Performance/ProductionServer)
+
+### Assumptions
+* You have a fresh CentOS machine. 
+* You have a non-root user account on this machine with sudo privileges. 
+* You are logged in as this user and are in the home directory.
 
 ### Setup
-Set up dev tools
+Install development tools
 
     sudo yum groupinstall "Development Tools"
 
@@ -22,7 +31,7 @@ Pull down and install the default galaxy distribution
 
 [Install the JC Parser NLTK wrapper](JCPNLTKWrapper.md)
 
-Install the following required tools (for displaying parse trees)
+Install the following tools (required for displaying parse trees)
     
     sudo yum install tkinter
     sudo yum install python-matplotlib-tk.x86_64
