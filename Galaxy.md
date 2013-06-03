@@ -17,7 +17,7 @@ Install development tools
 
 Install mercurial if you dont have it
 
-    sudo yum install '*mercurial*'
+    sudo yum install mercurial
 
 Pull down and install the default galaxy distribution
 
@@ -51,11 +51,15 @@ Install Galaxy customisations and tool wrappers
 
     cd ~/galaxy-dist
     git init
-    git remote add origin git@github.com:IntersectAustralia/hcsvlab-galaxy.git
+    git remote add origin git://github.com/IntersectAustralia/hcsvlab-galaxy.git
     git pull origin master
     chmod 755 galaxy
-    ./galaxy start
+    ./galaxy start   #GIVES ERROR WHEN NOT devel *** ERROR *** must be devel or root in order to control this service
     
-<b> Note: </b> If setting up locally, or there is some issue with the .galaxy start command, nano into galaxy file and check the path to galaxy directory and the user is correct    
+TODO
+* Postgres
+* Apache
+* Run as a service
+* Smoke test with tools
 
     
