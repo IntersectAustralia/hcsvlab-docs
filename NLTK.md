@@ -5,7 +5,7 @@ NLTK is a Python library used for text analysis (lexical anaysis, tokenisation a
 
 ### Assumptions
 * You have a CentOS machine. 
-* You have a user account on this machine with sudo privileges. 
+* You have a non-root user account on this machine with sudo privileges. 
 * You are logged in as this user and are in the home directory.
 * You have python installed. Type the following in your terminal to see your python install version:
 
