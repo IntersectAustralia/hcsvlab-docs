@@ -1,8 +1,8 @@
-### About JC Parser
+### Background
 
 The Johnson-Charniak parser is a tool for parsing natural language (in text form). It is used to construct parse trees.
 
-[Mark Johnson's Software](http://http://web.science.mq.edu.au/~mjohnson/Software.htm) 
+[Mark Johnson's Software](http://web.science.mq.edu.au/~mjohnson/Software.htm) 
 
 ### Assumptions:
 * You have a fresh CentOS machine. 
