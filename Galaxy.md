@@ -63,6 +63,7 @@ Start Galaxy
 
     ./galaxy start
     
+### Production Configuration    
 **If you are just trying it out or running it locally for development, you can stop here.** If running in production, we recommend the following steps (which come from the Galaxy recommendations for running in production). We suggest you review the Galaxy documentation and choose options that are most appropriate to your local installation. Below is what we did.
 
 Turn off development settings
@@ -72,7 +73,7 @@ Edit `~/galaxy-dist/universe_wsgi.ini` and modify as follows:
     debug = False
     use_interactive = False
 
-Install Postgres, create a Postgres user called "galaxy" and create a database called "galaxy".
+Install Postgres, create a Postgres user called "galaxy" and create a database called "galaxy". If you need guidance on this see [Install Postgres](Postgres.md)
 
 Configure Galaxy to use Postgres - edit `~/galaxy-dist/universe_wsgi.ini` and uncomment the `database_connection` configuration. Modify it for your postgres settings. This should be something like:
 
@@ -81,12 +82,9 @@ Configure Galaxy to use Postgres - edit `~/galaxy-dist/universe_wsgi.ini` and un
 Install and configure Apache
 
     sudo yum install httpd httpd-devel
-    
-Create and apache config file
-
     sudo vi /etc/httpd/conf.d/galaxy.conf
 
-and add the following (adjusting paths if needed):
+and add the following (adjusting paths as needed):
 
     RewriteEngine on
     RewriteRule ^/static/style/(.*) /home/galaxy/galaxy-dist/static/june_2007_style/blue/$1 [L]
