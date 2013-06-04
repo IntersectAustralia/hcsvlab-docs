@@ -7,7 +7,7 @@ The Galaxy instructions are based on the following from the Galaxy website
 
 ### Assumptions
 * You have a fresh CentOS machine. 
-* You have a non-root user account on this machine with sudo privileges. 
+* You have a non-root user account on this machine with sudo privileges. We used "galaxy".
 * You are logged in as this user and are in the home directory.
 
 ### Setup
@@ -15,11 +15,11 @@ Install development tools
 
     sudo yum groupinstall "Development Tools"
 
-Install mercurial if you dont have it
+Install mercurial
 
     sudo yum install mercurial
 
-Pull down and install the default galaxy distribution
+Pull down Galaxy from mercurial and select the stable branch
 
     hg clone https://bitbucket.org/galaxy/galaxy-dist/
     cd galaxy-dist
@@ -47,19 +47,68 @@ Add the `DISPLAY` configuration to your bashrc
         export DISPLAY=:1
     source ~/.bashrc
 
-Install Galaxy customisations and tool wrappers
+Install HCSvLab Galaxy customisations and tool wrappers
 
     cd ~/galaxy-dist
     git init
     git remote add origin git://github.com/IntersectAustralia/hcsvlab-galaxy.git
     git pull origin master
     chmod 755 galaxy
-    ./galaxy start   #GIVES ERROR WHEN NOT devel *** ERROR *** must be devel or root in order to control this service
     
-TODO
-* Postgres
-* Apache
-* Run as a service
-* Smoke test with tools
+Modify the start script with user and path - modify the `RUN_AS` and `RUN_IN` to suit your path and user    
 
+    vi galaxy
+    
+Start Galaxy    
+
+    ./galaxy start
+    
+**If you are just trying it out or running it locally for development, you can stop here.** If running in production, we recommend the following steps (which come from the Galaxy recommendations for running in production). We suggest you review the Galaxy documentation and choose options that are most appropriate to your local installation. Below is what we did.
+
+Turn off development settings
+
+Edit `~/galaxy-dist/universe_wsgi.ini` and modify as follows:
+
+    debug = False
+    use_interactive = False
+
+Install Postgres, create a Postgres user called "galaxy" and create a database called "galaxy".
+
+Configure Galaxy to use Postgres - edit `~/galaxy-dist/universe_wsgi.ini` and uncomment the `database_connection` configuration. Modify it for your postgres settings. This should be something like:
+
+    postgres:///galaxy?user=galaxy&password=galaxy
+    
+Install and configure Apache
+
+    sudo yum install httpd httpd-devel
+    
+Create and apache config file
+
+    sudo vi /etc/httpd/conf.d/galaxy.conf
+
+and add the following (adjusting paths if needed):
+
+    RewriteEngine on
+    RewriteRule ^/static/style/(.*) /home/galaxy/galaxy-dist/static/june_2007_style/blue/$1 [L]
+    RewriteRule ^/static/scripts/(.*) /home/galaxy/galaxy-dist/static/scripts/packed/$1 [L]
+    RewriteRule ^/static/(.*) /home/galaxy/galaxy-dist/static/$1 [L]
+    RewriteRule ^/favicon.ico /home/galaxy/galaxy-dist/static/favicon.ico [L]
+    RewriteRule ^/robots.txt /home/galaxy/galaxy-dist/static/robots.txt [L]
+    RewriteRule ^(.*) http://localhost:8080$1 [P]
+
+Restart Galaxy    
+
+    ./galaxy stop
+    ./galaxy start
+    
+Restart Apache    
+
+    sudo chkconfig --level 345 httpd on
+    sudo service httpd restart
+
+
+### Smoke Test
+You can verify that your install has been successful by executing these tests:
+
+TODO
     
