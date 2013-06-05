@@ -99,6 +99,8 @@ and add the following (adjusting paths as needed):
 
 **Restart Galaxy & Apache**
 
+Make sure that the apache user has read/execute permissions to the galaxy directory ~/galaxy-dist, then restart Galaxy and Apache.
+
     ./galaxy stop
     ./galaxy start
     sudo chkconfig --level 345 httpd on
@@ -108,5 +110,105 @@ and add the following (adjusting paths as needed):
 ### Smoke Test
 You can verify that your install has been successful by executing these tests:
 
-TODO
+<table><tbody>
+<tr>
+<th> Test description </th>
+<th> Pre-Conditions </th>
+<th> Test steps </th>
+<th> Expected Results </th>
+</tr>
+<tr>
+<td> Galaxy requires login to see or use any tools/features </td>
+<td>&nbsp;</td>
+<td> 1. Open Galaxy <br/> </td>
+<td> Galaxy should prompt user for a login </td>
+</tr>
+<tr>
+<td> Login and see homepage </td>
+<td>&nbsp;</td>
+<td> 1. Open Galaxy <br/>
+2. Login to Galaxy </td>
+<td> User should see the Galaxy homepage with HCSVLAB logo and heading. The top left hand corner should also show "Galaxy / HCS vLab" </td>
+</tr>
+<tr>
+<td> Upload file </td>
+<td> Logged in </td>
+<td> 1. Select Upload File from the tool menu (Get Data) <br/>
+2. Choose a local text file <br/>
+3. Click Execute </td>
+<td> A new dataset should appear in the history on the RHS containing the contents of the uploaded file </td>
+</tr>
+<tr>
+<td> Concatenator tool </td>
+<td> Logged in </td>
+<td> 1. Select Concatenator from the tool menu (Get Data) <br/>
+2. Enter in a number of URL's pertaining to text files (one per line) <br/>
+3. Click Execute </td>
+<td> A new dataset should appear in the history on the RHS containing the text content of each URL combined into one output </td>
+</tr>
+<tr>
+<td> Frequency List tool </td>
+<td> Logged in, dataset available </td>
+<td> 1. Select Frequency List from the tool menu (Analyse Data) <br/>
+2. Select a dataset <br/>
+3. Click Execute </td>
+<td> A new dataset should appear in the history on the RHS containing a list of the words from the input dataset and how many times each occurred in that dataset </td>
+</tr>
+<tr>
+<td> Sentence Segmenter tool </td>
+<td> Logged in, dataset available </td>
+<td> 1. Select Sentence Segmenter from the tool menu (NLTK Tools) <br/>
+2. Select a dataset <br/>
+3. Click Execute </td>
+<td> A new dataset should appear in the history on the RHS containing each sentence of the input dataset split out onto one line </td>
+</tr>
+<tr>
+<td> Tokenizer tool </td>
+<td> Logged in, dataset available </td>
+<td> 1. Select Tokenizer from the tool menu (NLTK Tools) <br/>
+2. Select a dataset <br/>
+3. Click Execute </td>
+<td> A new dataset should appear in the history on the RHS containing each token of the input dataset split out onto one line </td>
+</tr>
+<tr>
+<td> POS tool </td>
+<td> Logged in, dataset available </td>
+<td> 1. Select POS from the tool menu (NLTK Tools) <br/>
+2. Select a dataset <br/>
+3. Click Execute </td>
+<td> A new dataset should appear in the history on the RHS containing each token of the input dataset split out onto one line paired with its POS tag e.g. this/DT </td>
+</tr>
+<tr>
+<td> Stemmer tool </td>
+<td> Logged in, dataset available </td>
+<td> 1. Select Stemmer from the tool menu (NLTK Tools) <br/>
+2. Select a dataset and a stemmer option <br/>
+3. Click Execute </td>
+<td> A new dataset should appear in the history on the RHS containing a list of stems (words/tokens) each split out onto one line </td>
+</tr>
+<tr>
+<td> Collocation tool </td>
+<td> Logged in, dataset available </td>
+<td> 1. Select Collocation from the tool menu (NLTK Tools) <br/>
+2. Select a dataset and a set of options <br/>
+3. Click Execute </td>
+<td> A new dataset should appear in the history on the RHS containing a set of the most frequent collocations (a pair/set of three words) each split out onto one line e.g. ('this', 'is') </td>
+</tr>
+<tr>
+<td> Chart Parser tool </td>
+<td> Logged in, dataset available, valid grammar available </td>
+<td> 1. Select Chart Parser from the tool menu ( NLTK Tools) <br/>
+2. Select a grammar and a dataset <br/>
+3. Click Execute </td>
+<td> A new dataset should appear in the history on the RHS containing a text output of the tree of the parsed input </td>
+</tr>
+<tr>
+<td> Johnson-Charniak tool </td>
+<td> Logged in, dataset available </td>
+<td> 1. Select Johnson-Charniak Parser from the tool menu (Johnson-Charniak Parser Tools) <br/>
+2. Select a dataset <br/>
+3. Click Execute </td>
+<td> A new dataset should appear in the history on the RHS containing a textual and graphical output of the parsed input dataset </td>
+</tr>
+</tbody></table>
     
