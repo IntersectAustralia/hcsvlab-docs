@@ -20,15 +20,17 @@ Clone the repository
     cd ~
     git clone git://github.com/IntersectAustralia/jcp-nltk-wrapper.git
     
-Copy the files under `jcp-nltk-wrapper/parse` to the python NLTK installation
+Now you need to find where NLTK is installed. On Centos this is likely to be something like `/usr/lib/python2.6/site-packages/nltk/parse` - adjust paths below if yours is different.    
 
-    cp jcp-nltk-wrapper/parse/* /usr/local/lib/python2.7/dist-packages/nltk/parse 
+Copy the files under `~/jcp-nltk-wrapper/parse` to the python NLTK installation
+
+    sudo cp ~/jcp-nltk-wrapper/parse/* /usr/lib/python2.6/site-packages/nltk/parse
     
-Edit `parse/johnsoncharniak.ini` (in the python NLTK directory) to point your installation of the Johnson Charniak parser
+Edit `/usr/lib/python2.6/site-packages/nltk/parse/johnsoncharniak.ini` to point your installation of the Johnson Charniak parser, which should be ~/reranking-parser
 
-    >> basedir: 'your/jc_parser_directory'
+    basedir: '/home/galaxy/reranking-parser'
     
-Edit `parse/johnsoncharniak.py` (in the python NLTK directory) so that the `config.read` line in points your edited copy of johnsoncharniak.ini
+Edit `/usr/lib/python2.6/site-packages/nltk/parse/johnsoncharniak.py` so that the `config.read` line points your edited copy of johnsoncharniak.ini
 
-    >> config.read('your_python_nltk_directory/parse/johnsoncharniak.ini')
+    >> config.read('/usr/lib/python2.6/site-packages/nltk/parse/johnsoncharniak.ini')
 
