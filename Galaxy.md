@@ -42,8 +42,13 @@ Add the `DISPLAY` configuration to your bashrc
 
     cd ~
     vi .bashrc
-        // Paste the following line into the file:
-        export DISPLAY=:1
+    
+Paste the following line into the file:
+
+    export DISPLAY=:1
+    
+Then reload your bashrc    
+
     source ~/.bashrc
 
 **Install HCSvLab Galaxy customisations and tool wrappers**
@@ -78,7 +83,11 @@ Edit `~/galaxy-dist/universe_wsgi.ini` and modify as follows:
 
 Install Postgres, create a Postgres user called "galaxy" and create a database called "galaxy". If you need guidance on this see [Install Postgres](Postgres.md)
 
-Configure Galaxy to use Postgres - edit `~/galaxy-dist/universe_wsgi.ini` and uncomment the `database_connection` configuration. Modify it for your postgres settings. This should be something like:
+Configure Galaxy to use Postgres
+
+    vi ~/galaxy-dist/universe_wsgi.ini
+    
+uncomment the `database_connection` configuration. Modify it for your postgres settings. This should be something like:
 
     postgres:///galaxy?user=galaxy&password=galaxy
     
@@ -105,6 +114,8 @@ Make sure that the apache user has read/execute permissions to the galaxy direct
     ./galaxy start
     sudo chkconfig --level 345 httpd on
     sudo service httpd restart
+
+TODO: run galaxy as a service
 
 
 ### Smoke Test
