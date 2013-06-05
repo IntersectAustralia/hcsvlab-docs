@@ -74,7 +74,9 @@ Start Galaxy
 
 **Turn off development settings**
 
-Edit `~/galaxy-dist/universe_wsgi.ini` and modify as follows:
+    vi ~/galaxy-dist/universe_wsgi.ini
+   
+and modify the following config items to False:
 
     debug = False
     use_interactive = False
