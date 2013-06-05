@@ -11,19 +11,18 @@ The Galaxy instructions are based on the following from the Galaxy website
 * You are logged in as this user and are in the home directory.
 
 ### Setup
-Install development tools
+**Install development tools and mercurial**
 
     sudo yum groupinstall "Development Tools"
-
-Install mercurial
-
     sudo yum install mercurial
 
-Pull down Galaxy from mercurial and select the stable branch
+**Pull down Galaxy from mercurial and select the stable branch**
 
     hg clone https://bitbucket.org/galaxy/galaxy-dist/
     cd galaxy-dist
     hg update stable
+
+**Install Tools**
 
 [Install NLTK](NLTK.md) (you should install this as the same user that will run Galaxy)
 
@@ -31,8 +30,8 @@ Pull down Galaxy from mercurial and select the stable branch
 
 [Install the JC Parser NLTK wrapper](JCPNLTKWrapper.md) (you should install this as the same user that will run Galaxy)
 
-Install the following tools (required for displaying parse trees)
-    
+**Set up for displaying parse trees**
+
     sudo yum install tkinter python-matplotlib-tk.x86_64 xorg-x11-server-Xvfb ImageMagick
     Xvfb :1 -screen 0 1024x768x24 &
     export DISPLAY=:1
@@ -47,7 +46,9 @@ Add the `DISPLAY` configuration to your bashrc
         export DISPLAY=:1
     source ~/.bashrc
 
-Install HCSvLab Galaxy customisations and tool wrappers
+**Install HCSvLab Galaxy customisations and tool wrappers**
+
+Install the tool wrappers and customisations from Github
 
     cd ~/galaxy-dist
     git init
@@ -66,12 +67,14 @@ Start Galaxy
 ### Production Configuration    
 **If you are just trying it out or running it locally for development, you can stop here.** If running in production, we recommend the following steps (which come from the Galaxy recommendations for running in production). We suggest you review the Galaxy documentation and choose options that are most appropriate to your local installation. Below is what we did.
 
-Turn off development settings
+**Turn off development settings**
 
 Edit `~/galaxy-dist/universe_wsgi.ini` and modify as follows:
 
     debug = False
     use_interactive = False
+
+**Install and configure Postgres**
 
 Install Postgres, create a Postgres user called "galaxy" and create a database called "galaxy". If you need guidance on this see [Install Postgres](Postgres.md)
 
@@ -79,7 +82,7 @@ Configure Galaxy to use Postgres - edit `~/galaxy-dist/universe_wsgi.ini` and un
 
     postgres:///galaxy?user=galaxy&password=galaxy
     
-Install and configure Apache
+**Install and configure Apache**
 
     sudo yum install httpd httpd-devel
     sudo vi /etc/httpd/conf.d/galaxy.conf
@@ -94,13 +97,10 @@ and add the following (adjusting paths as needed):
     RewriteRule ^/robots.txt /home/galaxy/galaxy-dist/static/robots.txt [L]
     RewriteRule ^(.*) http://localhost:8080$1 [P]
 
-Restart Galaxy    
+**Restart Galaxy & Apache**
 
     ./galaxy stop
     ./galaxy start
-    
-Restart Apache    
-
     sudo chkconfig --level 345 httpd on
     sudo service httpd restart
 
