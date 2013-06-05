@@ -1,4 +1,4 @@
-### About JC-NLTK Wrapper
+### Background
 
 The JC-NLTK Wrapper is a tool for integrating the Johnson Charniak Parser into NLTK.
 
@@ -12,7 +12,7 @@ The JC-NLTK Wrapper is a tool for integrating the Johnson Charniak Parser into N
 ### Setup
 
 Install the python library `TKinter`
- 
+
     sudo yum install tkinter
 
 Clone the repository
