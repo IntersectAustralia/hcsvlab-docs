@@ -112,12 +112,11 @@ and add the following (adjusting paths as needed):
 
 Make sure that the apache user has read/execute permissions to the galaxy directory ~/galaxy-dist, then restart Galaxy and Apache.
 
-    ./galaxy stop
-    ./galaxy start
+    ~/galaxy-dist/galaxy restart
     sudo chkconfig --level 345 httpd on
     sudo service httpd restart
 
-TODO: run galaxy as a service
+TODO: run galaxy as a service, turn off SELinux
 
 
 ### Smoke Test
