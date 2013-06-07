@@ -1,4 +1,3 @@
-
 Install Postgres
 
     sudo yum install postgresql postgresql-libs postgresql-server
@@ -31,3 +30,4 @@ Choose (and note down) a password. Answer y when prompted about whether the user
 Create a database (adjust username and database name as appropriate)
 
     createdb -U galaxy galaxy
+    logout
