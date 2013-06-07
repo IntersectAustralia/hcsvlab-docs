@@ -93,6 +93,11 @@ uncomment the `database_connection` configuration. Modify it for your postgres s
 
     database_connection = postgresql://<user>:<password>@localhost:5432/<dbname>
     
+update the database schema
+
+    cd ~/galaxy-dist
+    sh manage_db.sh upgrade
+    
 **Install and configure Apache**
 
     sudo yum install httpd httpd-devel
