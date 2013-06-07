@@ -11,6 +11,10 @@ The Galaxy instructions are based on the following from the Galaxy website
 * You are logged in as this user and are in the home directory.
 
 ### Setup
+**Turn off SELinux**
+
+    sudo setenforce 0
+
 **Install development tools and mercurial**
 
     sudo yum groupinstall "Development Tools"
