@@ -91,7 +91,7 @@ Configure Galaxy to use Postgres
     
 uncomment the `database_connection` configuration. Modify it for your postgres settings. This should be something like:
 
-    postgres:///galaxy?user=galaxy&password=galaxy
+    database_connection = postgresql://<user>:<password>@localhost:5432/<dbname>
     
 **Install and configure Apache**
 
@@ -116,6 +116,7 @@ Make sure that the apache user has read/execute permissions to the galaxy direct
 
 Set up Galaxy as a service, then restart Galaxy and Apache.
 
+    sudo yum install python-psycopg2
     sudo cp ~/galaxy-dist/galaxy /etc/init.d/
     sudo chkconfig --level 345 galaxy on
     sudo chkconfig --level 345 httpd on
