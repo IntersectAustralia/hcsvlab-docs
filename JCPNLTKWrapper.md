@@ -28,9 +28,9 @@ Copy the files under `~/jcp-nltk-wrapper/parse` to the python NLTK installation 
     
 Edit `/usr/lib/python2.6/site-packages/nltk/parse/johnsoncharniak.ini` to point your installation of the Johnson Charniak parser, which should be ~/reranking-parser
 
-    basedir: '/home/galaxy/reranking-parser'
+    basedir: /home/galaxy/reranking-parser
     
 Edit `/usr/lib/python2.6/site-packages/nltk/parse/johnsoncharniak.py` so that the `config.read` line points your edited copy of johnsoncharniak.ini
 
-    >> config.read('/usr/lib/python2.6/site-packages/nltk/parse/johnsoncharniak.ini')
+    config.read('/usr/lib/python2.6/site-packages/nltk/parse/johnsoncharniak.ini')
 
