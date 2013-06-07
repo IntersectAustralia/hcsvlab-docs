@@ -9,15 +9,12 @@ These instructions are based on [these NLTK installation instructions](http://nl
 * You have a CentOS machine. 
 * You have a non-root user account on this machine with sudo privileges. 
 * You are logged in as this user and are in the home directory.
-* You have python installed. Type the following in your terminal to see your python install version:
-
-    python -V    
+* You have python installed. Type the following in your terminal to see your python install version: `python -V`
 
 
 ### Setup
 Install python tools
- 
-    sudo yum update  #IS THIS NEEDED?
+
     sudo yum install python-devel python-setuptools
 
 Install Pip
@@ -32,7 +29,6 @@ Install PyYAML and NLTK
 
     sudo easy_install -U distribute 
     sudo pip install -U pyyaml nltk
-    
     sudo mkdir /usr/share/nltk_data
     sudo python -m nltk.downloader -d /usr/share/nltk_data all
 
