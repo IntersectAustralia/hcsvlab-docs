@@ -2,6 +2,8 @@
 
 The JC-NLTK Wrapper is a tool for integrating the Johnson Charniak Parser into NLTK.
 
+These instructions are for CentOS but can easily be adapted to other distributions.
+
 ### Assumptions:
 * You have a CentOS machine. 
 * You have a non-root user account on this machine with sudo privileges. 
