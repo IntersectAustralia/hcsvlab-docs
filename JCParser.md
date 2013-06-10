@@ -4,8 +4,10 @@ The Johnson-Charniak parser is a tool for parsing natural language (in text form
 
 [Mark Johnson's Software](http://web.science.mq.edu.au/~mjohnson/Software.htm) 
 
+These instructions are for CentOS but can easily be adapted to other distributions.
+
 ### Assumptions:
-* You have a fresh CentOS machine. 
+* You have a CentOS machine. 
 * You have a non-root user account on this machine with sudo privileges. 
 * You are logged in as this user and are in the home directory.
 
