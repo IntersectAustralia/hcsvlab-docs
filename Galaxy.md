@@ -125,10 +125,8 @@ Set up Galaxy as a service, then restart Galaxy and Apache.
     sudo cp ~/galaxy-dist/galaxy /etc/init.d/
     sudo chkconfig --level 345 galaxy on
     sudo chkconfig --level 345 httpd on
-    sudo service httpd restart
+    sudo service httpd start
     sudo service galaxy restart
-
-TODO: turn off SELinux
 
 
 ### Smoke Test
