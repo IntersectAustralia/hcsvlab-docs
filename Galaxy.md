@@ -81,6 +81,11 @@ and modify the following config items to False:
 
 Install Postgres, create a Postgres user called "galaxy" and create a database called "galaxy". If you need guidance on this see [Install Postgres](Postgres.md)
 
+Install Psycopg
+
+    sudo yum install python-psycopg2
+
+
 Configure Galaxy to use Postgres
 
     vi ~/galaxy-dist/universe_wsgi.ini
@@ -117,7 +122,6 @@ Make sure that the apache user has read/execute permissions to the galaxy direct
 
 Set up Galaxy as a service, then restart Galaxy and Apache.
 
-    sudo yum install python-psycopg2
     sudo cp ~/galaxy-dist/galaxy /etc/init.d/
     sudo chkconfig --level 345 galaxy on
     sudo chkconfig --level 345 httpd on
