@@ -41,15 +41,7 @@ The Galaxy instructions are based on the following from the Galaxy website
     export DISPLAY=:1
     sudo yum install xhost
     xhost +
-    
-Add the `DISPLAY` configuration to your bashrc
-
-    cd ~
-    vi .bashrc
-    
-Paste the following line into the file:
-
-    export DISPLAY=:1
+    echo "export DISPLAY=:1" >> ~/.bashrc
     
 Then reload your bashrc    
 
