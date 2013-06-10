@@ -3,7 +3,7 @@ NLTK is a Python library used for text analysis (lexical anaysis, tokenisation a
 * [NLTK Home Page](http://nltk.org/) 
 * [Source Code](https://github.com/nltk/nltk) 
 
-These instructions are based on [these NLTK installation instructions](http://nltk.org/install.html)
+These instructions are based on [these NLTK installation instructions](http://nltk.org/install.html). These instructions are for CentOS but can easily be adapted to other distributions.
 
 ### Assumptions
 * You have a CentOS machine. 
