@@ -123,6 +123,7 @@ Set up Galaxy as a service, then restart Galaxy and Apache.
     sudo service httpd start
     sudo service galaxy restart
 
+TODO: need to restart Xvfb and Xhost after a reboot - should add this to the startup script?
 
 ### Smoke Test
 You can verify that your install has been successful by executing these tests:
