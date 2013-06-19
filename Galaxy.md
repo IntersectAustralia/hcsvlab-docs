@@ -37,16 +37,16 @@ The Galaxy instructions are based on the following from the Galaxy website
 **Set up for displaying parse trees**
 
     sudo yum install tkinter python-matplotlib-tk.x86_64 xorg-x11-server-Xvfb ImageMagick
-    Xvfb :1 -screen 0 1024x768x24 &
     export DISPLAY=:1
+    Xvfb :1 -screen 0 1024x768x24 &
     sudo yum install xhost
     xhost +
     echo "export DISPLAY=:1" >> ~/.bashrc
     
-Then reload your bashrc    
+If Xvfb reports ``Could not open default 'fixed'`` error and exit, please install the fonts, this is tested on CentOS 6.3 AMD64
 
-    source ~/.bashrc
-
+    sudo yum install xorg-x11-fonts-misc libXfont
+    
 **Install HCSvLab Galaxy customisations and tool wrappers**
 
 Install the tool wrappers and customisations from Github
@@ -92,7 +92,7 @@ Configure Galaxy to use Postgres
     
 uncomment the `database_connection` configuration. Modify it for your postgres settings. This should be something like:
 
-    database_connection = postgresql://<user>:<password>@localhost:5432/<dbname>
+    database_connection = postgres://<user>:<password>@localhost:5432/<dbname>
     
 **Install and configure Apache**
 
@@ -114,6 +114,15 @@ and add the following (adjusting paths as needed):
 Make sure that the apache user has read/execute permissions to the galaxy directory ~/galaxy-dist
 
     chmod go+rx ~
+    
+Run ``manage_db.sh`` to migrate the schema if you see this exception in ``paster.log`` when start galaxy
+
+    Exception: Your database has version '92' but this code expects version '115'.  Please backup your database and then migrate the schema by running 'sh manage_db.sh upgrade'.
+
+The command is:
+    
+    cd ~/galaxy-dist
+    sh manage_db.sh upgrade
 
 Set up Galaxy as a service, then restart Galaxy and Apache.
 
