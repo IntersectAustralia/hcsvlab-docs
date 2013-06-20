@@ -113,7 +113,7 @@ and add the following (adjusting paths as needed):
 
 Make sure that the apache user has read/execute permissions to the galaxy directory ~/galaxy-dist
 
-    chmod go+rx ~
+    chmod go+rx ~/galaxy-dist
     
 Run ``manage_db.sh`` to migrate the schema if you see this exception in ``paster.log`` when start galaxy
 
@@ -132,8 +132,15 @@ Set up Galaxy as a service, then restart Galaxy and Apache.
     sudo service httpd start
     sudo service galaxy restart
 
-TODO: need to restart Xvfb and Xhost after a reboot - should add this to the startup script?
+Set up rc.local to run Xvfb automatically after reboot
 
+    sudo vi /etc/rc.local
+    
+And add these lines:
+
+    /usr/bin/Xvfb :1 -screen 0 1024x768x24 &
+    /usr/bin/xhost +
+    
 ### Smoke Test
 You can verify that your install has been successful by executing these tests:
 
