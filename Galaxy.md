@@ -6,7 +6,8 @@ The Galaxy instructions are based on the following from the Galaxy website
 * [Running in production](http://wiki.galaxyproject.org/Admin/Config/Performance/ProductionServer)
 
 ### Assumptions
-* You have a fresh CentOS machine. 
+* You have a fresh CentOS machine.
+* Your firewall allow access on http port 80
 * You have a non-root user account on this machine with sudo privileges. We used "galaxy".
 * You are logged in as this user and are in the home directory.
 
@@ -14,6 +15,12 @@ The Galaxy instructions are based on the following from the Galaxy website
 **Turn off SELinux**
 
     sudo setenforce 0
+    
+And make this happen after reboot
+
+    sudo vi /etc/selinux/config
+    
+Change ``SELINUX=enforcing`` to ``SELINUX=disabled``
 
 **Install development tools and mercurial**
 
