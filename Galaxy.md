@@ -43,7 +43,7 @@ The Galaxy instructions are based on the following from the Galaxy website
     xhost +
     echo "export DISPLAY=:1" >> ~/.bashrc
     
-If Xvfb reports ``Could not open default 'fixed'`` error and exit, please install the fonts, this is tested on CentOS 6.3 AMD64
+If Xvfb reports ``Could not open default 'fixed'`` error and exit, probably you need to install the fonts, this happens on CentOS 6.3 x86_64, but does not on CentOS 6.4 x86_64
 
     sudo yum install xorg-x11-fonts-misc libXfont
     
@@ -115,15 +115,6 @@ Make sure that the apache user has read/execute permissions to the galaxy direct
 
     chmod go+rx ~/galaxy-dist
     
-Run ``manage_db.sh`` to migrate the schema if you see this exception in ``paster.log`` when start galaxy
-
-    Exception: Your database has version '92' but this code expects version '115'.  Please backup your database and then migrate the schema by running 'sh manage_db.sh upgrade'.
-
-The command is:
-    
-    cd ~/galaxy-dist
-    sh manage_db.sh upgrade
-
 Set up Galaxy as a service, then restart Galaxy and Apache.
 
     sudo cp ~/galaxy-dist/galaxy /etc/init.d/
