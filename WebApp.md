@@ -1,5 +1,7 @@
 ### Background
 
+These instructions describe the process of installing and configuring the HCSvLab web application and it components on a CentOS machine
+
 ### Assumptions
 * You have a fresh CentOS machine. 
 * You have a non-root user account on this machine with sudo privileges. We used "devel".
@@ -12,6 +14,8 @@
     $ sudo setenforce 0
 
 **Install EPEL**
+
+These are additional repositories that are not enabled by default but contain some of the packages required by the HCSvLab web application
 
     $ curl -O http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
     $ curl -O  http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
@@ -30,13 +34,17 @@
 
 Create a "hcsvlab" user and database in [Postgres](Postgres.md)
 
-Install RVM and Ruby**
+**Install RVM and Ruby**
+
+RVM is a Ruby Version Manager, for more information see [rvm.io](http://rvm.io)
 
     $ \curl -#L https://get.rvm.io | bash -s stable --autolibs=3 --ruby=2.0.0-p0
     $ source /home/devel/.rvm/scripts/rvm
     $ rvm gemset create hcsvlab # this is the gemset cap deploy will use
 
 **Install Passenger**
+
+Passanger is an Apache2 module that serves Ruby on Rails applications. For more information see [Phusion Passanger](http://www.modrails.com/)
 
     $ gem install passenger
     $ passenger-install-apache2-module
@@ -61,7 +69,7 @@ Install RVM and Ruby**
 
 **Open Ports for the Web Services**
 
-Edit iptables to open up port 80, and 8080 (Tomcat):
+Edit `iptables` to open up port 80, and optionally 8080 for Tomcat (see below):
 
     $ sudo vi /etc/sysconfig/iptables
 	
@@ -88,7 +96,7 @@ Restart Apache -- won't work without Passenger installed
 
 Download JDK 6 update 45 from Oracle.
 
-[jdk-6u45-linux-x64-rpm.bin|http://www.oracle.com/technetwork/java/javase/downloads/jdk6downloads-1902814.html]
+[jdk-6u45-linux-x64-rpm.bin](http://www.oracle.com/technetwork/java/javase/downloads/jdk6downloads-1902814.html)
 
 This requires clicking a license agreement, so you will have to download it to your local machine, then scp it to your target machine.
 
@@ -101,11 +109,15 @@ This requires clicking a license agreement, so you will have to download it to y
 	
 **Install ActiveMQ**
 
+ActiveMQ is the messaging component used by the system. For more informaiton see the [Apache ActiveMQ](http://activemq.apache.org/) site.
+
 	$ http://mirror.ventraip.net.au/apache/activemq/apache-activemq/5.8.0/apache-activemq-5.8.0-bin.tar.gz
     $ tar -xvzf apache-activemq-5.8.0-bin.tar.gz
     $ sudo mv apache-activemq-5.8.0 /opt
 	
 **Install Tomcat**
+
+Tomcat is the serverlet container that runs SOLR and Fedora Commons. Form more information see the [Apache Tomcat](http://tomcat.apache.org/) site.
 
 	$ curl -O http://apache.mirror.serversaustralia.com.au/tomcat/tomcat-6/v6.0.37/bin/apache-tomcat-6.0.37.tar.gz
     $ tar -xvzf apache-tomcat-6.0.37.tar.gz
@@ -113,16 +125,27 @@ This requires clicking a license agreement, so you will have to download it to y
 	
 **Install SOLR**
 
+SOLR is the search engine platform used by the web application, for more information see the [Apache SOLR](http://lucene.apache.org/solr/) site.
+
 	$ curl -O http://archive.apache.org/dist/lucene/solr/4.0.0/apache-solr-4.0.0.tgz
     $ tar -xzvf apache-solr-4.0.0.tgz
     $ sudo mv apache-solr-4.0.0 /opt/
 
 **Install Fedora Commons**
 
+Fedora is the repository manager that handles metadata and persistance for the web application, for more information see the [Fedora Commons](http://fedora-commons.org/) site.
+
+Download the installer and create a place for it to install to:
+
     $ curl -OL http://sourceforge.net/projects/fedora-commons/files/fedora/3.6.1/fcrepo-installer-3.6.1.jar
     $ sudo mkdir /opt/fedora
     $ sudo chown -R devel:devel /opt/fedora
+    
+Run the installer:
+
     $ java -jar fcrepo-installer-3.6.1.jar
+    
+Follow the prompts, selection the same options as indicated below:
 
     ***********************
 	  Fedora Installation
@@ -417,9 +440,92 @@ This requires clicking a license agreement, so you will have to download it to y
 	Guide in the online documentation.
 	----------------------------------------------------------------------
 
+** Create Symlinks **
 
+This step is not essential, but it will make it easier to find things and to safely upgrade to later versions of components.
 
+    $ ln -s /opt/apache-activemq-5.8.0 activemq
+    $ ln -s /opt/apache-tomcat-6.0.37 tomcat
+    $ ln -s /opt/apache-solr-4.0.0 solr
 
+### Set the Environment Variables
 
+** On the Server **
 
+In `.bashrc`, set:
 
+* RAILS_ENV
+* ACTIVEMQ_HOME
+* CATALINA_HOME
+* FEDORA_HOME
+* SOLR_HOME
+
+The following configuration files are in the Rails project config.
+
+  hcsvlab / activemq_conf / activemq.xml        ---->  $ACTIVEMQ_HOME/conf/
+
+          / fedora_conf / fedora.fcfg         ---->  $FEDORA_HOME/server/config/
+                        / install.properties
+
+          / tomcat_conf / setenv.sh           ---->  $CATALINA_HOME/bin/
+
+          / solr_conf / hcsvlab               ---->  $SOLR_HOME/
+                      / hcsvlab-solr.xml      ---->  $CATALINA_HOME/conf/Catalina/localhost/solr.xml
+  
+They need to be copied to the specified locations. This is performed by Capistrano as part of the `full_deploy` task.
+
+Edit `.bashrc` and add the following:
+
+    export RAILS_ENV=production
+    export JAVA_HOME=/usr/java/jdk1.6.0_45/jre
+    export ACTIVEMQ_HOME=/opt/activemq
+    export CATALINA_HOME=/opt/tomcat
+    export FEDORA_HOME=/opt/fedora
+    export SOLR_HOME=/opt/solr
+
+### Deployment
+
+Deployment is done from another machine to the target server setup in the steps above. The deployment machine can be your local desktop or any other machine.
+
+** Install RVM on Deployment Machine **
+
+    $ \curl -#L https://get.rvm.io | bash -s stable --autolibs=3 --ruby=2.0.0-p0
+    $ source /home/devel/.rvm/scripts/rvm
+
+** Download the WebApp**
+
+On your deployment machine (which is probably your local machine, but can be another machine) clone the web:
+
+    $ git clone git@github.com:IntersectAustralia/hcsvlab.git
+    
+** Create a Gemset and Download Gems **
+
+    $ cd projects/hcsvlab
+    $ rvm use 2.0.0-p0@hcsvlab --create
+    $ gem install bundler
+    $ bundle
+
+** Edit Configuration to Point to Target Server **
+
+Open `config/deploy/production.rb` in a text editor, and change the hostnames to your server.
+
+** Deploy **
+
+    $ bundle exec cap production deploy:full_redeploy
+    $ bundle exec cap production deploy:create_solr_core
+    $ bundle exec cap production deploy:start_services
+
+If you ever need to redeploy, make sure you run the following command to stop the services (ActiveMQ, Tomcat, messaging pollers) first: 
+
+    $ bundle exec cap production deploy:stop_services
+
+### Ingesting Data
+
+Ingesting is the task of adding data to the system, which involves several processes such as: verifying and storing metadata and files, and creating indicies for search. 
+
+Corpora are prepared for ingest using [RoboChef](https://github.com/IntersectAustralia/hcsvlab_robochef), which takes hetreogeneous metadata and normalises it, sets the URLs for the documents, and describes them in RDF. Preprepared data from another source can be ingested, but the URLs will all point to the host that was configured when it was RoboCheffed.
+
+The command to ingest a corpus is `rake fedora:ingest`, which must be run from the web application's directory, and the path to the directory where the corpus and data files are located. For example, if you wanted to ingest the ace corpus, and it was stored in `/data/processed/ausnc/ace` then the command would be:
+
+    
+    $ rake fedora:ingest /data/processed/ausnc/ace
