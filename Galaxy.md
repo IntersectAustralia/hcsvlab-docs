@@ -113,7 +113,7 @@ and add the following (adjusting paths as needed):
 
 Make sure that the apache user has read/execute permissions to the galaxy directory ~/galaxy-dist
 
-    chmod go+rx ~/galaxy-dist
+    chmod go+rx ~
     
 Set up Galaxy as a service, then restart Galaxy and Apache.
 
