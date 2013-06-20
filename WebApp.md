@@ -147,7 +147,7 @@ Run the installer:
     
 Follow the prompts, selection the same options as indicated below:
 
-    ***********************
+    	***********************
 	  Fedora Installation
 	***********************
 	
@@ -440,7 +440,7 @@ Follow the prompts, selection the same options as indicated below:
 	Guide in the online documentation.
 	----------------------------------------------------------------------
 
-** Create Symlinks **
+**Create Symlinks**
 
 This step is not essential, but it will make it easier to find things and to safely upgrade to later versions of components.
 
@@ -450,7 +450,7 @@ This step is not essential, but it will make it easier to find things and to saf
 
 ### Set the Environment Variables
 
-** On the Server **
+**On the Server**
 
 In `.bashrc`, set:
 
@@ -487,7 +487,7 @@ Edit `.bashrc` and add the following:
 
 Deployment is done from another machine to the target server setup in the steps above. The deployment machine can be your local desktop or any other machine.
 
-** Install RVM on Deployment Machine **
+**Install RVM on Deployment Machine**
 
     $ \curl -#L https://get.rvm.io | bash -s stable --autolibs=3 --ruby=2.0.0-p0
     $ source /home/devel/.rvm/scripts/rvm
@@ -498,18 +498,18 @@ On your deployment machine (which is probably your local machine, but can be ano
 
     $ git clone git@github.com:IntersectAustralia/hcsvlab.git
     
-** Create a Gemset and Download Gems **
+**Create a Gemset and Download Gems**
 
     $ cd projects/hcsvlab
     $ rvm use 2.0.0-p0@hcsvlab --create
     $ gem install bundler
     $ bundle
 
-** Edit Configuration to Point to Target Server **
+**Edit Configuration to Point to Target Server**
 
 Open `config/deploy/production.rb` in a text editor, and change the hostnames to your server.
 
-** Deploy **
+**Deploy**
 
     $ bundle exec cap production deploy:full_redeploy
     $ bundle exec cap production deploy:create_solr_core
