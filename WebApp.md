@@ -147,7 +147,7 @@ Run the installer:
     
 Follow the prompts, selection the same options as indicated below:
 
-    	***********************
+    ***********************
 	  Fedora Installation
 	***********************
 	
@@ -492,7 +492,7 @@ Deployment is done from another machine to the target server setup in the steps 
     $ \curl -#L https://get.rvm.io | bash -s stable --autolibs=3 --ruby=2.0.0-p0
     $ source /home/devel/.rvm/scripts/rvm
 
-** Download the WebApp**
+**Download the WebApp**
 
 On your deployment machine (which is probably your local machine, but can be another machine) clone the web:
 
