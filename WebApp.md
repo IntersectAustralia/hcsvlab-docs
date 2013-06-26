@@ -462,7 +462,7 @@ In `.bashrc`, set:
 
 The following configuration files are in the Rails project config.
 
-  hcsvlab / activemq_conf / activemq.xml        ---->  $ACTIVEMQ_HOME/conf/
+	hcsvlab / activemq_conf / activemq.xml        ---->  $ACTIVEMQ_HOME/conf/
 
           / fedora_conf / fedora.fcfg         ---->  $FEDORA_HOME/server/config/
                         / install.properties
