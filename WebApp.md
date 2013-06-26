@@ -494,7 +494,7 @@ Deployment is done from another machine to the target server setup in the steps 
 
 **Download the WebApp**
 
-On your deployment machine (which is probably your local machine, but can be another machine) clone the web:
+On your deployment machine (which is probably your local machine, but can be another machine) clone the web app:
 
     $ git clone git@github.com:IntersectAustralia/hcsvlab.git
     
