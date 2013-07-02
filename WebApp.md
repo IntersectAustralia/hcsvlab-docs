@@ -113,7 +113,13 @@ This requires clicking a license agreement, so you will have to download it to y
     ...
     cd downloads
     chmod +x jdk-6u45-linux-x64-rpm.bin
-    ./jdk-6u45-linux-x64-rpm.bin
+    sudo ./jdk-6u45-linux-x64-rpm.bin
+    sudo alternatives --install /usr/bin/java java /usr/java/jdk1.6.0_45/jre/bin/java 20000
+    sudo alternatives --install /usr/bin/javac javac /usr/java/jdk1.6.0_45/bin/javac 20000
+    sudo alternatives --install /usr/bin/jar jar /usr/java/jdk1.6.0_45/bin/jar 20000
+    sudo alternatives --config java
+    sudo alternatives --config javac
+    sudo alternatives --config jar
 	
 **Install ActiveMQ**
 
