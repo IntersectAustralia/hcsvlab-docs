@@ -77,7 +77,15 @@ Add the lines:
 
 	-A INPUT -m state --state NEW -m tcp -p tcp --dport 80 -j ACCEPT
     -A INPUT -m state --state NEW -m tcp -p tcp --dport 8080 -j ACCEPT
-	
+
+right after this line:
+
+    -A INPUT -m state --state NEW -m tcp -p tcp --dport 22 -j ACCEPT
+    
+And right before this line:
+
+    -A INPUT -j REJECT --reject-with icmp-host-prohibited
+    
 Restart the service:
 
 	$ sudo service iptables restart
