@@ -125,7 +125,7 @@ This requires clicking a license agreement, so you will have to download it to y
 
 ActiveMQ is the messaging component used by the system. For more informaiton see the [Apache ActiveMQ](http://activemq.apache.org/) site.
 
-	$ http://mirror.ventraip.net.au/apache/activemq/apache-activemq/5.8.0/apache-activemq-5.8.0-bin.tar.gz
+	$ wget http://mirror.ventraip.net.au/apache/activemq/apache-activemq/5.8.0/apache-activemq-5.8.0-bin.tar.gz
     $ tar -xvzf apache-activemq-5.8.0-bin.tar.gz
     $ sudo mv apache-activemq-5.8.0 /opt
 	
@@ -458,9 +458,9 @@ Follow the prompts, selection the same options as indicated below:
 
 This step is not essential, but it will make it easier to find things and to safely upgrade to later versions of components.
 
-    $ ln -s /opt/apache-activemq-5.8.0 activemq
-    $ ln -s /opt/apache-tomcat-6.0.37 tomcat
-    $ ln -s /opt/apache-solr-4.0.0 solr
+    $ sudo ln -s /opt/apache-activemq-5.8.0 /opt/activemq
+    $ sudo ln -s /opt/apache-tomcat-6.0.37 /opt/tomcat
+    $ sudo ln -s /opt/apache-solr-4.0.0 /opt/solr
 
 ### Set the Environment Variables
 
