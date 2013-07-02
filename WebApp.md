@@ -51,7 +51,7 @@ Passanger is an Apache2 module that serves Ruby on Rails applications. For more 
 	
 	$ sudo vi /etc/httpd/conf.d/hcsvlab.conf
     ...
-    <VirtualHost \*:80>
+    <VirtualHost *:80>
     ServerName ic2-hcsvlab-qa2-vm.intersect.org.au
     DocumentRoot /home/devel/hcsvlab-web/current/public
     LoadModule passenger_module /home/devel/.rvm/gems/ruby-2.0.0-p0/gems/passenger-4.0.5/libout/apache2/mod_passenger.so
