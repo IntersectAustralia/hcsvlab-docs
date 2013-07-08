@@ -7,11 +7,19 @@ These instructions describe the process of installing and configuring the HCSvLa
 * You have a non-root user account on this machine with sudo privileges. We used "devel".
 * You are logged in as this user and are in the home directory.
 
-
 ### Setup
+
+**Correct directory permissions**
+
+    $ sudo chmod og_rx /home/devel
+
 **Turn off SELinux**
 
     $ sudo setenforce 0
+    
+    $ sudo vi /etc/selinux/config
+    ...
+    SELINUX=disabled  # Change SELINUX value to disabled
 
 **Install EPEL**
 
@@ -44,26 +52,32 @@ RVM is a Ruby Version Manager, for more information see [rvm.io](http://rvm.io)
 
 **Install Passenger**
 
-Passanger is an Apache2 module that serves Ruby on Rails applications. For more information see [Phusion Passanger](http://www.modrails.com/)
+Passenger is an Apache2 module that serves Ruby on Rails applications. For more information see [Phusion Passanger](http://www.modrails.com/)
+
+Install
 
     $ gem install passenger
     $ passenger-install-apache2-module
+    
+Configure
+
+> Note: The values for serverName and any file paths should specify values valid for your environment
 	
-	$ sudo vi /etc/httpd/conf.d/hcsvlab.conf
+    $ sudo vi /etc/httpd/conf.d/hcsvlab.conf
     ...
     <VirtualHost *:80>
-    ServerName ic2-hcsvlab-qa2-vm.intersect.org.au
-    DocumentRoot /home/devel/hcsvlab-web/current/public
-    LoadModule passenger_module /home/devel/.rvm/gems/ruby-2.0.0-p0/gems/passenger-4.0.5/libout/apache2/mod_passenger.so
-    PassengerRoot /home/devel/.rvm/gems/ruby-2.0.0-p0/gems/passenger-4.0.5
-    PassengerDefaultRuby /home/devel/.rvm/wrappers/ruby-2.0.0-p0/ruby
-    RailsEnv qa
-    # Uploads of up to 100MB permitted
-    LimitRequestBody 100000000
-    <Directory /home/devel/hcsvlab-web/current/public>
-    AllowOverride all
-    Options -MultiViews
-    </Directory>
+      ServerName ic2-hcsvlab-qa2-vm.intersect.org.au
+      DocumentRoot /home/devel/hcsvlab-web/current/public
+      LoadModule passenger_module /home/devel/.rvm/gems/ruby-2.0.0-p0/gems/passenger-4.0.5/libout/apache2/mod_passenger.so
+      PassengerRoot /home/devel/.rvm/gems/ruby-2.0.0-p0/gems/passenger-4.0.5
+      PassengerDefaultRuby /home/devel/.rvm/wrappers/ruby-2.0.0-p0/ruby
+      RailsEnv production
+      # Uploads of up to 100MB permitted
+      LimitRequestBody 100000000
+      <Directory /home/devel/hcsvlab-web/current/public>
+        AllowOverride all
+        Options -MultiViews
+      </Directory>
     </VirtualHost>
     ...
 
@@ -75,24 +89,20 @@ Edit `iptables` to open up port 80, and optionally 8080 for Tomcat (see below):
 	
 Add the lines:
 
-	-A INPUT -m state --state NEW -m tcp -p tcp --dport 80 -j ACCEPT
+    -A INPUT -m state --state NEW -m tcp -p tcp --dport 80 -j ACCEPT
     -A INPUT -m state --state NEW -m tcp -p tcp --dport 8080 -j ACCEPT
 
 right after this line:
 
     -A INPUT -m state --state NEW -m tcp -p tcp --dport 22 -j ACCEPT
     
-And right before this line:
-
-    -A INPUT -j REJECT --reject-with icmp-host-prohibited
-    
 Restart the service:
 
-	$ sudo service iptables restart
+    $ sudo service iptables restart
 	
 Restart Apache -- won't work without Passenger installed
 
-	$ sudo chkconfig --level 345 httpd on
+    $ sudo chkconfig --level 345 httpd on
     $ sudo service httpd restart
 
 **Make a directory for the app (capistrano needs this)**
@@ -111,39 +121,44 @@ This requires clicking a license agreement, so you will have to download it to y
     $ scp jdk-6u45-linux-x64-rpm.bin devel@ic2-hcsvlab-qa2-vm.intersect.org.au:~/downloads
     $ ssh devel@ic2-hcsvlab-qa2-vm.intersect.org.au
     ...
-    cd downloads
-    chmod +x jdk-6u45-linux-x64-rpm.bin
-    sudo ./jdk-6u45-linux-x64-rpm.bin
-    sudo alternatives --install /usr/bin/java java /usr/java/jdk1.6.0_45/jre/bin/java 20000
-    sudo alternatives --install /usr/bin/javac javac /usr/java/jdk1.6.0_45/bin/javac 20000
-    sudo alternatives --install /usr/bin/jar jar /usr/java/jdk1.6.0_45/bin/jar 20000
-    sudo alternatives --config java
-    sudo alternatives --config javac
-    sudo alternatives --config jar
+    $ cd downloads
+    $ chmod +x jdk-6u45-linux-x64-rpm.bin
+    $ sudo ./jdk-6u45-linux-x64-rpm.bin
+    $ sudo alternatives --install /usr/bin/java java /usr/java/jdk1.6.0_45/jre/bin/java 20000
+    $ sudo alternatives --install /usr/bin/javac javac /usr/java/jdk1.6.0_45/bin/javac 20000
+    $ sudo alternatives --install /usr/bin/jar jar /usr/java/jdk1.6.0_45/bin/jar 20000
+    $ sudo alternatives --config java
+    $ sudo alternatives --config javac
+    $ sudo alternatives --config jar
 	
 **Install ActiveMQ**
 
 ActiveMQ is the messaging component used by the system. For more informaiton see the [Apache ActiveMQ](http://activemq.apache.org/) site.
 
-	$ wget http://mirror.ventraip.net.au/apache/activemq/apache-activemq/5.8.0/apache-activemq-5.8.0-bin.tar.gz
+    $ wget http://mirror.ventraip.net.au/apache/activemq/apache-activemq/5.8.0/apache-activemq-5.8.0-bin.tar.gz
     $ tar -xvzf apache-activemq-5.8.0-bin.tar.gz
     $ sudo mv apache-activemq-5.8.0 /opt
+    $ sudo ln -s /opt/apache-activemq-5.8.0 /opt/activemq
+    $ sudo chown -R devel:devel /opt/activemq
 	
 **Install Tomcat**
 
 Tomcat is the serverlet container that runs SOLR and Fedora Commons. Form more information see the [Apache Tomcat](http://tomcat.apache.org/) site.
 
-	$ curl -O http://apache.mirror.serversaustralia.com.au/tomcat/tomcat-6/v6.0.37/bin/apache-tomcat-6.0.37.tar.gz
+    $ curl -O http://apache.mirror.serversaustralia.com.au/tomcat/tomcat-6/v6.0.37/bin/apache-tomcat-6.0.37.tar.gz
     $ tar -xvzf apache-tomcat-6.0.37.tar.gz
     $ sudo mv apache-tomcat-6.0.37 /opt
+    $ sudo ln -s /opt/apache-tomcat-6.0.37 /opt/tomcat
+    $ sudo chown -R devel:devel /opt/tomcat
 	
-**Install SOLR**
+**Install Solr**
 
-SOLR is the search engine platform used by the web application, for more information see the [Apache SOLR](http://lucene.apache.org/solr/) site.
+Solr is the search engine platform used by the web application, for more information see the [Apache Solr](http://lucene.apache.org/solr/) site.
 
-	$ curl -O http://archive.apache.org/dist/lucene/solr/4.0.0/apache-solr-4.0.0.tgz
-    $ tar -xzvf apache-solr-4.0.0.tgz
-    $ sudo mv apache-solr-4.0.0 /opt/
+Solr is installed during project deployment, but we must make a directory structure for it.
+
+    $ sudo mkdir -p /opt/solr/hcsvlab/solr/hcsvlab-core/conf
+    $ sudo chown -R devel:devel /opt/solr
 
 **Install Fedora Commons**
 
@@ -160,6 +175,8 @@ Run the installer:
     $ java -jar fcrepo-installer-3.6.1.jar
     
 Follow the prompts, selection the same options as indicated below:
+
+> NOTE: Values for server names and file paths should specify values valid for your environment
 
     ***********************
 	  Fedora Installation
@@ -454,44 +471,27 @@ Follow the prompts, selection the same options as indicated below:
 	Guide in the online documentation.
 	----------------------------------------------------------------------
 
-**Create Symlinks**
-
-This step is not essential, but it will make it easier to find things and to safely upgrade to later versions of components.
-
-    $ sudo ln -s /opt/apache-activemq-5.8.0 /opt/activemq
-    $ sudo ln -s /opt/apache-tomcat-6.0.37 /opt/tomcat
-    $ sudo ln -s /opt/apache-solr-4.0.0 /opt/solr
 
 ### Set the Environment Variables
 
 **On the Server**
 
-In `.bashrc`, set:
-
-* RAILS_ENV
-* ACTIVEMQ_HOME
-* CATALINA_HOME
-* FEDORA_HOME
-* SOLR_HOME
-
 The following configuration files are in the Rails project config.
 
-	hcsvlab / activemq_conf / activemq.xml        ---->  $ACTIVEMQ_HOME/conf/
+    hcsvlab / activemq_conf / activemq.xml      ---->  $ACTIVEMQ_HOME/conf/
 
-          / fedora_conf / fedora.fcfg         ---->  $FEDORA_HOME/server/config/
-                        / install.properties
+            / fedora_conf / fedora.fcfg         ---->  $FEDORA_HOME/server/config/
 
-          / tomcat_conf / setenv.sh           ---->  $CATALINA_HOME/bin/
+            / tomcat_conf / setenv.sh           ---->  $CATALINA_HOME/bin/
 
-          / solr_conf / hcsvlab               ---->  $SOLR_HOME/
-                      / hcsvlab-solr.xml      ---->  $CATALINA_HOME/conf/Catalina/localhost/solr.xml
+            / solr_conf / hcsvlab               ---->  $SOLR_HOME/
+                        / hcsvlab-solr.xml      ---->  $CATALINA_HOME/conf/Catalina/localhost/solr.xml
   
 They need to be copied to the specified locations. This is performed by Capistrano as part of the `full_deploy` task.
 
 Edit `.bashrc` and add the following:
 
     export RAILS_ENV=production
-    export JAVA_HOME=/usr/java/jdk1.6.0_45/jre
     export ACTIVEMQ_HOME=/opt/activemq
     export CATALINA_HOME=/opt/tomcat
     export FEDORA_HOME=/opt/fedora
@@ -525,6 +525,7 @@ Open `config/deploy/production.rb` in a text editor, and change the hostnames to
 
 **Deploy**
 
+    $ bundle exec cap production deploy:setup
     $ bundle exec cap production deploy:full_redeploy
     $ bundle exec cap production deploy:create_solr_core
     $ bundle exec cap production deploy:start_services
