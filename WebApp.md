@@ -46,7 +46,7 @@ Create a "hcsvlab" user and database in [Postgres](Postgres.md)
 
 RVM is a Ruby Version Manager, for more information see [rvm.io](http://rvm.io)
 
-    $ \curl -#L https://get.rvm.io | bash -s stable --autolibs=3 --ruby=2.0.0-p0
+    $ \curl -#L https://get.rvm.io | bash -s stable --ruby=2.0.0-p0
     $ source /home/devel/.rvm/scripts/rvm
     $ rvm gemset create hcsvlab # this is the gemset cap deploy will use
 
