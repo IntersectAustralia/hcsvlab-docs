@@ -11,7 +11,7 @@ These instructions describe the process of installing and configuring the HCSvLa
 
 **Correct directory permissions**
 
-    $ sudo chmod og_rx /home/devel
+    $ sudo chmod og+rx /home/devel
 
 **Turn off SELinux**
 
