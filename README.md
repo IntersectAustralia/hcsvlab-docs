@@ -3,8 +3,8 @@ This contains install and other technical documentation for the HCSvLab project.
 Installation Instructions:
 * [Galaxy](Galaxy.md)
 * [Web Application](WebApp.md)
+* [RoboChef Setup](RoboChefSetup.md)
 
 Development Environment Setup:
 * [Web Application](WebAppDevSetup.md)
 * [Prototype](PrototypeDevSetup.md)
-* [RoboChef Setup](RoboChefSetup.md)
