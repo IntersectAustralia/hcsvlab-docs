@@ -5,4 +5,6 @@ Installation Instructions:
 * [Web Application](WebApp.md)
 
 Development Environment Setup:
-* TODO
+* [Web Application](WebAppDevSetup.md)
+* [Prototype](PrototypeDevSetup.md)
+* [RoboChef Setup](RoboChefSetup.md)
