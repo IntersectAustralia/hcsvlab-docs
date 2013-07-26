@@ -521,7 +521,26 @@ On your deployment machine (which is probably your local machine, but can be ano
 
 **Edit Configuration to Point to Target Server**
 
-Open `config/deploy/production.rb` in a text editor, and change the hostnames to your server.
+Configure the following files to reference your server:
+
+    config/deploy/production.rb
+      - role :web
+      - role :app
+      - role :db
+    config/environments/production.rb
+      - config.action_mailer.default_url_options
+      - config.galaxy_url
+    fedora_conf/conf/production/fedora.fcfg
+      - fedoraServerHost
+      
+Configure the following files if necessary:
+
+    config/broker.yml
+    config/database.yml
+    config/fedora.yml
+    config/hcsvlab-web_config.yml
+    config/linguistics.yml
+    config/solr.yml
 
 **Deploy**
 
