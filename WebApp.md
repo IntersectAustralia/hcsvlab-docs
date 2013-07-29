@@ -542,6 +542,10 @@ Configure the following files if necessary:
     config/linguistics.yml
     config/solr.yml
 
+When you run `bundle exec cap production deploy:setup` in the next step, the files listed above will be copied from your deployment machine to a shared directory on the server at /home/devel/hcsvlab-web/shared/files in the same folder structure.
+
+If you update the configuration files on the server, you will have to restart the server for any changes to take effect.
+
 **Deploy**
 
     $ bundle exec cap production deploy:setup
