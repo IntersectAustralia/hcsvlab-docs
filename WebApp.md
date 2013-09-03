@@ -6,6 +6,7 @@ These instructions describe the process of installing and configuring the HCSvLa
 * You have a fresh CentOS machine. 
 * You have a non-root user account on this machine with sudo privileges. We used "devel".
 * You are logged in as this user and are in the home directory.
+* You have a github account and have set up ssh keys (see https://help.github.com/articles/generating-ssh-keys )
 
 ### Setup
 
@@ -158,6 +159,7 @@ Solr is the search engine platform used by the web application, for more informa
 Solr is installed during project deployment, but we must make a directory structure for it.
 
     $ sudo mkdir -p /opt/solr/hcsvlab/solr/hcsvlab-core/conf
+    $ sudo mkdir -p /opt/solr/hcsvlab/solr/hcsvlab-AF-core/conf
     $ sudo chown -R devel:devel /opt/solr
 
 **Install Fedora Commons**
@@ -557,6 +559,38 @@ If you ever need to redeploy, make sure you run the following command to stop th
 
     $ bundle exec cap production deploy:stop_services
 
+### Verifying the deployment
+
+There is a script that is deployed with the web application that can be used to verify the deployment. To run the script, from the web application's directory type
+    
+    $ bin/system_check.sh
+    
+The output should look like:
+
+    Checking HCS vLab environment
+
+    Rails env= production
+    Java Container url= http://localhost:8080/
+    Web App url= http://localhost:80/
+    Free disk space= 19G
+    
+    Checking ActiveMQ...
+    + ActiveMQ is listening on port 8161 (status= 200)
+    + ActiveMQ is listening on port 61616
+    + ActiveMQ is listening on port 61613
+    
+    Checking the Java Container...
+    + The Java Container is listening on port 8080 (status= 302)
+    + It looks like Fedora is available (status= 200)
+    + It looks like Solr is available (status= 200)
+    
+    Checking A13g pollers...
+    + It looks like the A13g pollers are running (processes= 3)
+    
+    Checking the web app...
+    + The Web App is listening on port 80 (status= 200)
+
+
 ### Ingesting Data
 
 Ingesting is the task of adding data to the system, which involves several processes such as: verifying and storing metadata and files, and creating indicies for search. 
@@ -566,4 +600,4 @@ Corpora are prepared for ingest using [RoboChef](https://github.com/IntersectAus
 The command to ingest a corpus is `rake fedora:ingest`, which must be run from the web application's directory, and the path to the directory where the corpus and data files are located. For example, if you wanted to ingest the ace corpus, and it was stored in `/data/processed/ausnc/ace` then the command would be:
 
     
-    $ rake fedora:ingest /data/processed/ausnc/ace
+    $ rake fedora:ingest corpus=/data/processed/ausnc/ace
