@@ -62,7 +62,7 @@ For example data, see Download the Corpus in Installing AusNC.
 
 After that, refer to https://github.com/IntersectAustralia/hcsvlab_robochef#installation for more instructions.
 
-    $ rake fedora:ingest /path/to/corpus/directory
+    $ rake fedora:ingest corpus=/path/to/corpus/directory
 
 ###Ingest a single AusNC Corpus Item into Fedora
 
