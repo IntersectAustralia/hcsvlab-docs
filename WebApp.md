@@ -559,9 +559,13 @@ If you ever need to redeploy, make sure you run the following command to stop th
 
     $ bundle exec cap production deploy:stop_services
 
-### Verifying the deployment
+### Verifying the deployment, aka running the "Smoke Test"
 
-There is a script that is deployed with the web application that can be used to verify the deployment. To run the script, from the web application's directory type
+There are several steps to this, but together they excercise all key parts of the deployment and, if passed, give a good degree of confidence that the deployment has worked.
+
+**System Check script**
+
+There is a script that is deployed with the web application that can be used to verify that the various processed of the deployment are running and configured to the correct porst. To run the script, from the web application's directory type
     
     $ bin/system_check.sh
     
@@ -590,14 +594,81 @@ The output should look like:
     Checking the web app...
     + The Web App is listening on port 80 (status= 200)
 
+**Version Number**
+
+Verify that the version number you see in the bottom right-hand corner of the webapp is the version you expect.
+
+**Sample Ingest**
+
+See the section "Ingesting Data", below, for a description of what ingesting is in the context of HCSvLab. Here we are concerned with verifying that the process will work, and thus that the system can accept data properly.
+
+First identify a small data collection which can be processed quickly. These instructions assume that this is in directory /data/qa/small_collection. The sample data collection must also come with a description of the collection, which in this case would be small_collection.n3 in the directory /data/qa. These steps cover ingesting not only this sample data but also the sample data licences which come with the application. See the section "Ingesting Data" for important information about setting the data owner for a collection.
+
+Ingest the licences with the command:
+
+    $ rake fedora:ingest_licences
+
+The output should look like:
+
+    Licence 'AusNC Terms of Use' = hcsvlab:1
+    Licence 'AusTalk Terms of Use' = hcsvlab:2
+    Licence 'AVOZES Non-commercial (Academic) Licence' = hcsvlab:3
+    Licence 'Creative Commons v3.0 BY-NC-ND' = hcsvlab:4
+    Licence 'Creative Commons v3.0 BY-NC-SA' = hcsvlab:5
+    Licence 'Creative Commons v3.0 BY-NC' = hcsvlab:6
+    Licence 'Creative Commons v3.0 BY-ND' = hcsvlab:7
+    Licence 'Creative Commons v3.0 BY-SA' = hcsvlab:8
+    Licence 'Creative Commons v3.0 BY' = hcsvlab:9
+    Licence 'PARADISEC Conditions of Access' = hcsvlab:10
+    Shutdown completed cleanly
+
+Then, ingest the sample corpus:
+
+    $ rake fedora:ingest corpus=/data/qa/small_collection
+
+Examine the console output and the log file (log/ingest_small_collection.log) to verify that all is well.
+
+**Setting Licence Terms**
+
+Log in to the webapp as the data-owner of the corpus just ingested; click on the username at the top right of the webapp and in the drop-down which appears, click on "Admin". When the Admin page loads, click on "Manage Licences" in the list of tasks at the left of the page. The resulting page should show, among other things, a table titled "Group Collections into Collection Lists" which will have a line for the collection just ingested. In the "Licence" column of the table, click the drop-down and select a licence to assign to the collection. The table will update to show the licence just assigned.
+
+Log out and then log in as another user. You should arrive at the webapp's home page, which should show no Items but should show a message directing you to the Licence Agreements page. Click on the provided Licence Agreements link. The resultant page should show a table titled "Review and Acceptance of Licence Terms" which will have a line for the collection to which a licence has just been assigned. Click on the button in the "Actions" column of the collection's table row and Accept the licence on the dialogue which pops up. The table should now show that the user has agreed to the licence terms for the collection.
+
+Ncw go to the Discover page by clicking on the "Discover" link in the gold banner of the webapp. You should now see a list of search facets at the left of the page. Confirm that the collection is searchable by: clicking on "Collection" to expand that facet and then clicking on the name of the test collection. The page should show a table of the Items in the collection.
+
+** Sample Item List **
+
+Create a small Item List using the facilities of the Discover page, and then create a new Item List from a small number of Items. When the item Lisst is created, a page is shown with its contents. From there, click on "Item List Actions" and select "Use Item List in Galaxy". This should redirect the app to the Item List's page. There, click on "Item List Actions" and select "Use Item List in Galaxy". Verify that the application redirects to the Galaxy application.
+
+**Working With Data**
+
+Using the "Type" facet on the "Discover" page, locate any Item with a text document. Click through to the Item's details page and verify clicking on the text document's name in the "Documents" table at the bottom of the page shows the required document. Do this for an audio and a video document.
 
 ### Ingesting Data
 
-Ingesting is the task of adding data to the system, which involves several processes such as: verifying and storing metadata and files, and creating indicies for search. 
+Ingesting is the task of adding data to the system, which involves several processes such as: verifying and storing metadata and files, and creating indicies for search.
 
-Corpora are prepared for ingest using [RoboChef](https://github.com/IntersectAustralia/hcsvlab_robochef), which takes hetreogeneous metadata and normalises it, sets the URLs for the documents, and describes them in RDF. Preprepared data from another source can be ingested, but the URLs will all point to the host that was configured when it was RoboCheffed.
+Corpora are prepared for ingest using [RoboChef](https://github.com/IntersectAustralia/hcsvlab_robochef), which takes hetreogeneous metadata and normalises it, sets the URLs for the documents, and describes them in RDF. Preprepared data from another source can be ingested, but the URLs will all point to the host that was configured when it was RoboCheffed. The system requires that each collection has a metadata file which contains a Notation3 RDF description of the collection. This file should be named <collection-name>.n3 and reside one folder up from the collection's metadata files. The contents of the.n3 file for the AVOZES collection are:
+
+    @prefix avozes: <http://ns.ausnc.org.au/corpus/AVOZES/AVOZES> .
+    @prefix dcmitype: <http://purl.org/dc/dcmitype/> .
+    @prefix dc: <http://purl.org/dc/elements/1.1/> .
+    @prefix dcterms: <http://purl.org/dc/terms/> .
+    @prefix cld: <http://purl.org/cld/terms/> .
+    @prefix marcrel: <http://www.loc.gov/loc.terms/relators/> .
+
+    avozes:
+        a dcmitype:Collection ;
+        dc:title "The Audio-Video Australian English Speech Data Corpus" ;
+        dcterms:alternative "AVOZES" ;
+        dcterms:abstract "AVOZES is an audio-video (or auditory-visual) speech data corpus for Australian English. The AVOZES data corpus was designed and recorded with two major goals in mind. Firstly, a new framework for the design of comprehensive, well-structured, multiple-use AV speech data corpora was proposed and followed in the production of the AVOZES data corpus. Secondly, the first publicly available, comprehensive AV speech data corpus for Australian English (AuE) was produced. In addition, it is the first AV speech data corpus to use a stereo vision system." ;
+    .
+
+The collection description must also specify which system user is the owner of the data. The data owner of a collection is the only person who can set the licence under which the collection's data can be accessed. Until the data owner sets the licence for a collection, data in that collection will not be visible to other users of the system.  If no data owner is set, the data will not be visible to any user in the system. To set the data owner for a collection, the .n3 file should specify the property http://id.loc.gov/vocabulary/relators/rpy, and should give the login-name (e-mail address) of the user you wish to be the data owner. This user must have a role in the system of either data-owner or hcsvlab-admin.
 
 The command to ingest a corpus is `rake fedora:ingest`, which must be run from the web application's directory, and the path to the directory where the corpus and data files are located. For example, if you wanted to ingest the ace corpus, and it was stored in `/data/processed/ausnc/ace` then the command would be:
 
     
     $ rake fedora:ingest corpus=/data/processed/ausnc/ace
+
+
