@@ -644,6 +644,14 @@ Create a small Item List using the facilities of the Discover page, and then cre
 
 Using the "Type" facet on the "Discover" page, locate any Item with a text document. Click through to the Item's details page and verify clicking on the text document's name in the "Documents" table at the bottom of the page shows the required document. Do this for an audio and a video document.
 
+**Tidying Up**
+
+If the data used for testing should be deleted rather than left in the running system, then remove it with the command:
+
+    $ rake fedora:clear_corpus corpus=small_collection
+
+(substituting the actual corpus name should it not be "small_collection")
+
 ### Ingesting Data
 
 Ingesting is the task of adding data to the system, which involves several processes such as: verifying and storing metadata and files, and creating indicies for search.
