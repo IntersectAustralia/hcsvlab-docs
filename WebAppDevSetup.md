@@ -22,20 +22,44 @@ Unfortunately, installing with MacPorts is not recommended.
     $ sudo apt-get install postgresql libpq-dev # install postgresql and libpq-dev packages
     $ sudo -u postgres psql template1 # login to template1 database
     # \password postgres # change password for user postgres
-    # \q # exit	
+    # \q # exit
+
+**In Mac OS X**
+
+    $ brew install postgres
+    $ initdb /usr/local/var/postgres -E utf8
+    $ postgres -D /usr/local/var/postgres
 
 ###Create Database User
+**In Ubuntu**
 
     $ sudo -u postgres createuser -P # create a new user called hcsvlab (enable create databases) with password hcsvlab
 
+**In Mac OS X**
+
+    $ sudo -u <home_user> createuser hcsvlab # with password hcsvlab
+    $ psql
+    $ ALTER USER hcsvlab CREATEDB;
+    $ \q
+
 ###Clone HCSVLab
+**In Ubuntu and Mac OS X**
 
     $ rvm install ruby-2.0.0-p0
     $ rvm use ruby-2.0.0-p0@hcsvlab \--create
     $ git clone git@github.com:IntersectAustralia/hcsvlab.git
+    
+###Install ImageMagick (required for the rmagick gem)
+**In Ubuntu**
+
+    $ sudo apt-get install imagemagick
+
+**In Mac OS X**
+
+    $ brew install imagemagick
 
 ###Install ActiveMQ
-**In Ubuntu**
+**In Ubuntu and Mac OS X**
 
     $ curl http://mirror.mel.bkb.net.au/pub/apache/activemq/apache-activemq/5.8.0/apache-activemq-5.8.0-bin.tar.gz | tar xvz
  
@@ -46,6 +70,7 @@ Unfortunately, installing with MacPorts is not recommended.
     $ bin/activemq start
 
 ###Setup HCSVLAB
+**For Ubuntu and Mac OS X**
 
     $ cd ~/hcsvlab
     $ git submodule init
