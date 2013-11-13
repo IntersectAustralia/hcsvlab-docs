@@ -82,6 +82,11 @@ Unfortunately, installing with MacPorts is not recommended.
     $ rake a13g:start_pollers
     $ rails s
 
+###Setup HCSVLAB cucumber test setup
+**For Ubuntu and Mac OS X**
+
+    $ RAILS_ENV=test bundle exec rake db:create db:migrate db:test:prepare
+
 ###Ingest an AusNC Corpus into Fedora
 For example data, see Download the Corpus in Installing AusNC.
 
