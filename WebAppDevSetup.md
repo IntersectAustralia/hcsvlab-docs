@@ -26,6 +26,8 @@ Unfortunately, installing with MacPorts is not recommended.
 
 **In Mac OS X**
 
+MAC OS X often comes with its own postgres, so ensure any other version is stopped or uninstalled
+
     $ brew install postgres
     $ initdb /usr/local/var/postgres -E utf8
     $ postgres -D /usr/local/var/postgres
