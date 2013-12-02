@@ -58,7 +58,13 @@ Add the following lines to `/etc/httpd/conf.d/toolshed.conf`
     
 Add the following inside the `toolsheds` tag
 
-    <tool_shed name="HCS vLab tool shed" url="_TOOL_SHED_URL_"/>
+    <tool_shed name="HCS vLab tool shed" url="__TOOL_SHED_URL__"/>
+    
+**Install Python psycopg2 module**
+
+Seems to need this python module installed to get it up and going
+
+    sudo yum install python-psycopg2
     
 **Redeploy Galaxy and Galaxy Tool Shed**
 
