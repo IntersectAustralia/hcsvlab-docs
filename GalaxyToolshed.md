@@ -27,7 +27,7 @@ These instructions are to install an instance of Galaxy Tool Shed alongside an e
 Modify the following lines in `/etc/init.d/toolshed`
   
     SERVICE_NAME="toolshed"
-    RUN_AS="toolshed"
+    RUN_AS="devel"
     RUN_IN="/home/devel/hcsvlab-galaxy"
 
 Replace all `run.sh` with `run_tool_shed`
