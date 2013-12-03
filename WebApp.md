@@ -600,7 +600,7 @@ Verify that the version number you see in the bottom right-hand corner of the we
 
 **E-mail Notifications**
 
-This test will verify that the system can send e-mails as required. It requires you to have access to the e-mail inbox of a user registered in the system.
+This test will verify that the system can send e-mails as required. It requires you to have access to the e-mail inbox of a user who is registered in the system.
 
 If you are logged in to the webapp, then log out. Navigate to the login page and click on the "Forgot your Password?" link, which will take you to the "Forgot Your Password?" page. Once there, fill in the e-mail address of the user and click the "Send me reset password instructions" button, which will send an e-mail to the user. Check that this e-mail is received.
 
