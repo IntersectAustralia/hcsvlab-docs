@@ -598,6 +598,12 @@ The output should look like:
 
 Verify that the version number you see in the bottom right-hand corner of the webapp is the version you expect.
 
+**E-mail Notifications**
+
+This test will verify that the system can send e-mails as required. It requires you to have access to the e-mail inbox of a user registered in the system.
+
+If you are logged in to the webapp, then log out. Navigate to the login page and click on the "Forgot your Password?" link, which will take you to the "Forgot Your Password?" page. Once there, fill in the e-mail address of the user and click the "Send me reset password instructions" button, which will send an e-mail to the user. Check that this e-mail is received.
+
 **Sample Ingest**
 
 See the section "Ingesting Data", below, for a description of what ingesting is in the context of HCSvLab. Here we are concerned with verifying that the process will work, and thus that the system can accept data properly.
@@ -634,11 +640,17 @@ Log in to the webapp as the data-owner of the corpus just ingested; click on the
 
 Log out and then log in as another user. You should arrive at the webapp's home page, which should show no Items but should show a message directing you to the Licence Agreements page. Click on the provided Licence Agreements link. The resultant page should show a table titled "Review and Acceptance of Licence Terms" which will have a line for the collection to which a licence has just been assigned. Click on the button in the "Actions" column of the collection's table row and Accept the licence on the dialogue which pops up. The table should now show that the user has agreed to the licence terms for the collection.
 
-Ncw go to the Discover page by clicking on the "Discover" link in the gold banner of the webapp. You should now see a list of search facets at the left of the page. Confirm that the collection is searchable by: clicking on "Collection" to expand that facet and then clicking on the name of the test collection. The page should show a table of the Items in the collection.
+Now go to the Discover page by clicking on the "Discover" link in the gold banner of the webapp. You should now see a list of search facets at the left of the page. Confirm that the collection is searchable by: clicking on "Collection" to expand that facet and then clicking on the name of the test collection. The page should show a table of the Items in the collection.
 
-** Sample Item List **
+**Sample Item List**
 
 Create a small Item List using the facilities of the Discover page, and then create a new Item List from a small number of Items. When the item Lisst is created, a page is shown with its contents. From there, click on "Item List Actions" and select "Use Item List in Galaxy". This should redirect the app to the Item List's page. There, click on "Item List Actions" and select "Use Item List in Galaxy". Verify that the application redirects to the Galaxy application.
+
+**EOPAS Connection**
+
+This test is only possible if suitable data has been ingested. There are suitable Items in the qa_eopas collection.
+
+Find an item which has a single video or audio file and an accompanying transcript and go to its Item details, the "View in Eopas" button should be available. Click on this button and verify that you are navigated to the Eopas page with the file opened in Eopas.
 
 **Working With Data**
 
