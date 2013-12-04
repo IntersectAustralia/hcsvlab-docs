@@ -561,11 +561,11 @@ If you ever need to redeploy, make sure you run the following command to stop th
 
 ### Verifying the deployment, aka running the "Smoke Test"
 
-There are several steps to this, but together they excercise all key parts of the deployment and, if passed, give a good degree of confidence that the deployment has worked.
+There are several steps to this, but together they exercise all key parts of the deployment and, if passed, give a good degree of confidence that the deployment has worked.
 
 **System Check script**
 
-There is a script that is deployed with the web application that can be used to verify that the various processed of the deployment are running and configured to the correct porst. To run the script, from the web application's directory type
+There is a script that is deployed with the web application that can be used to verify that the various processed of the deployment are running and configured to the correct port. To run the script, from the web application's directory type
     
     $ bin/system_check.sh
     
@@ -644,7 +644,7 @@ Now go to the Discover page by clicking on the "Discover" link in the gold banne
 
 **Sample Item List**
 
-Create a small Item List using the facilities of the Discover page, and then create a new Item List from a small number of Items. When the item Lisst is created, a page is shown with its contents. From there, click on "Item List Actions" and select "Use Item List in Galaxy". This should redirect the app to the Item List's page. There, click on "Item List Actions" and select "Use Item List in Galaxy". Verify that the application redirects to the Galaxy application.
+Create a small Item List using the facilities of the Discover page, and then create a new Item List from a small number of Items. When the Item List is created, a page is shown with its contents. From there, click on "Item List Actions" and select "Use Item List in Galaxy". This should redirect the app to the Item List's page. There, click on "Item List Actions" and select "Use Item List in Galaxy". Verify that the application redirects to the Galaxy application.
 
 **EOPAS Connection**
 
@@ -666,9 +666,9 @@ If the data used for testing should be deleted rather than left in the running s
 
 ### Ingesting Data
 
-Ingesting is the task of adding data to the system, which involves several processes such as: verifying and storing metadata and files, and creating indicies for search.
+Ingesting is the task of adding data to the system, which involves several processes such as: verifying and storing metadata and files, and creating indices for search.
 
-Corpora are prepared for ingest using [RoboChef](https://github.com/IntersectAustralia/hcsvlab_robochef), which takes hetreogeneous metadata and normalises it, sets the URLs for the documents, and describes them in RDF. Preprepared data from another source can be ingested, but the URLs will all point to the host that was configured when it was RoboCheffed. The system requires that each collection has a metadata file which contains a Notation3 RDF description of the collection. This file should be named <collection-name>.n3 and reside one folder up from the collection's metadata files. The contents of the.n3 file for the AVOZES collection are:
+Corpora are prepared for ingest using [RoboChef](https://github.com/IntersectAustralia/hcsvlab_robochef), which takes heterogeneous metadata and normalises it, sets the URLs for the documents, and describes them in RDF. Preprepared data from another source can be ingested, but the URLs will all point to the host that was configured when it was RoboCheffed. The system requires that each collection has a metadata file which contains a Notation3 RDF description of the collection. This file should be named <collection-name>.n3 and reside one folder up from the collection's metadata files. The contents of the.n3 file for the AVOZES collection are:
 
     @prefix avozes: <http://ns.ausnc.org.au/corpus/AVOZES/AVOZES> .
     @prefix dcmitype: <http://purl.org/dc/dcmitype/> .
