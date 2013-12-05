@@ -60,6 +60,10 @@ Add the following inside the `toolsheds` tag
 
     <tool_shed name="HCS vLab tool shed" url="__TOOL_SHED_URL__"/>
     
+Uncomment the following line in `universe_wsgi.ini`
+
+    tool_config_file = tool_conf.xml,shed_tool_conf.xml
+    
 **Install Python psycopg2 module**
 
 Seems to need this python module installed to get it up and going
