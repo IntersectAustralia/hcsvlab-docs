@@ -11,6 +11,11 @@ It is a library which provides an interface in R to interact with the HCS vLab A
 Clone the repository at https://github.com/IntersectAustralia/hcsvlab-r to your machine.
 Then inside R run the following commands:
 
+    # install dependencies
+    install.packages("rjson")
+    install.packages("RCurl")
+    
+    # install package
     install.packages("<path to hcsvlab-r>", repos=NULL, type="source")
     library(hcsvlab)
     
@@ -87,9 +92,9 @@ Example Response:
     
 To get an item list by ID (this returns an ItemList object):
 
-    client$get_item_list(id)
+    client$get_item_list_by_id(id)
     
-where uri is the ID of the item list e.g. "1". This returns the same as above.
+where id is the ID of the item list e.g. 1. This returns the same as above.
 ***
 
 To get a specific item by URI:
