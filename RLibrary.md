@@ -255,7 +255,11 @@ where index is a 1 based index of the document from the list of documents above
 Example Response:
 
     URI: 
-    [1] "http://localhost:3000/catalog/hcsvlab:5442/document/S1220s1.wav"
+    [1] "http://localhost:3000/catalog/hcsvlab:5440/document/S1220n.wav"
+    Type: 
+    [1] "Audio"
+    Size: 
+    [1] "8.0 MB"
 ***
 
 To get list of annotations for an item:
