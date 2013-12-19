@@ -32,7 +32,7 @@ To get the API version:
 Example Response:
 
     "V2.3"
-
+***
 
 To get the context of the annotations:
 
@@ -48,7 +48,7 @@ Example Response:
     $`@context`$annotations$`@id`
     [1] "http://purl.org/dada/schema/0.2/annotations"
     ...
-
+***
 
 To get item lists:
 
@@ -66,7 +66,7 @@ Example Response:
     [[1]]$num_items
     [1] 2    
     ...
-    
+***
     
 To get an item list by URI (this returns an ItemList object):
 
@@ -83,14 +83,14 @@ Example Response:
     Items: 
     [1] "http://localhost:3000/catalog/hcsvlab:5440"
     [2] "http://localhost:3000/catalog/hcsvlab:5442"
-    
+***    
     
 To get an item list by ID (this returns an ItemList object):
 
     client$get_item_list(id)
     
 where uri is the ID of the item list e.g. "1". This returns the same as above.
-
+***
 
 To get a specific item by URI:
 
@@ -104,7 +104,7 @@ Example Response:
     [1] "mitcheldelbridge:S1219s1"
     URI: 
     [1] "http://localhost:3000/catalog/hcsvlab:5438"
-
+***
 
 To search items by metadata:
 
@@ -120,7 +120,7 @@ Example Response:
        [1] "http://localhost:3000/catalog/hcsvlab:102" 
        [2] "http://localhost:3000/catalog/hcsvlab:1002"
     ...
-    
+***
 
 To download a set of items:
 
@@ -131,7 +131,7 @@ where items is a list of item URIS (e.g. client$search_metadata("some query")$it
 Example Response:
 
     [1] "/Users/hcsvlab/cooee.zip"
-    
+***
     
 To create an item list:
 
@@ -143,9 +143,160 @@ Example Response:
 
     $success
     [1] "31 items added to new item list TEST"
-    
 
 
-    
-    
+### Item List 
 
+    item_list <- client$get_item_list("http://app.hcsvlab.org.au/item_lists/1")
+
+To get a list of items in the item list:
+
+    item_list$items
+***
+
+To get a particular item from the item list:
+
+    item_list$get_item(index)
+    
+where index is a 1 based index of the item from the list of items above
+
+Example Response:
+
+    ID: 
+    [1] "mitcheldelbridge:S1220s1"
+    URI: 
+    [1] "http://localhost:3000/catalog/hcsvlab:5442"
+***
+
+To get a list of all documents of all items in the item list:
+
+    item_list$get_item_documents()
+    
+Example Response:
+
+    [1] "http://localhost:3000/catalog/hcsvlab:5440/document/S1220n.wav" 
+    [2] "http://localhost:3000/catalog/hcsvlab:5442/document/S1220s1.wav"
+***    
+
+To download the item list:
+
+    item_list$download(destination)
+    
+where destination is the target directory. Returns the filename of the resulting file
+
+Example Response:
+
+    [1] "/Users/hcsvlab/cooee.zip"
+***
+
+To get the number of items in the item list:
+
+    item_list$num_items()
+
+
+### Item
+
+    item <- item_list$get_item(1)
+    item <- client$get_item("http://app.hcsvlab.org.au/catalog/hcsvlab:100")
+
+To get metadata for an item:
+
+    item$get_metadata()
+    
+Example Response:
+
+    $`dc:identifier`
+    [1] "S1220s1"
+    
+    $`dc:isPartOf`
+    [1] "mitcheldelbridge"
+    
+    $`ausnc:mode`
+    [1] "unspecified"
+    ...
+***
+
+To get the indexable text for an item:
+
+    item$get_indexable_text()
+    
+Returns empty string if no indexable text found
+***
+
+To get list of documents for an item:
+
+    item$get_documents()
+    
+Example Response:
+
+    [[1]]
+    [[1]]$url
+    [1] "http://localhost:3000/catalog/hcsvlab:5442/document/S1220s1.wav"
+    
+    [[1]]$`dc:type`
+    [1] "Audio"
+    
+    [[1]]$size
+    NULL
+    ...
+***
+
+To get a specific document from an item:
+
+    item$get_item(index)
+
+where index is a 1 based index of the document from the list of documents above
+
+Example Response:
+
+    URI: 
+    [1] "http://localhost:3000/catalog/hcsvlab:5442/document/S1220s1.wav"
+***
+
+To get list of annotations for an item:
+
+    item$get_annotations(type=NULL, label=NULL)
+
+where type and label are optional arguments to narrow down the annotations returned
+
+Example Response:
+
+    $`@context`
+    [1] "http://localhost:3000/schema/json-ld"
+    
+    $commonProperties
+    $commonProperties$annotates
+    [1] "http://localhost:3000/catalog/hcsvlab:5442/document/S1220s1.wav"
+    
+    
+    $annotations
+    $annotations[[1]]
+    $annotations[[1]]$`@type`
+    [1] "SecondAnnotation"
+    
+    $annotations[[1]]$`@id`
+    [1] "http://ns.ausnc.org.au/corpora/mitcheldelbridge/annotation/28499"
+    ...
+
+
+
+### Document
+
+    document <- item$get_document(1)
+    
+To get content of a document:
+
+    document$get_content()
+
+Note that this may return binary data
+***
+
+To download the document:
+
+    document$download(destination)
+    
+where destination is the target directory. Returns the filename of the resulting file
+
+Example Response:
+
+    [1] "/Users/hcsvlab/S1220s1.wav"
