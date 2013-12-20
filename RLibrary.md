@@ -137,7 +137,7 @@ To download a set of items:
 
     client$download_items(items, destination, name)
     
-where items is a list of item URIS (e.g. client$search_metadata("some query")$items), destination is the target directory and name is the name of the resulting zip file. Returns the filename of the resulting file
+where items is a list of item URIS (e.g. client$search_metadata("some query")$items, list("app.hcsvlab.org.au/catalog/hcsvlab:100", "app.hcsvlab.org.au/catalog/hcsvlab:101")), destination is the target directory and name is the name of the resulting zip file. Returns the filename of the resulting file
 
 Example Response:
 
@@ -148,7 +148,7 @@ To create an item list:
 
     client$create_item_list(items, name)
     
-where items is a list of item URIS (e.g. client$search_metadata("some query")$items) and name is the name of the item list to be created
+where items is a list of item URIS (e.g. client$search_metadata("some query")$items, list("app.hcsvlab.org.au/catalog/hcsvlab:100", "app.hcsvlab.org.au/catalog/hcsvlab:101")) and name is the name of the item list to be created
 
 Example Response:
 
