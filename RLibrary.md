@@ -21,6 +21,12 @@ Then inside R run the following commands:
     
 where `<path to hcsvlab-r>` is the directory previously cloned
 
+To make use of this package you also need to download the hcsvlab.config file from the HCS vLab server you are using and place it in the home directory of your machine which are as follows:
+
+    Mac: /Users/<user>
+    Linux: /home/<user>
+    Windows: C:/Users/<user>/Documents
+
 
 ## Using the Library
 
