@@ -254,7 +254,7 @@ Example Response:
 
 To get a specific document from an item:
 
-    item$get_item(index)
+    item$get_document(index)
 
 where index is a 1 based index of the document from the list of documents above
 
