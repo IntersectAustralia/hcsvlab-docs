@@ -137,7 +137,7 @@ To download a set of items:
 
     client$download_items(items, destination, name)
     
-where items is a list of item URIS (e.g. client$search_metadata("some query")$items, list("app.hcsvlab.org.au/catalog/hcsvlab:100", "app.hcsvlab.org.au/catalog/hcsvlab:101")), destination is the target directory and name is the name of the resulting zip file. Returns the filename of the resulting file
+where items is a list of item URIS (e.g. client$search_metadata("some query")$items, list("app.hcsvlab.org.au/catalog/hcsvlab:100", "app.hcsvlab.org.au/catalog/hcsvlab:101")), destination is the target directory (Note: in Windows make sure there is no trailing slash) and name is the name of the resulting zip file. Returns the filename of the resulting file
 
 Example Response:
 
@@ -193,7 +193,7 @@ To download the item list:
 
     item_list$download(destination)
     
-where destination is the target directory. Returns the filename of the resulting file
+where destination is the target directory (Note: in Windows make sure there is no trailing slash). Returns the filename of the resulting file
 
 Example Response:
 
@@ -310,7 +310,7 @@ To download the document:
 
     document$download(destination)
     
-where destination is the target directory. Returns the filename of the resulting file
+where destination is the target directory (Note: in Windows make sure there is no trailing slash). Returns the filename of the resulting file
 
 Example Response:
 
