@@ -315,3 +315,51 @@ where destination is the target directory. Returns the filename of the resulting
 Example Response:
 
     [1] "/Users/hcsvlab/S1220s1.wav"
+
+
+## Other Packages
+
+We also have two other packages which can be used with data from the HCS vLab. These are the wrassp and emuSX libraries. 
+### Installation
+
+    TODO: once binaries are done
+
+### wrassp
+
+wrassp provides a number of functions to perform signal processing on audio files. It is able to handle URI's from the HCS vLab provided the hcsvlab.config file as discussed at the top of this document is in place. An example usage of one of these functions is as follows:
+
+    forest("http://app.hcsvlab.org.au/catalog/hcsvlab:10/document/S1223s1.wav", ToFile=FALSE)
+    
+All functions produce the following summary (with slight changes) on completion:
+
+    In-memory Assp Data Object
+    Format: WAVE (binary)
+    67830 records at 16000 Hz
+    Duration: 4.239375 ms
+    Number of tracks: 1 
+    	 audio (1 fields)
+
+The wrassp library comes with caching functionality where it downloads URI content to a cache directory so it can be pulled straight from there the next time that URI is called. To view the contents of the cache directory simply call `viewCache()`. This opens up the cache contents file to display all the files stored in the local cache and the URIs they are mapped with. The local filenames are computated by taking an MD5 hash of the entire URI it corresponds to and appending the appropriate file extension.
+
+    <URI> -> <MD5 has of URI + file extension>
+    e.g.
+    http://www.phonetik.uni-muenchen.de/~raphael/data/msajc003.wav -> 40586c2ce57890eb058efd6a4d00cf3f.wav
+
+To empty the entire cache, call `emptyCache()` while to remove a single item from the cache call:
+
+    removeItemFromCache("40586c2ce57890eb058efd6a4d00cf3f.wav")
+
+which takes a single argument, that of the local filename stored in the cache.
+
+### emuSX
+
+the emuSX library is linked with the wrassp library and allows integration with emu. To get an item list using the emuSX package use:
+
+    item_list <- readItemList("http://app.hcsvlab.org.au/item_lists/1")
+    
+Then using this you can get an emu segment list:
+
+    getSegmentList(item_list)
+
+
+
