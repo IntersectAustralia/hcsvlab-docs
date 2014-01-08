@@ -41,6 +41,17 @@ Change ``SELINUX=enforcing`` to ``SELINUX=disabled``
 
 [Install the JC Parser NLTK wrapper](JCPNLTKWrapper.md) (you should install this as the same user that will run Galaxy)
 
+**Set up R for ParseEval**
+
+    sudo yum install R
+    sudo R
+
+Then once inside R install the following packages as so:
+
+    install.packages("lattice", repos="http://cran.ms.unimelb.edu.au/")
+    install.packages("latticeExtra", repos="http://cran.ms.unimelb.edu.au/")
+    install.packages("gridExtra", repos="http://cran.ms.unimelb.edu.au/")
+
 **Set up for displaying parse trees**
 
     sudo yum install tkinter python-matplotlib-tk.x86_64 xorg-x11-server-Xvfb ImageMagick
