@@ -322,7 +322,7 @@ Example Response:
 We also have two other packages which can be used with data from the HCS vLab. These are the wrassp and emuSX libraries. 
 ### Installation
 
-    TODO: once binaries are done
+see https://wiki.intersect.org.au/display/HCSVLAB/R+Packages
 
 ### wrassp
 
@@ -353,12 +353,9 @@ which takes a single argument, that of the local filename stored in the cache.
 
 ### emuSX
 
-the emuSX library is linked with the wrassp library and allows integration with emu. To get an item list using the emuSX package use:
+The emuSX library is linked with the wrassp and hcsvlab libraries and allows integration with emu. An item list obtained using the hcsvlab package can then be passed into emuSX to obtain an emu segment list:
 
-    item_list <- readItemList("http://app.hcsvlab.org.au/item_lists/1")
-    
-Then using this you can get an emu segment list:
-
+    item_list <- client$get_item_list("http://app.hcsvlab.org.au/item_lists/1")
     getSegmentList(item_list)
 
 
