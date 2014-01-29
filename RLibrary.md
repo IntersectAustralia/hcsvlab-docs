@@ -8,7 +8,12 @@ It is a library which provides an interface in R to interact with the HCS vLab A
 
 ## Installation
 
-Clone the repository at https://github.com/IntersectAustralia/hcsvlab-r to your machine.
+Download the appropriate binary from the list below to your machine.
+
+| Package | Mac | Linux (Centos) | Windows |
+| ------  | --- | -------------- | ------: |
+| hcsvlab | [hcsvlab_1.0.tgz](https://github.com/IntersectAustralia/hcsvlab-docs/blob/master/RPackages/hcsvlab_1.0.tgz) | [hcsvlab_1.0_R_x86_64-redhat-linux-gnu.tar.gz](https://github.com/IntersectAustralia/hcsvlab-docs/blob/master/RPackages/hcsvlab_1.0_R_x86_64-redhat-linux-gnu.tar.gz) | [hcsvlab_1.0.zip](https://github.com/IntersectAustralia/hcsvlab-docs/blob/master/RPackages/hcsvlab_1.0.zip) |
+
 Then inside R run the following commands:
 
     # install dependencies
@@ -16,10 +21,10 @@ Then inside R run the following commands:
     install.packages("RCurl")
     
     # install package
-    install.packages("<path to hcsvlab-r>", repos=NULL, type="source")
+    install.packages("<path to binary>")
     library(hcsvlab)
     
-where `<path to hcsvlab-r>` is the directory previously cloned
+where `<path to binary>` is the path to the binary downloaded above
 
 To make use of this package you also need to download the hcsvlab.config file from the HCS vLab server you are using and place it in the home directory of your machine which are as follows:
 
