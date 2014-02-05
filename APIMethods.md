@@ -358,7 +358,6 @@ Item list can be retrieved as JSON, ZIP or WARC format. The JSON format will onl
 	<td> Result of item list operation (error/success) </td>
 	<td> This is a post request that requires a file sent with it. Hence, cannot be replicated through a browser but through curl this can be done with something akin to:
 <br>curl -H "X-API-KEY:&lt;api_key&gt;" -H "Accept: application/json" -F file=@&lt;path_to_file&gt; &lt;host&gt;/catalog/:id/annotations
-JSON
 	</td>
 </tr>
 <tr>
