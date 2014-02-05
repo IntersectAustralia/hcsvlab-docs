@@ -351,8 +351,6 @@ Item list can be retrieved as JSON, ZIP or WARC format. The JSON format will onl
 <br>or
 <br>{"error":"invalid-json"} </td>
 </tr>
-
-
 <tr> 
 	<td> Upload Annotation </td>
 	<td> /catalog/{item_id}/annotations</td>
@@ -361,6 +359,64 @@ Item list can be retrieved as JSON, ZIP or WARC format. The JSON format will onl
 	<td> This is a post request that requires a file sent with it. Hence, cannot be replicated through a browser but through curl this can be done with something akin to:
 <br>curl -H "X-API-KEY:&lt;api_key&gt;" -H "Accept: application/json" -F file=@&lt;path_to_file&gt; &lt;host&gt;/catalog/:id/annotations
 JSON
+	</td>
+</tr>
+<tr>
+	<td> Json-Ld Input File format </td>
+	<td colspan=4>
+	<p>
+	<CODE style="white-space: pre;">
+	{
+		  "@context": {
+			"@base": "http://purl.org/dada/schema/0.2/",
+			"<prefix>": {
+		    		"@id": "<URI>"
+			},
+			"<prefix>": {
+		    		"@id": "<URI>"
+			},
+			.
+			.
+			.
+			"<prefix>": {
+		    		"@id": "<URI>"
+			},
+		  },
+		  "@graph":[
+		    {
+		        "@type": "http://purl.org/dada/schema/0.2#UTF8Region",
+		        "<property_name>": "value",
+		        "<property_name>": "value",
+		        .
+		        .
+		        .
+		        "<property_name>": "value",
+		    },
+		    {
+		        "@type": "http://purl.org/dada/schema/0.2#UTF8Region",
+		        "<property_name>": "value",
+		        "<property_name>": "value",
+		        .
+		        .
+		        .
+		        "<property_name>": "value",
+		    },
+		    .
+		    .
+		    .
+		    {
+		        "@type": "http://purl.org/dada/schema/0.2#UTF8Region",
+		        "<property_name>": "value",
+		        "<property_name>": "value",
+		        .
+		        .
+		        .
+		        "<property_name>": "value",
+		    }
+		  ]
+	}
+	</CODE>
+	</p>
 	</td>
 </tr>
 <tr>
