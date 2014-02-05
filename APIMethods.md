@@ -353,6 +353,36 @@ Item list can be retrieved as JSON, ZIP or WARC format. The JSON format will onl
 </tr>
 
 
+<tr> 
+	<td> Upload Annotation </td>
+	<td> /catalog/{item_id}/annotations</td>
+	<td> POST </td>
+	<td> Result of item list operation (error/success) </td>
+	<td> This is a post request that requires a file sent with it. Hence, cannot be replicated through a browser but through curl this can be done with something akin to:
+<br>curl -H "X-API-KEY:&lt;api_key&gt;" -H "Accept: application/json" -F file=@&lt;path_to_file&gt; &lt;host&gt;/catalog/:id/annotations
+JSON
+	</td>
+</tr>
+<tr>
+	<td> Example Response </td>
+	<td colspan=4> Success:
+		<br>{"success":"file &lt;filename&gt; uploaded successfully"}
+		<br>Failure:
+		<br>{"error":"No Item with id '&lt;item_id&gt;' exists."}
+		<br>or
+		<br>{"error":"Uploaded file is not present or empty."}
+		<br>or
+		<br>{"error":"File already uploaded."}
+		<br>or
+		<br>{"error":"Error uploading file &lt;filename&gt;."} 
+	</td>
+</tr>
+
+
+
+
+</table>
+
 
 
 
