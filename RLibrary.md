@@ -12,7 +12,7 @@ Download the appropriate binary from the list below to your machine.
 
 | Package | Mac | Linux (Centos) | Windows |
 | ------  | --- | -------------- | ------- |
-| hcsvlab | [hcsvlab_1.0.tgz](https://github.com/IntersectAustralia/hcsvlab-docs/blob/master/RPackages/hcsvlab_1.0.tgz) | [hcsvlab_1.0_R_x86_64-redhat-linux-gnu.tar.gz](https://github.com/IntersectAustralia/hcsvlab-docs/blob/master/RPackages/hcsvlab_1.0_R_x86_64-redhat-linux-gnu.tar.gz) | [hcsvlab_1.0.zip](https://github.com/IntersectAustralia/hcsvlab-docs/blob/master/RPackages/hcsvlab_1.0.zip) |
+| hcsvlab | [hcsvlab_1.0.1.tgz](https://github.com/IntersectAustralia/hcsvlab-docs/blob/master/RPackages/hcsvlab_1.0.1.tgz) | [hcsvlab_1.0.1_R_x86_64-redhat-linux-gnu.tar.gz](https://github.com/IntersectAustralia/hcsvlab-docs/blob/master/RPackages/hcsvlab_1.0.1_R_x86_64-redhat-linux-gnu.tar.gz) | [hcsvlab_1.0.1.zip](https://github.com/IntersectAustralia/hcsvlab-docs/blob/master/RPackages/hcsvlab_1.0.1.zip) |
 
 Then inside R run the following commands:
 
@@ -205,6 +205,20 @@ Example Response:
     [1] "/Users/hcsvlab/cooee.zip"
 ***
 
+To get an EMU segment list with segments from all annotations in item list:
+
+    item_list$get_segment_list()
+
+Example Response:
+
+       labels start  end
+    1       #     0  330
+    2    beat   330  730
+    3       #   730 1310
+    4    boot  1310 1770
+    ...
+***
+
 To get the number of items in the item list:
 
     item_list$num_items()
@@ -332,7 +346,7 @@ Download the appropriate binary from the list below to your machine.
 | Package | Mac | Linux (Centos) | Windows |
 | ------  | --- | -------------- | ------- |
 | wrassp | [wrassp_0.0.3.tgz](https://github.com/IntersectAustralia/hcsvlab-docs/blob/master/RPackages/wrassp_0.0.3.tgz) | [wrassp_0.0.3_R_x86_64-redhat-linux-gnu.tar.gz](https://github.com/IntersectAustralia/hcsvlab-docs/blob/master/RPackages/wrassp_0.0.3_R_x86_64-redhat-linux-gnu.tar.gz) | [wrassp_0.0.3.zip](https://github.com/IntersectAustralia/hcsvlab-docs/blob/master/RPackages/wrassp_0.0.3.zip) |
-| emuSX | [emuSX_0.0.7_mac.tgz](https://github.com/IntersectAustralia/hcsvlab-docs/blob/master/RPackages/emuSX_0.0.7_mac.tgz) | [emuSX_0.0.7_R_x86_64-redhat-linux-gnu.tar.gz](https://github.com/IntersectAustralia/hcsvlab-docs/blob/master/RPackages/emuSX_0.0.7_R_x86_64-redhat-linux-gnu.tar.gz) | [emuSX_0.0.7.zip](https://github.com/IntersectAustralia/hcsvlab-docs/blob/master/RPackages/emuSX_0.0.7.zip) |
+| emuSX | [emuSX_0.0.8.tgz](https://github.com/IntersectAustralia/hcsvlab-docs/blob/master/RPackages/emuSX_0.0.8.tgz) | [emuSX_0.0.8_R_x86_64-redhat-linux-gnu.tar.gz](https://github.com/IntersectAustralia/hcsvlab-docs/blob/master/RPackages/emuSX_0.0.8_R_x86_64-redhat-linux-gnu.tar.gz) | [emuSX_0.0.8.zip](https://github.com/IntersectAustralia/hcsvlab-docs/blob/master/RPackages/emuSX_0.0.8.zip) |
 
 Then inside R run the following commands:
 
@@ -378,10 +392,4 @@ which takes a single argument, that of the local filename stored in the cache.
 
 ### emuSX
 
-The emuSX library is linked with the wrassp and hcsvlab libraries and allows integration with emu. An item list obtained using the hcsvlab package can then be passed into emuSX to obtain an emu segment list:
-
-    item_list <- client$get_item_list("http://app.hcsvlab.org.au/item_lists/1")
-    getSegmentList(item_list)
-
-
-
+emuSX is now a required package for the hcsvlab package and is required to be installed before being able to use it
