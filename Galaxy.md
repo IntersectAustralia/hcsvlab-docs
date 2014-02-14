@@ -72,7 +72,8 @@ Install the tool wrappers and customisations from Github
     cd ~/galaxy-dist
     git init
     git remote add origin git://github.com/IntersectAustralia/hcsvlab-galaxy.git
-    git pull origin master
+    git fetch --all
+    git reset --hard origin/master
     chmod 755 galaxy
     
 Modify the start script with user and path - modify the `RUN_AS` and `RUN_IN` to suit your path and user    
