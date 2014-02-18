@@ -44,7 +44,7 @@ The API uses the same URLs as the main web application in most cases but is able
 </tr>
 </tbody></table>
 
-### API Description
+<h3> API Description </h3>
 
 <table></tbody>
 <tr>
@@ -404,7 +404,7 @@ Success:
 <tr>
 	<td> Json-Ld Input File format </td>
 	<td colspan=4>
-	<CODE>
+	<CODE style="white-space:pre !important">
 	{
 		  "@context": {
 			"@base": "http://purl.org/dada/schema/0.2/",
