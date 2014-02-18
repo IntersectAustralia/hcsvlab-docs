@@ -64,8 +64,8 @@ The API uses the same URLs as the main web application in most cases but is able
 <tr>
 <td> Example Response </td>
 <td colspan=4>
-<CODE style="white-space:pre">
-{"API version":"V2.0"} 
+<CODE>
+	{"API version":"V2.0"} 
 </CODE>
 </td>
 </tr>
@@ -78,7 +78,7 @@ The API uses the same URLs as the main web application in most cases but is able
 </tr>
 <tr>
 <td> Example Response </td>
-<td colspan=1> 
+<td colspan=4> 
 	<pre>
 	<CODE>
 	[
@@ -180,7 +180,7 @@ Item list can be retrieved as JSON, ZIP or WARC format. The JSON format will onl
 			   "size":"739 B"
 			},
 			{
-			   "url":"http://ic2-hcsvlab-staging2-vm.intersect.org.au/catalog/hcsvlab:22175/document/A08g-plai	n.txt",
+			   "url":"http://ic2-hcsvlab-staging2-vm.intersect.org.au/catalog/hcsvlab:22175/document/A08g-plain.txt",
 			   "type":"Text",
 			   "size":"631 B"
 			}
@@ -217,24 +217,25 @@ Item list can be retrieved as JSON, ZIP or WARC format. The JSON format will onl
 <tr>
 <td> Example Response </td>
 <td colspan=4>
-<CODE>
-{
-"@context":
-{
-"@base":"http://purl.org/dada/schema/0.2/",
-"annotations":{
-"@id":"http://purl.org/dada/schema/0.2/annotations",
-"@container":"@list"},
-"commonProperties":
-{"@id":"http://purl.org/dada/schema/0.2/commonProperties"},
-"type":{"@id":"http://purl.org/dada/schema/0.2/type"},
-"start":{"@id":"http://purl.org/dada/schema/0.2/start"},
-"end":{"@id":"http://purl.org/dada/schema/0.2/end"},
-"label":{"@id":"http://purl.org/dada/schema/0.2/label"},
-"annotates":{"@id":"http://purl.org/dada/schema/0.2/annotates"}
-}
-}
-</CODE>
+<pre>
+	<CODE>
+	{
+		"@context": {
+			"@base":"http://purl.org/dada/schema/0.2/",
+			"annotations":{
+				"@id":"http://purl.org/dada/schema/0.2/annotations",
+				"@container":"@list"
+			},
+			"commonProperties": {"@id":"http://purl.org/dada/schema/0.2/commonProperties"},
+			"type":{"@id":"http://purl.org/dada/schema/0.2/type"},
+			"start":{"@id":"http://purl.org/dada/schema/0.2/start"},
+			"end":{"@id":"http://purl.org/dada/schema/0.2/end"},
+			"label":{"@id":"http://purl.org/dada/schema/0.2/label"},
+			"annotates":{"@id":"http://purl.org/dada/schema/0.2/annotates"}
+		}
+	}
+	</CODE>
+</pre>
 </td>
 </tr>
 <tr> 
@@ -248,28 +249,30 @@ Item list can be retrieved as JSON, ZIP or WARC format. The JSON format will onl
 <tr>
 <td> Example Response </td>
 <td colspan=4>
-<CODE>
-{
-"@context":"http://localhost:3000/schema/json-ld","commonProperties":{"annotates":"http://localhost:3000/catalog/hcsvlab:4/document/S1224s1.wav"}
-"annotations":
-[
- {
- "@type":"MillisecondAnnotation",
-"@id":"http://ns.ausnc.org.au/corpora/mitcheldelbridge/annotation/26047",
-"type": "phonetic",
- "label":"s",
- "start":6.6895,
- "end":6.7145
- },
- { 
- "type": "phonetic",
- "label":"s",
- "start":7.7895,
- "end":7.8145
- }
-]
-}
-</CODE>
+<pre>
+	<CODE>
+	{
+		"@context":"http://localhost:3000/schema/json-ld",
+		"commonProperties":{"annotates":"http://localhost:3000/catalog/hcsvlab:4/document/S1224s1.wav"}
+		"annotations":[
+ 			{
+ 				"@type":"MillisecondAnnotation",
+				"@id":"http://ns.ausnc.org.au/corpora/mitcheldelbridge/annotation/26047",
+				"type": "phonetic",
+ 				"label":"s",
+ 				"start":6.6895,
+ 				"end":6.7145
+ 			},
+ 			{ 
+ 				"type": "phonetic",
+ 				"label":"s",
+ 				"start":7.7895,
+ 				"end":7.8145
+ 			}
+		]
+	}
+	</CODE>
+</pre>
 </td>
 </tr>
 <tr> 
@@ -289,14 +292,19 @@ Item list can be retrieved as JSON, ZIP or WARC format. The JSON format will onl
 <tr>
 <td> Example Input </td>
 <td colspan=4>
-<CODE>
-{
-"items":[
-"http://localhost:3000/catalog/hcsvlab:2253",
-"http://localhost:3000/catalog/hcsvlab:2258",
-"http://localhost:3000/catalog/hcsvlab:2267",
-"http://localhost:3000/catalog/hcsvlab:2271"]
-} </td>
+<pre>
+	<CODE>
+	{
+		"items":[
+			"http://localhost:3000/catalog/hcsvlab:2253",
+			"http://localhost:3000/catalog/hcsvlab:2258",
+			"http://localhost:3000/catalog/hcsvlab:2267",
+			"http://localhost:3000/catalog/hcsvlab:2271"
+		]
+	} 
+	</CODE>
+</pre>
+</td>
 </tr>
 <tr> 
 <td> Get collection </td>
@@ -307,29 +315,33 @@ Item list can be retrieved as JSON, ZIP or WARC format. The JSON format will onl
 </tr>
 <tr>
 <td> Example Response </td>
-</CODE>
 <td colspan=4>
-<CODE>
-{
-"collection_url":"http://localhost:3000/collections/hcsvlab:1086",
-"collection_name":"monash",
-"metadata": {
- "RDF_type":"Collection",
- "Is Located At":"Monash University, Victoria, Australia",
- "Custodian":"simon Musgrave",
- "Rights":"All rights reserved to Monash UNiversity",
- "Subject":"2004 - Linguistics",
- "Title":"Monash Corpus of Spoken English"
-... (other fields)
-}
-}
-</CODE>
+<pre>
+	<CODE>
+	{
+		"collection_url":"http://localhost:3000/collections/hcsvlab:1086",
+		"collection_name":"monash",
+		"metadata": {
+ 			"RDF_type":"Collection",
+ 			"Is Located At":"Monash University, Victoria, Australia",
+ 			"Custodian":"simon Musgrave",
+ 			"Rights":"All rights reserved to Monash UNiversity",
+ 			"Subject":"2004 - Linguistics",
+ 			"Title":"Monash Corpus of Spoken English"
+			... (other fields)
+		}
+	}
+	</CODE>
+</pre>
 </td>
 </tr>
 <tr> 
 <td> Search Metadata </td>
-<td> /catalog/search?metadata=<query>
-<br>/catalog/search?metadata=HCSvLab_collection_facet:cooee </td>
+<td> 
+	/catalog/search?metadata=&lt;query&gt;
+	<br>Example:<br>
+	/catalog/search?metadata=HCSvLab_collection_facet:cooee 
+</td>
 <td> GET </td>
 <td> List of search results </td>
 <td />
@@ -337,16 +349,19 @@ Item list can be retrieved as JSON, ZIP or WARC format. The JSON format will onl
 <tr>
 <td> Example Response </td>
 <td colspan=4>
-<CODE>
-{
-"num_results":4,
-"items":[
-"http://localhost:3000/catalog/hcsvlab:2253",
-"http://localhost:3000/catalog/hcsvlab:2258",
-"http://localhost:3000/catalog/hcsvlab:2267",
-"http://localhost:3000/catalog/hcsvlab:2271"]
-}
-</CODE>
+<pre>
+	<CODE>
+	{
+		"num_results":4,
+		"items":[
+			"http://localhost:3000/catalog/hcsvlab:2253",
+			"http://localhost:3000/catalog/hcsvlab:2258",
+			"http://localhost:3000/catalog/hcsvlab:2267",
+			"http://localhost:3000/catalog/hcsvlab:2271"
+		]
+	}
+	</CODE>
+</pre>
 </td>
 </tr>
 <tr> 
@@ -363,39 +378,51 @@ Item list can be retrieved as JSON, ZIP or WARC format. The JSON format will onl
 <tr>
 <td> Example Input </td>
 <td colspan=4>
-<CODE>
-{
-"name":"New Item List",
-"num_results":4,
-"items":[
-"http://localhost:3000/catalog/hcsvlab:2253",
-"http://localhost:3000/catalog/hcsvlab:2258",
-"http://localhost:3000/catalog/hcsvlab:2267",
-"http://localhost:3000/catalog/hcsvlab:2271"]
-}
-<br>OR if name is specified as url parameter as shown in the notes above
-<br>{
-"items":[
-"http://localhost:3000/catalog/hcsvlab:2253",
-"http://localhost:3000/catalog/hcsvlab:2258",
-"http://localhost:3000/catalog/hcsvlab:2267",
-"http://localhost:3000/catalog/hcsvlab:2271"]
-} </td>
+<pre>
+	<CODE>
+	{
+		"name":"New Item List",
+		"num_results":4,
+		"items":[
+			"http://localhost:3000/catalog/hcsvlab:2253",
+			"http://localhost:3000/catalog/hcsvlab:2258",
+			"http://localhost:3000/catalog/hcsvlab:2267",
+			"http://localhost:3000/catalog/hcsvlab:2271"
+		]
+	}
+	</CODE>
+	<br>OR if name is specified as url parameter as shown in the notes above
+	<br>
+	<CODE>
+	{
+		"items":[
+			"http://localhost:3000/catalog/hcsvlab:2253",
+			"http://localhost:3000/catalog/hcsvlab:2258",
+			"http://localhost:3000/catalog/hcsvlab:2267",
+			"http://localhost:3000/catalog/hcsvlab:2271"
+		]
+	} 
+	</CODE>
+</pre>
+</td>
 </tr>
 <tr>
 <td> Example Response </td>
 <td colspan=4>
-<CODE>
-Success:
-<br>{"success":"2 items added to existing item list A"}
-<br>Failure:
-<br>{"error":"name parameter not found"}
-<br>{"error":"items parameter not found"}
-<br>or
-<br>{"error":"items parameter not an array"}
-<br>or
-<br>{"error":"invalid-json"} 
-</CODE>
+<pre>
+	<CODE>
+	Success:
+		{"success":"2 items added to existing item list A"}
+	Failure:
+		{"error":"name parameter not found"}
+		or
+		{"error":"items parameter not found"}
+		or
+		{"error":"items parameter not an array"}
+		or
+		{"error":"invalid-json"} 
+	</CODE>
+</pre>
 </td>
 </tr>
 <tr> 
@@ -467,31 +494,22 @@ Success:
 </tr>
 <tr>
 	<td> Example Response </td>
-	<td colspan=4>	Success:
-		<CODE><br>{"success":"file &lt;filename&gt; uploaded successfully"}</CODE>
-		<br>Failure:
-		<CODE><br>{"error":"No Item with id '&lt;item_id&gt;' exists."}</CODE>
-		<br>or
-		<CODE><br>{"error":"Uploaded file is not present or empty."}</CODE>
-		<br>or
-		<CODE><br>{"error":"File already uploaded."}</CODE>
-		<br>or
-		<CODE><br>{"error":"Error uploading file &lt;filename&gt;."}</CODE>
+	<td colspan=4>	
+	<pre>
+		<CODE>
+		Success:
+			{"success":"file &lt;filename&gt; uploaded successfully"}
+		Failure:
+			{"error":"No Item with id '&lt;item_id&gt;' exists."}
+			or
+			{"error":"Uploaded file is not present or empty."}
+			or
+			{"error":"File already uploaded."}
+			or
+			{"error":"Error uploading file &lt;filename&gt;."}
+		</CODE>
+	</pre>
 	</td>
 </tr>
 
-
-
-
 </table>
-
-
-
-
-
-
-
-
-
-
-
