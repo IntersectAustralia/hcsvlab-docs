@@ -404,7 +404,8 @@ Success:
 <tr>
 	<td> Json-Ld Input File format </td>
 	<td colspan=4>
-	<CODE style="white-space:pre !important">
+	<pre>
+	<CODE>
 	{
 		  "@context": {
 			"@base": "http://purl.org/dada/schema/0.2/",
@@ -455,6 +456,7 @@ Success:
 		  ]
 	}
 	</CODE>
+	</pre>
 	</td>
 </tr>
 <tr>
