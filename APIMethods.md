@@ -63,7 +63,11 @@ The API uses the same URLs as the main web application in most cases but is able
 </tr>
 <tr>
 <td> Example Response </td>
-<td colspan=4> {"API version":"V2.0"} </td>
+<td colspan=4>
+<CODE style="white-space:pre">
+{"API version":"V2.0"} 
+</CODE>
+</td>
 </tr>
 <tr> 
 <td> Get item lists </td>
@@ -74,7 +78,9 @@ The API uses the same URLs as the main web application in most cases but is able
 </tr>
 <tr>
 <td> Example Response </td>
-<td colspan=4> [
+<td colspan=1> 
+<CODE>
+[
 {
 "name":"Jared's Item List 1",
 "item_list_url":"http://ic2-hcsvlab-staging2-vm.intersect.org.au/item_lists/5",
@@ -90,7 +96,9 @@ The API uses the same URLs as the main web application in most cases but is able
 "item_list_url":"http://ic2-hcsvlab-staging2-vm.intersect.org.au/item_lists/16",
 "num_items":3
 }
-] </td>
+] 
+</CODE>
+</td>
 </tr>
 <tr> 
 <td> Get Items from Item List </td>
@@ -107,7 +115,9 @@ Item list can be retrieved as JSON, ZIP or WARC format. The JSON format will onl
 </tr>
 <tr>
 <td> Example Response </td>
-<td colspan=4> {
+<td colspan=4>
+<CODE>
+{
 "name":"Jared's Item List 2",
 "num_items":3,
 "items":[
@@ -115,7 +125,9 @@ Item list can be retrieved as JSON, ZIP or WARC format. The JSON format will onl
 "http://ic2-hcsvlab-staging2-vm.intersect.org.au/catalog/hcsvlab:21953",
 "http://ic2-hcsvlab-staging2-vm.intersect.org.au/catalog/hcsvlab:22175"
 ]
-} </td>
+} 
+</CODE>
+</td>
 </tr>
 <tr> 
 <td> Get item metadata </td>
@@ -126,7 +138,9 @@ Item list can be retrieved as JSON, ZIP or WARC format. The JSON format will onl
 </tr>
 <tr>
 <td> Example Response </td>
-<td colspan=4> {
+<td colspan=4>
+<CODE>
+{
 "catalog_url":"http://ic2-hcsvlab-staging2-vm.intersect.org.au/catalog/hcsvlab:22175",
 "metadata":{
 "Title":"Boy Drowns Trying to Save Pet Dog",
@@ -166,7 +180,9 @@ Item list can be retrieved as JSON, ZIP or WARC format. The JSON format will onl
 "size":"631 B"
 }
 ]
-} </td>
+}
+</CODE>
+</td>
 </tr>
 <tr> 
 <td> Get primary text </td>
@@ -194,7 +210,9 @@ Item list can be retrieved as JSON, ZIP or WARC format. The JSON format will onl
 </tr>
 <tr>
 <td> Example Response </td>
-<td colspan=4> {
+<td colspan=4>
+<CODE>
+{
 "@context":
 {
 "@base":"http://purl.org/dada/schema/0.2/",
@@ -209,7 +227,9 @@ Item list can be retrieved as JSON, ZIP or WARC format. The JSON format will onl
 "label":{"@id":"http://purl.org/dada/schema/0.2/label"},
 "annotates":{"@id":"http://purl.org/dada/schema/0.2/annotates"}
 }
-} </td>
+}
+</CODE>
+</td>
 </tr>
 <tr> 
 <td> Get annotations </td>
@@ -221,7 +241,9 @@ Item list can be retrieved as JSON, ZIP or WARC format. The JSON format will onl
 </tr>
 <tr>
 <td> Example Response </td>
-<td colspan=4> {
+<td colspan=4>
+<CODE>
+{
 "@context":"http://localhost:3000/schema/json-ld","commonProperties":{"annotates":"http://localhost:3000/catalog/hcsvlab:4/document/S1224s1.wav"}
 "annotations":
 [
@@ -240,7 +262,9 @@ Item list can be retrieved as JSON, ZIP or WARC format. The JSON format will onl
  "end":7.8145
  }
 ]
-} </td>
+}
+</CODE>
+</td>
 </tr>
 <tr> 
 <td> Get items' documents and metadata </td>
@@ -258,7 +282,9 @@ Item list can be retrieved as JSON, ZIP or WARC format. The JSON format will onl
 </tr>
 <tr>
 <td> Example Input </td>
-<td colspan=4> {
+<td colspan=4>
+<CODE>
+{
 "items":[
 "http://localhost:3000/catalog/hcsvlab:2253",
 "http://localhost:3000/catalog/hcsvlab:2258",
@@ -275,7 +301,10 @@ Item list can be retrieved as JSON, ZIP or WARC format. The JSON format will onl
 </tr>
 <tr>
 <td> Example Response </td>
-<td colspan=4> {
+</CODE>
+<td colspan=4>
+<CODE>
+{
 "collection_url":"http://localhost:3000/collections/hcsvlab:1086",
 "collection_name":"monash",
 "metadata": {
@@ -287,7 +316,9 @@ Item list can be retrieved as JSON, ZIP or WARC format. The JSON format will onl
  "Title":"Monash Corpus of Spoken English"
 ... (other fields)
 }
-} </td>
+}
+</CODE>
+</td>
 </tr>
 <tr> 
 <td> Search Metadata </td>
@@ -299,14 +330,18 @@ Item list can be retrieved as JSON, ZIP or WARC format. The JSON format will onl
 </tr>
 <tr>
 <td> Example Response </td>
-<td colspan=4> {
+<td colspan=4>
+<CODE>
+{
 "num_results":4,
 "items":[
 "http://localhost:3000/catalog/hcsvlab:2253",
 "http://localhost:3000/catalog/hcsvlab:2258",
 "http://localhost:3000/catalog/hcsvlab:2267",
 "http://localhost:3000/catalog/hcsvlab:2271"]
-} </td>
+}
+</CODE>
+</td>
 </tr>
 <tr> 
 <td> Add to item list </td>
@@ -321,7 +356,9 @@ Item list can be retrieved as JSON, ZIP or WARC format. The JSON format will onl
 </tr>
 <tr>
 <td> Example Input </td>
-<td colspan=4> {
+<td colspan=4>
+<CODE>
+{
 "name":"New Item List",
 "num_results":4,
 "items":[
@@ -341,7 +378,9 @@ Item list can be retrieved as JSON, ZIP or WARC format. The JSON format will onl
 </tr>
 <tr>
 <td> Example Response </td>
-<td colspan=4> Success:
+<td colspan=4>
+<CODE>
+Success:
 <br>{"success":"2 items added to existing item list A"}
 <br>Failure:
 <br>{"error":"name parameter not found"}
@@ -349,7 +388,9 @@ Item list can be retrieved as JSON, ZIP or WARC format. The JSON format will onl
 <br>or
 <br>{"error":"items parameter not an array"}
 <br>or
-<br>{"error":"invalid-json"} </td>
+<br>{"error":"invalid-json"} 
+</CODE>
+</td>
 </tr>
 <tr> 
 	<td> Upload Annotation </td>
@@ -363,8 +404,7 @@ Item list can be retrieved as JSON, ZIP or WARC format. The JSON format will onl
 <tr>
 	<td> Json-Ld Input File format </td>
 	<td colspan=4>
-	<p>
-	<CODE style="white-space: pre;">
+	<CODE>
 	{
 		  "@context": {
 			"@base": "http://purl.org/dada/schema/0.2/",
@@ -415,21 +455,20 @@ Item list can be retrieved as JSON, ZIP or WARC format. The JSON format will onl
 		  ]
 	}
 	</CODE>
-	</p>
 	</td>
 </tr>
 <tr>
 	<td> Example Response </td>
-	<td colspan=4> Success:
-		<br>{"success":"file &lt;filename&gt; uploaded successfully"}
+	<td colspan=4>	Success:
+		<CODE><br>{"success":"file &lt;filename&gt; uploaded successfully"}</CODE>
 		<br>Failure:
-		<br>{"error":"No Item with id '&lt;item_id&gt;' exists."}
+		<CODE><br>{"error":"No Item with id '&lt;item_id&gt;' exists."}</CODE>
 		<br>or
-		<br>{"error":"Uploaded file is not present or empty."}
+		<CODE><br>{"error":"Uploaded file is not present or empty."}</CODE>
 		<br>or
-		<br>{"error":"File already uploaded."}
+		<CODE><br>{"error":"File already uploaded."}</CODE>
 		<br>or
-		<br>{"error":"Error uploading file &lt;filename&gt;."} 
+		<CODE><br>{"error":"Error uploading file &lt;filename&gt;."}</CODE>
 	</td>
 </tr>
 
