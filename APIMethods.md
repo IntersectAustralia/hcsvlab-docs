@@ -79,25 +79,27 @@ The API uses the same URLs as the main web application in most cases but is able
 <tr>
 <td> Example Response </td>
 <td colspan=1> 
-<CODE>
-[
-{
-"name":"Jared's Item List 1",
-"item_list_url":"http://ic2-hcsvlab-staging2-vm.intersect.org.au/item_lists/5",
-"num_items":1
-},
-{
-"name":"Jared's Item List 2",
-"item_list_url":"http://ic2-hcsvlab-staging2-vm.intersect.org.au/item_lists/15",
-"num_items":3
-},
-{
-"name":"Jared's Item List 3",
-"item_list_url":"http://ic2-hcsvlab-staging2-vm.intersect.org.au/item_lists/16",
-"num_items":3
-}
-] 
-</CODE>
+	<pre>
+	<CODE>
+	[
+		{
+			"name":"Jared's Item List 1",
+			"item_list_url":"http://ic2-hcsvlab-staging2-vm.intersect.org.au/item_lists/5",
+			"num_items":1
+		},
+		{
+			"name":"Jared's Item List 2",
+			"item_list_url":"http://ic2-hcsvlab-staging2-vm.intersect.org.au/item_lists/15",
+			"num_items":3
+		},
+		{
+			"name":"Jared's Item List 3",
+			"item_list_url":"http://ic2-hcsvlab-staging2-vm.intersect.org.au/item_lists/16",
+			"num_items":3
+		}
+	] 
+	</CODE>
+	</pre>
 </td>
 </tr>
 <tr> 
@@ -116,17 +118,19 @@ Item list can be retrieved as JSON, ZIP or WARC format. The JSON format will onl
 <tr>
 <td> Example Response </td>
 <td colspan=4>
-<CODE>
-{
-"name":"Jared's Item List 2",
-"num_items":3,
-"items":[
-"http://ic2-hcsvlab-staging2-vm.intersect.org.au/catalog/hcsvlab:17862",
-"http://ic2-hcsvlab-staging2-vm.intersect.org.au/catalog/hcsvlab:21953",
-"http://ic2-hcsvlab-staging2-vm.intersect.org.au/catalog/hcsvlab:22175"
-]
-} 
-</CODE>
+<pre>
+	<CODE>
+	{
+		"name":"Jared's Item List 2",
+		"num_items":3,
+		"items":[
+			"http://ic2-hcsvlab-staging2-vm.intersect.org.au/catalog/hcsvlab:17862",
+			"http://ic2-hcsvlab-staging2-vm.intersect.org.au/catalog/hcsvlab:21953",
+			"http://ic2-hcsvlab-staging2-vm.intersect.org.au/catalog/hcsvlab:22175"
+		]
+	} 
+	</CODE>
+</pre>
 </td>
 </tr>
 <tr> 
@@ -139,49 +143,51 @@ Item list can be retrieved as JSON, ZIP or WARC format. The JSON format will onl
 <tr>
 <td> Example Response </td>
 <td colspan=4>
-<CODE>
-{
-"catalog_url":"http://ic2-hcsvlab-staging2-vm.intersect.org.au/catalog/hcsvlab:22175",
-"metadata":{
-"Title":"Boy Drowns Trying to Save Pet Dog",
-"Created":"8 September 1986",
-"Identifier":"A08g",
-"Corpus":"ace",
-"Word Count":"110",
-"Mode":"written",
-"Language (ISO 639-3 Code)":"eng",
-"Genre":"Press Reportage",
-"Audience":"mass_market",
-"Communication Setting":"popular",
-"Publication Status":"published",
-"Source":"The Sun 8 September 1986 (2001 words)",
-"Written Mode":"print",
-"Publisher":"Publisher - John Fairfax and Sons Ltd",
-"Documents":"A08g#Original, A08g#Raw, A08g#Text",
-"Type":"Original, Raw, Text",
-"Extent":"579959, 739, 631",
-"date_group":"1980 - 1989"
-},
-"primary_text_url":"http://ic2-hcsvlab-staging2-vm.intersect.org.au/catalog/hcsvlab:22175/primary_text",
-"documents":[
-{
-"url":"http://ic2-hcsvlab-staging2-vm.intersect.org.au/catalog/hcsvlab:22175/document/ace_a.txt",
-"type":"Original",
-"size":null
-},
-{
-"url":"http://ic2-hcsvlab-staging2-vm.intersect.org.au/catalog/hcsvlab:22175/document/A08g-raw.txt",
-"type":"Raw",
-"size":"739 B"
-},
-{
-"url":"http://ic2-hcsvlab-staging2-vm.intersect.org.au/catalog/hcsvlab:22175/document/A08g-plain.txt",
-"type":"Text",
-"size":"631 B"
-}
-]
-}
-</CODE>
+<pre>
+	<CODE>
+	{
+		"catalog_url":"http://ic2-hcsvlab-staging2-vm.intersect.org.au/catalog/hcsvlab:22175",
+		"metadata":{
+			"Title":"Boy Drowns Trying to Save Pet Dog",
+			"Created":"8 September 1986",
+			"Identifier":"A08g",
+			"Corpus":"ace",
+			"Word Count":"110",
+			"Mode":"written",
+			"Language (ISO 639-3 Code)":"eng",
+			"Genre":"Press Reportage",
+			"Audience":"mass_market",
+			"Communication Setting":"popular",
+			"Publication Status":"published",
+			"Source":"The Sun 8 September 1986 (2001 words)",
+			"Written Mode":"print",
+			"Publisher":"Publisher - John Fairfax and Sons Ltd",
+			"Documents":"A08g#Original, A08g#Raw, A08g#Text",
+			"Type":"Original, Raw, Text",
+			"Extent":"579959, 739, 631",
+			"date_group":"1980 - 1989"
+		},
+		"primary_text_url":"http://ic2-hcsvlab-staging2-vm.intersect.org.au/catalog/hcsvlab:22175/primary_text",
+		"documents":[
+			{
+			   "url":"http://ic2-hcsvlab-staging2-vm.intersect.org.au/catalog/hcsvlab:22175/document/ace_a.txt",
+			   "type":"Original",
+			   "size":null
+			},
+			{
+			   "url":"http://ic2-hcsvlab-staging2-vm.intersect.org.au/catalog/hcsvlab:22175/document/A08g-raw.txt",
+			   "type":"Raw",
+			   "size":"739 B"
+			},
+			{
+			   "url":"http://ic2-hcsvlab-staging2-vm.intersect.org.au/catalog/hcsvlab:22175/document/A08g-plai	n.txt",
+			   "type":"Text",
+			   "size":"631 B"
+			}
+		]
+	}
+	</CODE>
+</pre>
 </td>
 </tr>
 <tr> 
