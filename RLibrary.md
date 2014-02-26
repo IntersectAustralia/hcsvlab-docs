@@ -14,6 +14,8 @@ Download the appropriate binary from the list below to your machine.
 | ------  | --- | -------------- | ------- |
 | hcsvlab | [hcsvlab_1.0.1.tgz](https://github.com/IntersectAustralia/hcsvlab-docs/blob/master/RPackages/hcsvlab_1.0.1.tgz) | [hcsvlab_1.0.1_R_x86_64-redhat-linux-gnu.tar.gz](https://github.com/IntersectAustralia/hcsvlab-docs/blob/master/RPackages/hcsvlab_1.0.1_R_x86_64-redhat-linux-gnu.tar.gz) | [hcsvlab_1.0.1.zip](https://github.com/IntersectAustralia/hcsvlab-docs/blob/master/RPackages/hcsvlab_1.0.1.zip) |
 
+Older versions of the binaries can be found in dated directories at [this page](https://github.com/IntersectAustralia/hcsvlab-docs/tree/master/RPackages)
+
 Then inside R run the following commands:
 
     # install dependencies
