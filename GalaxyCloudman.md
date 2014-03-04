@@ -113,6 +113,32 @@ Edit `/usr/local/lib/python2.7/dist-packages/nltk/parse/johnsoncharniak.py` so t
     Xvfb :1 -screen 0 1024x768x24 &
     sudo xhost +
     sudo echo "export DISPLAY=:1" >> ~/.bashrc
+    
+**Install PsySound**
+
+Grab a copy of MCRInstaller.zip from the shared drive (or any existing server with the MCR installed). This is a large file (~400MB). Copy MCRInstaller.zip to the target server under the directory ~/MATLAB. The file can be transferred using SCP or a similar mechanism.
+
+    cd ~/MATLAB
+    unzip MCRInstaller.zip
+    sudo ./install -mode silent
+
+**Set up server environment variable configuration**
+
+    sudo vi /etc/ssh/sshd_config
+    
+Add the following line to `/etc/ssh/sshd_config`
+
+    PermitUserEnvironment yes
+
+Then run the following:
+
+    sudo service ssh restart
+    mkdir ~/.ssh
+    sudo vi .ssh/environment
+    
+Add the following line to `.ssh/environment`
+
+    GALAXY_HOME=/mnt/galaxy/galaxy-app
 
 **Set up Toolshed**
 
