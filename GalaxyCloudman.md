@@ -203,30 +203,32 @@ Add the following lines to `/etc/httpd/conf.d/galaxy_vhost.conf`
     Listen 8081
     NameVirtualHost *:8081
     <VirtualHost *:8081>
-         ServerName ic2-hcsvlab-qa2-vm.intersect.org.au
+         ServerName <SERVER_NAME>
     
          <Proxy *>
                 Order deny,allow
                 Allow from all
          </Proxy>
-         ProxyPass / http://115.146.92.203:8080/
-         ProxyPassReverse / http://115.146.92.203:8080/
+         ProxyPass / http://<NECTAR_VM_IP>:8080/
+         ProxyPassReverse / http://<NECTAR_VM_IP>:8080/
     </VirtualHost>
     
     ## Toolshed Proxy
     Listen 9009
     NameVirtualHost *:9009
     <VirtualHost *:9009>
-         ServerName ic2-hcsvlab-qa2-vm.intersect.org.au
+         ServerName <SERVER_NAME>
     
          <Proxy *>
                 Order deny,allow
                 Allow from all
          </Proxy>
-         ProxyPass / http://115.146.92.203:9009/
-         ProxyPassReverse / http://115.146.92.203:9009/
+         ProxyPass / http://<NECTAR_VM_IP>:9009/
+         ProxyPassReverse / http://<NECTAR_VM_IP>:9009/
     </VirtualHost>
-    
+
+where you replace `<SERVER_NAME>` with the server you're on (where the webapp is) and `<NECTAR_VM_IP>` with the IP address of the nectar VM with Galaxy w/ cloudman installed
+
 Restart apache
 
     sudo apachectl restart
