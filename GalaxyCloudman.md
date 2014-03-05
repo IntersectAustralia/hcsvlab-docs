@@ -190,3 +190,44 @@ Add the following inside the `toolsheds` tag
 Start it up
 
     sudo service toolshed start
+
+**Set up proxies for galaxy and toolshed**
+
+Ssh into the server where the webapp is
+
+    sudo nano /etc/httpd/conf.d/galaxy_vhost.conf
+    
+Add the following lines to `/etc/httpd/conf.d/galaxy_vhost.conf`
+
+    ## Galaxy Proxy
+    Listen 8081
+    NameVirtualHost *:8081
+    <VirtualHost *:8081>
+         ServerName ic2-hcsvlab-qa2-vm.intersect.org.au
+    
+         <Proxy *>
+                Order deny,allow
+                Allow from all
+         </Proxy>
+         ProxyPass / http://115.146.92.203:8080/
+         ProxyPassReverse / http://115.146.92.203:8080/
+    </VirtualHost>
+    
+    ## Toolshed Proxy
+    Listen 9009
+    NameVirtualHost *:9009
+    <VirtualHost *:9009>
+         ServerName ic2-hcsvlab-qa2-vm.intersect.org.au
+    
+         <Proxy *>
+                Order deny,allow
+                Allow from all
+         </Proxy>
+         ProxyPass / http://115.146.92.203:9009/
+         ProxyPassReverse / http://115.146.92.203:9009/
+    </VirtualHost>
+    
+Restart apache
+
+    sudo apachectl restart
+
