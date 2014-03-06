@@ -512,4 +512,64 @@ Item list can be retrieved as JSON, ZIP or WARC format. The JSON format will onl
 	</td>
 </tr>
 
+
+<tr> 
+	<td> Query metadata and annotations usign sparql</td>
+	<td> /catalog/sparql?collection=&lt;collection-name&gt;&query=&lt;sparql-query&gt;</td>
+	<td> GET </td>
+	<td> Json formatted query result </td>
+	<td> 
+		curl -g -H "X-API-KEY: &lt;API_KEY&gt;" -H "Accept: application/json" "&lt;host&gt;/catalog/sparql?collection=&lt;collection-name&gt;&query=&lt;sparql-query&gt;"
+		<br>
+		Example:<br>
+		curl -g -H "X-API-KEY: &lt;API_KEY&gt;" -H "Accept: application/json" "&lt;host&gt;/catalog/sparql?collection=cooee&query=select%20*%20where%2{?s%20%3Chttp://purl.org/dc/terms/isPartOf%3E%20?o}"
+	</td>
+</tr>
+<tr>
+	<td> Example Response </td>
+	<td colspan=4>	
+	<pre>
+		<CODE>
+			{
+			  "head" : {
+			    "vars" : [ "s", "o" ]
+			  },
+			  "results" : {
+			    "bindings" : [ {
+			      "s" : {
+			        "type" : "uri",
+			        "value" : "http://ns.ausnc.org.au/corpora/cooee/items/1-001"
+			      },
+			      "o" : {
+			        "type" : "uri",
+			        "value" : "http://ns.ausnc.org.au/corpora/cooee"
+			      }
+			    }, {
+			      "s" : {
+			        "type" : "uri",
+			        "value" : "http://ns.ausnc.org.au/corpora/cooee/items/1-002"
+			      },
+			      "o" : {
+			        "type" : "uri",
+			        "value" : "http://ns.ausnc.org.au/corpora/cooee"
+			      }
+			    }, {
+			      "s" : {
+			        "type" : "uri",
+			        "value" : "http://ns.ausnc.org.au/corpora/cooee/items/1-003"
+			      },
+			      "o" : {
+			        "type" : "uri",
+			        "value" : "http://ns.ausnc.org.au/corpora/cooee"
+			      }
+			    }]
+			  }
+			}
+    </CODE>
+	</pre>
+	</td>
+</tr>
+
+
+
 </table>
