@@ -244,7 +244,7 @@ Item list can be retrieved as JSON, ZIP or WARC format. The JSON format will onl
 <br>/catalog/{item_id}/annotations?type=phonetic&label=s </td>
 <td> GET </td>
 <td> Annotations from this item's annotation file </td>
-<td> Queries the item's annotation file for all annotations (label, start/end times). Type and label can be passed in to narrow the query </td>
+<td> Queries the item's annotation file for all annotations (label, start/end times). Type and label can be passed in to narrow the query, as well as extra properties as returned by /annotations/properties </td>
 </tr>
 <tr>
 <td> Example Response </td>
@@ -276,6 +276,74 @@ Item list can be retrieved as JSON, ZIP or WARC format. The JSON format will onl
 </td>
 </tr>
 <tr> 
+<td> Get annotation properties </td>
+<td> /catalog/{item_id}/annotations/properties
+<td> GET </td>
+<td> Annotation properties from this item's annotations </td>
+<td> Queries the item's annotations for all properties, which can then be used to expand queries to /catalog/{item_id}/annotations </td>
+</tr>
+<tr>
+<td> Example Response </td>
+<td colspan=4>
+<pre>
+{
+  "item_url": "http://example.org/catalog/cooee:1-002",
+  "annotation_properties": [
+    {
+      "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "shortened_uri": "rdf:type"
+    },
+    {
+      "uri": "http://ns.ausnc.org.au/schemas/cooee/val",
+      "shortened_uri": "ns1:val"
+    },
+    {
+      "uri": "http://purl.org/dada/schema/0.2#partof",
+      "shortened_uri": "dada:partof"
+    },
+    {
+      "uri": "http://purl.org/dada/schema/0.2#targets",
+      "shortened_uri": "dada:targets"
+    },
+    {
+      "uri": "http://purl.org/dada/schema/0.2#type",
+      "shortened_uri": "dada:type"
+    },
+    {
+      "uri": "http://purl.org/dada/schema/0.2#end",
+      "shortened_uri": "dada:end"
+    },
+    {
+      "uri": "http://purl.org/dada/schema/0.2#start",
+      "shortened_uri": "dada:start"
+    }
+  ]
+}
+</pre>
+</td>
+</tr>
+<tr> 
+<td> Get annotation types </td>
+<td> /catalog/{item_id}/annotations/types
+<td> GET </td>
+<td> Annotation types from this item's annotations </td>
+<td> Queries the item's annotations to return all the different annotation types for the item </td>
+</tr>
+<tr>
+<td> Example Response </td>
+<td colspan=4>
+<pre>
+{
+  item_url: "http://localhost:3000/catalog/cooee:4-340",
+  annotation_types: [
+    "http://ns.ausnc.org.au/schemas/annotation/cooee/ellipsis",
+    "http://ns.ausnc.org.au/schemas/annotation/cooee/pageno"
+  ]
+}
+</pre>
+</td>
+</tr>
+<tr>
 <td> Get items' documents and metadata </td>
 <td> /catalog/download_items </td>
 <td> POST </td>
