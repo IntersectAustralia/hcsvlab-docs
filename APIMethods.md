@@ -9,11 +9,53 @@ All requests to the API need to be authenticated via an API key which can be dow
 The API Key needs to be specified as X-API-KEY in the request header.
 The API uses the same URLs as the main web application in most cases but is able to return data in JSON format when an appropriate Accept header is sent with the request.  If the Accept header is set to 'application/json' or is left blank, then the response will be sent back as JSON.   Alternatively, a '.json' extension can be added to the end of the URL to force JSON format.    A web browser will generally have a very broad Accept header that will include text/html and so will get an HTML response.
 
-**Example**
+**Examples**
+
+Command line:
 
 	Where <host> is the vlab host, eg http://ic2-hcsvlab-staging1-vm.intersect.org.au/
 	$ curl -H "X-API-KEY: WUqhKgM25PJuzivjdvGt" <host>/item_lists.json
 	$ curl -H "X-API-KEY: WUqhKgM25PJuzivjdvGt" -H "Accept: application/json" <host>item_lists
+
+Python
+```python
+    import pycurl
+    import cStringIO
+    import json
+
+    api_key = <YOUR_X_API_KEY>
+    url = <YOUR_URL> # e.g.: http://ic2-hcsvlab-staging1-vm.intersect.org.au/item_lists/1
+
+    curl = pycurl.Curl()
+    buf = cStringIO.StringIO()
+    curl.setopt(curl.URL, url)
+    curl.setopt(pycurl.HTTPHEADER, ['X-API-KEY: ' + api_key, 'Accept: application/json'])
+    curl.setopt(curl.WRITEFUNCTION, buf.write)
+    curl.perform()
+    response = buf.getvalue()
+    status = curl.getinfo(pycurl.HTTP_CODE)	
+    response = json.loads(string)
+```
+
+Ruby
+```ruby
+    require 'net/http'
+    require 'json'
+
+    api_key = <YOUR_X_API_KEY>
+    url = <YOUR_URL> # e.g.: http://ic2-hcsvlab-staging1-vm.intersect.org.au/item_lists/1
+
+    sampleUrl = URI(url)
+    req = Net::HTTP::Get.new(sampleUrl)
+    req['X-API-KEY'] = <YOUR_X_API_KEY>
+    req['Accept'] = "application/json"
+
+    response = Net::HTTP.start(sampleUrl.hostname, sampleUrl.port) {|http|
+      http.request(req)
+    }
+    
+    jsonResponse = JSON.parse(res.body)
+```
 
 ### HTTP Response Codes
 
@@ -111,7 +153,7 @@ The API uses the same URLs as the main web application in most cases but is able
 Item list can be retrieved as JSON, ZIP or WARC format. The JSON format will only return the URL for the items in the Item list as shown below. The ZIP and WARC file will create a package containing the documents and metadata of the items in the Item list.
 <br>The Zip file will respect the BagIt structure.
 <br>Requests example:
-<br>	curl -H "X-API-KEY: <key>" -H "Accept: application/<format>" <server>/item_lists/{id}
+<br>	curl -H "X-API-KEY: &lt;key&gt;" -H "Accept: application/&lt;format&gt;" &lt;server&gt;/item_lists/{id}
 <br>format= json or zip or warc
 </td>
 </tr>
