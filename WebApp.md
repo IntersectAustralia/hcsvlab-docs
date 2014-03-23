@@ -66,19 +66,32 @@ Configure
 	
     $ sudo vi /etc/httpd/conf.d/hcsvlab.conf
     ...
+    LoadModule ssl_module modules/mod_ssl.so
+    Listen 443
+    
     <VirtualHost *:80>
-      ServerName ic2-hcsvlab-qa2-vm.intersect.org.au
-      DocumentRoot /home/devel/hcsvlab-web/current/public
-      LoadModule passenger_module /home/devel/.rvm/gems/ruby-2.0.0-p0/gems/passenger-4.0.5/libout/apache2/mod_passenger.so
-      PassengerRoot /home/devel/.rvm/gems/ruby-2.0.0-p0/gems/passenger-4.0.5
-      PassengerDefaultRuby /home/devel/.rvm/wrappers/ruby-2.0.0-p0/ruby
-      RailsEnv production
-      # Uploads of up to 100MB permitted
-      LimitRequestBody 100000000
-      <Directory /home/devel/hcsvlab-web/current/public>
-        AllowOverride all
-        Options -MultiViews
-      </Directory>
+            ServerName ic2-hcsvlab-qa2-vm.intersect.org.au
+            Redirect permanent / https://ic2-hcsvlab-qa2-vm.intersect.org.au
+    </VirtualHost>
+    
+    <VirtualHost *:443>
+        ServerName ic2-hcsvlab-qa2-vm.intersect.org.au
+        DocumentRoot /home/devel/hcsvlab-web/current/public
+        LoadModule passenger_module /home/devel/.rvm/gems/ruby-2.0.0-p0/gems/passenger-4.0.5/libout/apache2/mod_passeng$
+        PassengerRoot /home/devel/.rvm/gems/ruby-2.0.0-p0/gems/passenger-4.0.5
+        PassengerDefaultRuby /home/devel/.rvm/wrappers/ruby-2.0.0-p0/ruby
+        RailsEnv qa2
+
+        SSLEngine on
+        SSLCertificateFile /etc/httpd/ssl/ca.crt
+        SSLCertificateKeyFile /etc/httpd/ssl/ca.key
+    
+        # Uploads of up to 100MB permitted
+        LimitRequestBody 100000000
+        <Directory /home/devel/hcsvlab-web/current/public>
+                AllowOverride all
+                Options -MultiViews
+        </Directory>
     </VirtualHost>
     ...
 
