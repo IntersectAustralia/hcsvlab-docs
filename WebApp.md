@@ -95,6 +95,12 @@ Configure
     </VirtualHost>
     ...
 
+Remove old ssl configuration
+
+    $ sudo rm /etc/httpd/conf.d/ssl.conf
+    
+Be sure to place proper SSL cerificates into /etc/httpd/ssl
+
 **Open Ports for the Web Services**
 
 Edit `iptables` to open up port 80, and optionally 8080 for Tomcat (see below):
