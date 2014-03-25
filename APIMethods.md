@@ -625,14 +625,14 @@ Item list can be retrieved as JSON, ZIP or WARC format. The JSON format will onl
 
 <tr> 
 	<td> Query metadata and annotations usign sparql</td>
-	<td> /catalog/sparql?collection=&lt;collection-name&gt;&query=&lt;sparql-query&gt;</td>
+	<td> /sparql/&lt;collection-name&gt;?query=&lt;sparql-query&gt;</td>
 	<td> GET </td>
 	<td> Json formatted query result </td>
 	<td> 
-		curl -g -H "X-API-KEY: &lt;API_KEY&gt;" -H "Accept: application/json" "&lt;host&gt;/catalog/sparql?collection=&lt;collection-name&gt;&query=&lt;sparql-query&gt;"
+		curl -g -H "X-API-KEY: &lt;API_KEY&gt;" -H "Accept: application/json" "&lt;host&gt;/sparql/&lt;collection-name&gt;?query=&lt;sparql-query&gt;"
 		<br>
 		Example:<br>
-		curl -g -H "X-API-KEY: &lt;API_KEY&gt;" -H "Accept: application/json" "&lt;host&gt;/catalog/sparql?collection=cooee&query=select%20*%20where%2{?s%20%3Chttp://purl.org/dc/terms/isPartOf%3E%20?o}"
+		curl -g -H "X-API-KEY: &lt;API_KEY&gt;" -H "Accept: application/json" "&lt;host&gt;/sparql/cooee?query=select * where {?s &lt;http://purl.org/dc/terms/isPartOf&gt; ?o}"
 	</td>
 </tr>
 <tr>
