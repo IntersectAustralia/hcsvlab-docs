@@ -71,7 +71,7 @@ Configure
     
     <VirtualHost *:80>
             ServerName ic2-hcsvlab-qa2-vm.intersect.org.au
-            Redirect permanent / https://ic2-hcsvlab-qa2-vm.intersect.org.au
+            Redirect permanent / https://ic2-hcsvlab-qa2-vm.intersect.org.au/
     </VirtualHost>
     
     <VirtualHost *:443>
