@@ -1,4 +1,4 @@
-Using the HCSvLab R Package
+Using the Alveo R Package
 =======
 
 The HCS vLab R package can be found at [this location](https://github.com/IntersectAustralia/hcsvlab-r)
@@ -12,7 +12,7 @@ Download the appropriate binary from the list below to your machine.
 
 | Package | Mac | Linux (Centos) | Windows |
 | ------  | --- | -------------- | ------- |
-| hcsvlab | [hcsvlab_1.0.1.tgz](https://github.com/IntersectAustralia/hcsvlab-docs/blob/master/RPackages/hcsvlab_1.0.1.tgz) | [hcsvlab_1.0.1_R_x86_64-redhat-linux-gnu.tar.gz](https://github.com/IntersectAustralia/hcsvlab-docs/blob/master/RPackages/hcsvlab_1.0.1_R_x86_64-redhat-linux-gnu.tar.gz) | [hcsvlab_1.0.1.zip](https://github.com/IntersectAustralia/hcsvlab-docs/blob/master/RPackages/hcsvlab_1.0.1.zip) |
+| alveo   | [alveo_1.0.1.tgz](https://github.com/IntersectAustralia/hcsvlab-docs/blob/master/RPackages/alveo_1.0.1.tgz) | [alveo_1.0.1_R_x86_64-redhat-linux-gnu.tar.gz](https://github.com/IntersectAustralia/hcsvlab-docs/blob/master/RPackages/alveo_1.0.1_R_x86_64-redhat-linux-gnu.tar.gz) | [alveo_1.0.1.zip](https://github.com/IntersectAustralia/hcsvlab-docs/blob/master/RPackages/alveo_1.0.1.zip) |
 
 Older versions of the binaries can be found in dated directories at [this page](https://github.com/IntersectAustralia/hcsvlab-docs/tree/master/RPackages)
 
@@ -24,11 +24,11 @@ Then inside R run the following commands:
     
     # install package
     install.packages("<path to binary>")
-    library(hcsvlab)
+    library(alveo)
     
 where `<path to binary>` is the path to the binary downloaded above
 
-To make use of this package you also need to download the hcsvlab.config file from the HCS vLab server you are using and place it in the home directory of your machine which are as follows:
+To make use of this package you also need to download the alveo.config file from the HCS vLab server you are using and place it in the home directory of your machine which are as follows:
 
     Mac: /Users/<user>
     Linux: /home/<user>
@@ -39,7 +39,7 @@ To make use of this package you also need to download the hcsvlab.config file fr
 
 To get started we first create a client to interact with the appropriate server. This can be done as follows:
 
-    client <- RestClient(server_uri="app.hscvlab.org.au")   # where app.hcsvlab.org.au is the server you are using
+    client <- RestClient(server_uri="app.hscvlab.org.au")   # where app.alveo.org.au is the server you are using
     
 ### Client
 
@@ -90,7 +90,7 @@ To get an item list by URI (this returns an ItemList object):
 
     client$get_item_list(uri)
 
-where uri is the full URI of the item list e.g. "http://app.hcsvlab.org.au/item_lists/1"
+where uri is the full URI of the item list e.g. "http://app.alveo.org.au/item_lists/1"
 
 Example Response:
 
@@ -99,8 +99,8 @@ Example Response:
     URI: 
     [1] "http://localhost:3000/item_lists/20"
     Items: 
-    [1] "http://localhost:3000/catalog/hcsvlab:5440"
-    [2] "http://localhost:3000/catalog/hcsvlab:5442"
+    [1] "http://localhost:3000/catalog/mitcheldelbridge:S1228s1"
+    [2] "http://localhost:3000/catalog/mitcheldelbridge:S1228n"
 ***    
     
 To get an item list by ID (this returns an ItemList object):
@@ -114,14 +114,14 @@ To get a specific item by URI:
 
     client$get_item(uri)
 
-where uri is the full URI of the item e.g. "http://app.hcsvlab.org.au/catalog/hcsvlab:100"
+where uri is the full URI of the item e.g. "http://app.alveo.org.au/catalog/mitcheldelbridge:S1228s1"
 
 Example Response:
 
     ID: 
     [1] "mitcheldelbridge:S1219s1"
     URI: 
-    [1] "http://localhost:3000/catalog/hcsvlab:5438"
+    [1] "http://localhost:3000/catalog/mitcheldelbridge:S1219s1"
 ***
 
 To search items by metadata:
@@ -135,8 +135,8 @@ Example Response:
     [1] 1362
     
     $items
-       [1] "http://localhost:3000/catalog/hcsvlab:102" 
-       [2] "http://localhost:3000/catalog/hcsvlab:1002"
+       [1] "http://localhost:3000/catalog/mitcheldelbridge:S1228s1" 
+       [2] "http://localhost:3000/catalog/mitcheldelbridge:S1229s1"
     ...
 ***
 
@@ -144,18 +144,18 @@ To download a set of items:
 
     client$download_items(items, destination, name)
     
-where items is a list of item URIS (e.g. client$search_metadata("some query")$items, list("app.hcsvlab.org.au/catalog/hcsvlab:100", "app.hcsvlab.org.au/catalog/hcsvlab:101")), destination is the target directory and name is the name of the resulting zip file. Returns the filename of the resulting file
+where items is a list of item URIS (e.g. client$search_metadata("some query")$items, list("app.alveo.org.au/catalog/mitcheldelbridge:S1228s1", "app.alveo.org.au/catalog/mitcheldelbridge:S1228n")), destination is the target directory and name is the name of the resulting zip file. Returns the filename of the resulting file
 
 Example Response:
 
-    [1] "/Users/hcsvlab/cooee.zip"
+    [1] "/Users/alveo/cooee.zip"
 ***
     
 To create an item list:
 
     client$create_item_list(items, name)
     
-where items is a list of item URIS (e.g. client$search_metadata("some query")$items, list("app.hcsvlab.org.au/catalog/hcsvlab:100", "app.hcsvlab.org.au/catalog/hcsvlab:101")) and name is the name of the item list to be created
+where items is a list of item URIS (e.g. client$search_metadata("some query")$items, list("app.alveo.org.au/catalog/mitcheldelbridge:S1228s1", "app.alveo.org.au/catalog/mitcheldelbridge:S1228n")) and name is the name of the item list to be created
 
 Example Response:
 
@@ -165,7 +165,7 @@ Example Response:
 
 ### Item List 
 
-    item_list <- client$get_item_list("http://app.hcsvlab.org.au/item_lists/1")
+    item_list <- client$get_item_list("http://app.alveo.org.au/item_lists/1")
 
 To get a list of items in the item list:
 
@@ -183,7 +183,7 @@ Example Response:
     ID: 
     [1] "mitcheldelbridge:S1220s1"
     URI: 
-    [1] "http://localhost:3000/catalog/hcsvlab:5442"
+    [1] "http://localhost:3000/catalog/mitcheldelbridge:S1220s1"
 ***
 
 To get a list of all documents of all items in the item list:
@@ -192,8 +192,8 @@ To get a list of all documents of all items in the item list:
     
 Example Response:
 
-    [1] "http://localhost:3000/catalog/hcsvlab:5440/document/S1220n.wav" 
-    [2] "http://localhost:3000/catalog/hcsvlab:5442/document/S1220s1.wav"
+    [1] "http://localhost:3000/catalog/mitcheldelbridge:S1220n/document/S1220n.wav" 
+    [2] "http://localhost:3000/catalog/mitcheldelbridge:S1220s1/document/S1220s1.wav"
 ***    
 
 To download the item list:
@@ -204,7 +204,7 @@ where destination is the target directory. Returns the filename of the resulting
 
 Example Response:
 
-    [1] "/Users/hcsvlab/cooee.zip"
+    [1] "/Users/alveo/cooee.zip"
 ***
 
 To get an EMU segment list with segments from all annotations in item list:
@@ -229,7 +229,7 @@ To get the number of items in the item list:
 ### Item
 
     item <- item_list$get_item(1)
-    item <- client$get_item("http://app.hcsvlab.org.au/catalog/hcsvlab:100")
+    item <- client$get_item("http://app.alveo.org.au/catalog/mitcheldelbridge:S1228s1")
 
 To get metadata for an item:
 
@@ -263,7 +263,7 @@ Example Response:
 
     [[1]]
     [[1]]$url
-    [1] "http://localhost:3000/catalog/hcsvlab:5442/document/S1220s1.wav"
+    [1] "http://localhost:3000/catalog/mitcheldelbridge:S1220s1/document/S1220s1.wav"
     
     [[1]]$`dc:type`
     [1] "Audio"
@@ -282,7 +282,7 @@ where index is a 1 based index of the document from the list of documents above
 Example Response:
 
     URI: 
-    [1] "http://localhost:3000/catalog/hcsvlab:5440/document/S1220n.wav"
+    [1] "http://localhost:3000/catalog/mitcheldelbridge:S1220n/document/S1220n.wav"
     Type: 
     [1] "Audio"
     Size: 
@@ -302,7 +302,7 @@ Example Response:
     
     $commonProperties
     $commonProperties$annotates
-    [1] "http://localhost:3000/catalog/hcsvlab:5442/document/S1220s1.wav"
+    [1] "http://localhost:3000/catalog/mitcheldelbridge:S1220s1/document/S1220s1.wav"
     
     
     $annotations
@@ -335,7 +335,7 @@ where destination is the target directory. Returns the filename of the resulting
 
 Example Response:
 
-    [1] "/Users/hcsvlab/S1220s1.wav"
+    [1] "/Users/alveo/S1220s1.wav"
 
 
 ## Other Packages
@@ -367,9 +367,9 @@ where `<path to binary>` is the path to the binary downloaded above
 
 ### wrassp
 
-wrassp provides a number of functions to perform signal processing on audio files. It is able to handle URI's from the HCS vLab provided the hcsvlab.config file as discussed at the top of this document is in place. An example usage of one of these functions is as follows:
+wrassp provides a number of functions to perform signal processing on audio files. It is able to handle URI's from the HCS vLab provided the alveo.config file as discussed at the top of this document is in place. An example usage of one of these functions is as follows:
 
-    forest("http://app.hcsvlab.org.au/catalog/hcsvlab:10/document/S1223s1.wav", ToFile=FALSE)
+    forest("http://app.alveo.org.au/catalog/mitcheldelbridge:S1223s1/document/S1223s1.wav", ToFile=FALSE)
     
 All functions produce the following summary (with slight changes) on completion:
 
@@ -394,4 +394,4 @@ which takes a single argument, that of the local filename stored in the cache.
 
 ### emuSX
 
-emuSX is now a required package for the hcsvlab package and is required to be installed before being able to use it
+emuSX is now a required package for the alveo package and is required to be installed before being able to use it
