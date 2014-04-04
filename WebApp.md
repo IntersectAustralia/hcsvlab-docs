@@ -91,6 +91,7 @@ Configure
         <Directory /home/devel/hcsvlab-web/current/public>
                 AllowOverride all
                 Options -MultiViews
+                Header set Access-Control-Allow-Origin http://json-ld.org
         </Directory>
     </VirtualHost>
     ...
