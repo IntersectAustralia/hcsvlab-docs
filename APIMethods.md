@@ -488,6 +488,40 @@ Item list can be retrieved as JSON, ZIP or WARC format. The JSON format will onl
 </pre>
 </td>
 </tr>
+<tr>
+<td> Rename Item List </td>
+<td> /item_lists/{item_list_id} </td>
+<td> PUT </td>
+<td> Item list if successful/error message if failure </td>
+<td> This is a put request that takes the new name of the item list. Example curl command:
+<br>curl -H "X-API-KEY:&lt;api_key&gt;" -H "Accept: application/json" -X PUT -d "name=&lt;new name&gt;" &lt;host&gt;/item_lists/:id
+</td>
+</tr>
+<tr>
+<td> Example Response </td>
+<td colspan=4>
+<pre>
+	<CODE>
+	Success:
+	{
+		"name":"Jared's Item List 2",
+		"num_items":3,
+		"items":[
+			"http://ic2-hcsvlab-staging2-vm.intersect.org.au/catalog/hcsvlab:17862",
+			"http://ic2-hcsvlab-staging2-vm.intersect.org.au/catalog/hcsvlab:21953",
+			"http://ic2-hcsvlab-staging2-vm.intersect.org.au/catalog/hcsvlab:22175"
+		]
+	} 
+	Failure:
+		{"error":"name can't be blank"}
+		or
+		{"error":"name too long"}
+		or
+		{"error":"couldn't rename item list"}
+	</CODE>
+</pre>
+</td>
+</tr>
 <tr> 
 	<td> Upload Annotation </td>
 	<td> /catalog/{item_id}/annotations</td>
