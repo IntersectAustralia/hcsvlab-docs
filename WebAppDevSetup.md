@@ -167,6 +167,12 @@ Create a new file in /etc/apache2/ naming it hcsvlab.conf and put the content:
         </Proxy>
     </VirtualHost>
 
+Add the following lines to `/etc/apache2/httpd.conf`
+
+    Listen 443
+    ServerName hcsvlab.intersect.org.au
+    Include /etc/apache2/hcsvlab.conf
+
 Then restart apace
     
     sudo apachectl -k restart
