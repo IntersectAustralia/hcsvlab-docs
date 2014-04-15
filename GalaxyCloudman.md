@@ -71,7 +71,7 @@ Log out of the machine and ssh back in as the galaxy user> Run the following:
 
     sudo apt-get update
     sudo apt-get install flex
-    sudo cd /mnt/galaxy
+    cd /mnt/galaxy
     sudo wget http://web.science.mq.edu.au/~mjohnson/code/reranking-parser-2011-12-17.tgz
     sudo tar -zxvf reranking-parser-2011-12-17.tgz
     sudo chown -R galaxy reranking-parser
@@ -135,9 +135,9 @@ Then run the following:
 
     sudo service ssh restart
     mkdir ~/.ssh
-    sudo vi .ssh/environment
+    sudo vi ~/.ssh/environment
     
-Add the following line to `.ssh/environment`
+Add the following line to `~/.ssh/environment`
 
     GALAXY_HOME=/mnt/galaxy/galaxy-app
 
