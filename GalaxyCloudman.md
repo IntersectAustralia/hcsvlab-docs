@@ -16,13 +16,14 @@ These are instructions to setup a new Nectar VM with Galaxy and Cloudman install
 1. Go to the [launch page](http://launch.genome.edu.au), bringing you to the GVL BioCloudCentral launch page.
 2. Cloud: Select ‘NeCTAR (Openstack)’
 3. Access key and Secret key: Obtained in the previous Section.
-4. Cluster Name: Choose a name for your GVL instance. Whatever you want. Avoid using a cluster name you have previously used
-5. Password: Choose a password.  Whatever you want, just remember it. This is the password you will use to log into the Cloudman instance
-6. Instance Type: Choose Medium (2 vcpu / 8GB RAM) CPU/RAM size.
-7. Expand 'Show Advanced Startup Options
-8. Image: GVL-2.09 (November 16, 2013) (ami-00001303)
-9. Press 'Start an Instance'
-10. Wait for launcher to finish booting up the machine and take note of the IP address it creates
+4. Institional Email: Something like "enquiries@intersect.org.au"
+5. Cluster Name: Choose a name for your GVL instance. Whatever you want. Avoid using a cluster name you have previously used
+6. Password: Choose a password.  Whatever you want, just remember it. This is the password you will use to log into the Cloudman instance
+7. Instance Type: Choose Medium (2 vcpu / 8GB RAM) CPU/RAM size.
+8. Expand 'Show Advanced Startup Options
+9. Image: GVL-2.09 (November 16, 2013) (ami-00001303)
+10. Press 'Start an Instance'
+11. Wait for launcher to finish booting up the machine and take note of the IP address it creates
 
 **Start a Galaxy instance**
 
@@ -70,7 +71,7 @@ Log out of the machine and ssh back in as the galaxy user> Run the following:
 
     sudo apt-get update
     sudo apt-get install flex
-    sudo cd /mnt/galaxy
+    cd /mnt/galaxy
     sudo wget http://web.science.mq.edu.au/~mjohnson/code/reranking-parser-2011-12-17.tgz
     sudo tar -zxvf reranking-parser-2011-12-17.tgz
     sudo chown -R galaxy reranking-parser
@@ -134,9 +135,9 @@ Then run the following:
 
     sudo service ssh restart
     mkdir ~/.ssh
-    sudo vi .ssh/environment
+    sudo vi ~/.ssh/environment
     
-Add the following line to `.ssh/environment`
+Add the following line to `~/.ssh/environment`
 
     GALAXY_HOME=/mnt/galaxy/galaxy-app
 
