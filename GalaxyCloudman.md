@@ -44,21 +44,21 @@ ssh into the machine with the user ubuntu and perform the following:
     sudo git fetch --all
     sudo git reset --hard origin/master
     sudo cp shed_tool_conf.xml.sample shed_tool_conf.xml
-    
+
     sudo adduser galaxy sudo
-    
+
 Log out of the machine and ssh back in as the galaxy user> Run the following:
 
     cd /mnt/galaxy
     sudo chown -R galaxy galaxy-app
-    
+
 **Set up R for ParseEval**
 
     sudo R
     install.packages("lattice", repos="http://cran.ms.unimelb.edu.au/")
     install.packages("latticeExtra", repos="http://cran.ms.unimelb.edu.au/")
     install.packages("gridExtra", repos="http://cran.ms.unimelb.edu.au/")
-    
+
 **Install NLTK**
 
     sudo pip install -U numpy
@@ -70,12 +70,12 @@ Log out of the machine and ssh back in as the galaxy user> Run the following:
 **Install the Johnson Charniak Parser**
 
     sudo apt-get update
-    sudo apt-get install flex
+    sudo apt-get install flex -y
     cd /mnt/galaxy
     sudo wget http://web.science.mq.edu.au/~mjohnson/code/reranking-parser-2011-12-17.tgz
     sudo tar -zxvf reranking-parser-2011-12-17.tgz
     sudo chown -R galaxy reranking-parser
-    
+
 There is a line missing in `reranking-parser/second-stage/programs/features/best-parses.cc` - edit the file and add the following near other #includes:
 
     #include <unistd.h>
@@ -87,46 +87,46 @@ Compile
 
 **Install the JC Parser NLTK wrapper**
 
-    sudo apt-get install python-tk
-    
+    sudo apt-get install python-tk -y
+
 Clone the repository
 
     sudo git clone git://github.com/IntersectAustralia/jcp-nltk-wrapper.git
-    
-Now you need to find where NLTK is installed. This is likely to be something like `/usr/local/lib/python2.7/dist-packages/nltk/parse` - adjust paths below if yours is different.    
+
+Now you need to find where NLTK is installed. This is likely to be something like `/usr/local/lib/python2.7/dist-packages/nltk/parse` - adjust paths below if yours is different.
 
 Copy the files under `/mnt/galaxy/jcp-nltk-wrapper/parse` to the python NLTK installation directory as per above
 
     sudo cp /mnt/galaxy/jcp-nltk-wrapper/parse/* /usr/local/lib/python2.7/dist-packages/nltk/parse
-    
+
 Edit `/usr/local/lib/python2.7/dist-packages/nltk/parse/johnsoncharniak.ini` to point your installation of the Johnson Charniak parser, which should be ~/reranking-parser
 
     basedir: /mnt/galaxy/reranking-parser
-    
+
 Edit `/usr/local/lib/python2.7/dist-packages/nltk/parse/johnsoncharniak.py` so that the `config.read` line points your edited copy of johnsoncharniak.ini
 
     config.read('/usr/local/lib/python2.7/dist-packages/nltk/parse/johnsoncharniak.ini')
 
 **Set up for displaying parse trees**
 
-    sudo apt-get install xvfb
+    sudo apt-get install xvfb -y
     export DISPLAY=:1
     Xvfb :1 -screen 0 1024x768x24 &
     sudo xhost +
     sudo echo "export DISPLAY=:1" >> ~/.bashrc
-    
+
 **Install PsySound**
 
-Grab a copy of MCRInstaller.zip from the shared drive (or any existing server with the MCR installed). This is a large file (~400MB). Copy MCRInstaller.zip to the target server under the directory ~/MATLAB. The file can be transferred using SCP or a similar mechanism.
+Grab a copy of MCRInstaller.zip from the shared drive (or any existing server with the MCR installed). This is a large file (~400MB). Copy MCRInstaller.zip to the target server under the directory /mnt/galaxy/MATLAB. The file can be transferred using SCP or a similar mechanism. This will install MATLAB into /usr/local/MATLAB.
 
-    cd ~/MATLAB
+    cd /mnt/galaxy/MATLAB
     unzip MCRInstaller.zip
     sudo ./install -mode silent
 
 **Set up server environment variable configuration**
 
     sudo vi /etc/ssh/sshd_config
-    
+
 Add the following line to `/etc/ssh/sshd_config`
 
     PermitUserEnvironment yes
@@ -136,22 +136,23 @@ Then run the following:
     sudo service ssh restart
     mkdir ~/.ssh
     sudo vi ~/.ssh/environment
-    
+
 Add the following line to `~/.ssh/environment`
 
     GALAXY_HOME=/mnt/galaxy/galaxy-app
 
 **Set up Toolshed**
 
+    sudo apt-get install sysv-rc-conf -y
     sudo createuser -U postgres -P toolshed
     sudo createdb -U postgres toolshed
-    
+
     cd /mnt/galaxy/galaxy-app
     sudo cp contrib/galaxy.fedora-init /etc/init.d/toolshed
     sudo chmod 0755 /etc/init.d/toolshed
-    sudo chkconfig --add toolshed
+    sudo sysv-rc-conf toolshed on
     sudo vi /etc/init.d/toolshed
-    
+
 Modify the following lines in `/etc/init.d/toolshed`
 
     SERVICE_NAME="toolshed"
@@ -165,25 +166,25 @@ Replace all `run.sh` with `run_tool_shed`
 Configure apache
 
     sudo update-rc.d toolshed defaults
-    sudo apt-get install sysv-rc-conf
+    sudo a2enmod rewrite
     sudo sysv-rc-conf apache2 on
-    
+
 Add the following lines to `/etc/apache2/conf.d/toolshed.conf`
 
     RewriteEngine on
-    RewriteRule ^/static/style/(.*) /home/toolshed/galaxy- dist/static/june_2007_style/blue/$1 [L]
-    RewriteRule ^/static/scripts/(.*) /home/toolshed/galaxy- dist/static/scripts/packed/$1 [L]
-    RewriteRule ^/static/(.*) /home/toolshed/galaxy-dist/static/$1 [L] 
-    RewriteRule ^/favicon.ico     /home/toolshed/galaxy-dist/static/favicon.ico [L] 
-    RewriteRule ^/robots.txt /home/toolshed/galaxy-dist/static/robots.txt [L] 
-    RewriteRule ^(.*) http://localhost:9009$1 [P] 
-    
+    RewriteRule ^/static/style/(.*) /home/toolshed/galaxy-dist/static/june_2007_style/blue/$1 [L]
+    RewriteRule ^/static/scripts/(.*) /home/toolshed/galaxy-dist/static/scripts/packed/$1 [L]
+    RewriteRule ^/static/(.*) /home/toolshed/galaxy-dist/static/$1 [L]
+    RewriteRule ^/favicon.ico /home/toolshed/galaxy-dist/static/favicon.ico [L]
+    RewriteRule ^/robots.txt /home/toolshed/galaxy-dist/static/robots.txt [L]
+    RewriteRule ^(.*) http://localhost:9009$1 [P]
+
 Configure tool shed server
 
     sudo cp tool_sheds_conf.xml.sample tool_sheds_conf.xml
     sudo cp shed_tool_conf.xml.sample shed_tool_conf.xml
     sudo vi tool_sheds_conf.xml
-    
+
 Add the following inside the `toolsheds` tag
 
     <tool_shed name="HCS vLab tool shed" url="__TOOL_SHED_URL__"/>
@@ -192,12 +193,20 @@ Start it up
 
     sudo service toolshed start
 
+Turn off port listening on port 80
+    sudo vi /etc/apache2/ports.conf
+Remove the two lines NameVirtualHost:80 and Listen 80.
+
+Restart apache
+
+    sudo apachectl restart
+
 **Set up proxies for galaxy and toolshed**
 
 Ssh into the server where the webapp is
 
     sudo nano /etc/httpd/conf.d/galaxy_vhost.conf
-    
+
 Add the following lines to `/etc/httpd/conf.d/galaxy_vhost.conf`
 
     ## Galaxy Proxy
@@ -205,7 +214,7 @@ Add the following lines to `/etc/httpd/conf.d/galaxy_vhost.conf`
     NameVirtualHost *:8081
     <VirtualHost *:8081>
          ServerName <SERVER_NAME>
-    
+
          <Proxy *>
                 Order deny,allow
                 Allow from all
@@ -213,13 +222,13 @@ Add the following lines to `/etc/httpd/conf.d/galaxy_vhost.conf`
          ProxyPass / http://<NECTAR_VM_IP>:8080/
          ProxyPassReverse / http://<NECTAR_VM_IP>:8080/
     </VirtualHost>
-    
+
     ## Toolshed Proxy
     Listen 9009
     NameVirtualHost *:9009
     <VirtualHost *:9009>
          ServerName <SERVER_NAME>
-    
+
          <Proxy *>
                 Order deny,allow
                 Allow from all
@@ -230,7 +239,10 @@ Add the following lines to `/etc/httpd/conf.d/galaxy_vhost.conf`
 
 where you replace `<SERVER_NAME>` with the server you're on (where the webapp is) and `<NECTAR_VM_IP>` with the IP address of the nectar VM with Galaxy w/ cloudman installed
 
-Restart apache
+**Redeploy Galaxy**
 
-    sudo apachectl restart
+In your deploy server, update the Capistrano deploy config (eg `config/deploy/production.rb`) with the Galaxy URLs.
+Run `cap production deploy:redeploy_galaxy`.
+
+Galaxy and Toolshed will take a few minutes to be up and running. Visit `<NECTAR_VM_IP>:8080` and `<NECTAR_VM_IP>:9009` to check that they are running.
 
