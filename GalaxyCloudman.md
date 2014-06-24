@@ -36,6 +36,13 @@ These are instructions to setup a new Nectar VM with Galaxy and Cloudman install
 
 **Install the tool wrappers and customisations from Github**
 
+Get version of Galaxy that our changes work with (our changes to the galaxy core won't work on newer galaxy versions):
+
+    cd /mnt/galaxy
+    hg clone -u 578b9185b556ce59c170d3fa0b422bd7773d0693 https://bitbucket.org/galaxy/galaxy-dist
+    rm -rf galaxy-app
+    mv galaxy-dist galaxy-app
+
 ssh into the machine with the user ubuntu and perform the following:
 
     cd /mnt/galaxy/galaxy-app
