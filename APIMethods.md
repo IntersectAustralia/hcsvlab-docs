@@ -13,7 +13,7 @@ The API uses the same URLs as the main web application in most cases but is able
 
 Command line:
 
-	Where <host> is the vlab host, eg http://ic2-hcsvlab-staging1-vm.intersect.org.au/
+	Where <host> is the vlab host, e.g. https://app.alveo.edu.au/
 	$ curl -H "X-API-KEY: WUqhKgM25PJuzivjdvGt" <host>/item_lists.json
 	$ curl -H "X-API-KEY: WUqhKgM25PJuzivjdvGt" -H "Accept: application/json" <host>item_lists
 
@@ -24,7 +24,7 @@ Python
     import json
 
     api_key = <YOUR_X_API_KEY>
-    url = <YOUR_URL> # e.g.: http://ic2-hcsvlab-staging1-vm.intersect.org.au/item_lists/1
+    url = <YOUR_URL> # e.g.: https://app.alveo.edu.au/item_lists/1
 
     curl = pycurl.Curl()
     buf = cStringIO.StringIO()
@@ -43,7 +43,7 @@ Ruby
     require 'json'
 
     api_key = <YOUR_X_API_KEY>
-    url = <YOUR_URL> # e.g.: http://ic2-hcsvlab-staging1-vm.intersect.org.au/item_lists/1
+    url = <YOUR_URL> # e.g.: https://app.alveo.edu.au/item_lists/1
 
     sampleUrl = URI(url)
     req = Net::HTTP::Get.new(sampleUrl)
@@ -126,17 +126,17 @@ Ruby
 	[
 		{
 			"name":"Jared's Item List 1",
-			"item_list_url":"http://ic2-hcsvlab-staging2-vm.intersect.org.au/item_lists/5",
+			"item_list_url":"https://app.alveo.edu.au/item_lists/5",
 			"num_items":1
 		},
 		{
 			"name":"Jared's Item List 2",
-			"item_list_url":"http://ic2-hcsvlab-staging2-vm.intersect.org.au/item_lists/15",
+			"item_list_url":"https://app.alveo.edu.au/item_lists/15",
 			"num_items":3
 		},
 		{
 			"name":"Jared's Item List 3",
-			"item_list_url":"http://ic2-hcsvlab-staging2-vm.intersect.org.au/item_lists/16",
+			"item_list_url":"https://app.alveo.edu.au/item_lists/16",
 			"num_items":3
 		}
 	] 
@@ -166,9 +166,11 @@ Item list can be retrieved as JSON, ZIP or WARC format. The JSON format will onl
 		"name":"Jared's Item List 2",
 		"num_items":3,
 		"items":[
-			"http://ic2-hcsvlab-staging2-vm.intersect.org.au/catalog/hcsvlab:17862",
-			"http://ic2-hcsvlab-staging2-vm.intersect.org.au/catalog/hcsvlab:21953",
-			"http://ic2-hcsvlab-staging2-vm.intersect.org.au/catalog/hcsvlab:22175"
+			"https://app.alveo.edu.au/catalog/cooee/2-037",
+			"https://app.alveo.edu.au/catalog/cooee/2-038",
+			"https://app.alveo.edu.au/catalog/cooee/2-040"
+]
+
 		]
 	} 
 	</CODE>
@@ -177,7 +179,7 @@ Item list can be retrieved as JSON, ZIP or WARC format. The JSON format will onl
 </tr>
 <tr> 
 <td> Get item metadata </td>
-<td> /catalog/{item_id} </td>
+<td> /catalog/{collection_name}/{item_id} </td>
 <td> GET </td>
 <td> Item Metadata, primary text URL & document URLs </td>
 <td />
@@ -188,45 +190,68 @@ Item list can be retrieved as JSON, ZIP or WARC format. The JSON format will onl
 <pre>
 	<CODE>
 	{
-		"catalog_url":"http://ic2-hcsvlab-staging2-vm.intersect.org.au/catalog/hcsvlab:22175",
-		"metadata":{
-			"Title":"Boy Drowns Trying to Save Pet Dog",
-			"Created":"8 September 1986",
-			"Identifier":"A08g",
-			"Corpus":"ace",
-			"Word Count":"110",
-			"Mode":"written",
-			"Language (ISO 639-3 Code)":"eng",
-			"Genre":"Press Reportage",
-			"Audience":"mass_market",
-			"Communication Setting":"popular",
-			"Publication Status":"published",
-			"Source":"The Sun 8 September 1986 (2001 words)",
-			"Written Mode":"print",
-			"Publisher":"Publisher - John Fairfax and Sons Ltd",
-			"Documents":"A08g#Original, A08g#Raw, A08g#Text",
-			"Type":"Original, Raw, Text",
-			"Extent":"579959, 739, 631",
-			"date_group":"1980 - 1989"
+		"@context": "https://app.alveo.edu.au/schema/json-ld",
+		"alveo:catalog_url": "https://app.alveo.edu.au/catalog/ace/A08g",
+		"alveo:metadata": {
+			"dc:title": "Boy Drowns Trying to Save Pet Dog",
+			"dc:created": "8 September 1986",
+			"dc:identifier": "A08g",
+			"dc:isPartOf": "ace",
+			"ausnc:itemwordcount": "110",
+			"ausnc:mode": "written",
+			"ausnc:speech_style": "unspecified",
+			"ausnc:interactivity": "unspecified",
+			"ausnc:communication_context": "unspecified",
+			"olac:discourse_type": "unspecified",
+			"olac:language": "eng",
+			"ace:genre": "Press Reportage",
+			"ausnc:audience": "mass_market",
+			"ausnc:communication_setting": "popular",
+			"ausnc:communication_medium": "unspecified",
+			"ausnc:publication_status": "published",
+			"ausnc:source": "The Sun 8 September 1986 (2001 words)",
+			"ausnc:written_mode": "print",
+			"dc:publisher": "Publisher - John Fairfax and Sons Ltd",
+			"ausnc:document": "A08g#Text, A08g#Original, A08g#Raw",
+			"dc:type": "Text, Original, Raw",
+			"dc:extent": "631, 579959, 739",
+			"alveo:date_group": "1980 - 1989",
+			"alveo:display_document": "A08g#Text",
+			"alveo:indexable_document": "A08g#Text",
+			"alveo:full_text": "BOY DROWNS TRYING TO SAVE PET DOG A BOY drowned today when he plunged into rough seas at Blackpool in a bid to save his terrier dog. It happened almost at the same spot where, three years ago, three police officers died in a bid to save a holidaymaker who drowned attempting to rescue his dog, also a terrier. Today, a man had to be held back by police and coastguards from plunging in after the boy, Mark Philip Watts, 11 who could be seen floating out of the range of lifebelt and grappling hook. They watched helplessly as Mark, from Blackpool, disappeared from sight, dragged down by the undertow.",
+			"alveo:handle": "ace:A08g",
+			"alveo:sparqlEndpoint": "https://app.alveo.edu.au/sparql/ace"
 		},
-		"primary_text_url":"http://ic2-hcsvlab-staging2-vm.intersect.org.au/catalog/hcsvlab:22175/primary_text",
-		"documents":[
-			{
-			   "url":"http://ic2-hcsvlab-staging2-vm.intersect.org.au/catalog/hcsvlab:22175/document/ace_a.txt",
-			   "type":"Original",
-			   "size":null
-			},
-			{
-			   "url":"http://ic2-hcsvlab-staging2-vm.intersect.org.au/catalog/hcsvlab:22175/document/A08g-raw.txt",
-			   "type":"Raw",
-			   "size":"739 B"
-			},
-			{
-			   "url":"http://ic2-hcsvlab-staging2-vm.intersect.org.au/catalog/hcsvlab:22175/document/A08g-plain.txt",
-			   "type":"Text",
-			   "size":"631 B"
-			}
-		]
+		"alveo:primary_text_url": "https://app.alveo.edu.au/catalog/ace/A08g/primary_text.json",
+		"alveo:annotations_url": "https://app.alveo.edu.au/catalog/ace/A08g/annotations.json",
+		"alveo:documents": [{
+			"alveo:url": "https://app.alveo.edu.au/catalog/ace/A08g/document/A08g-plain.txt",
+			"dc:type": "Text",
+			"alveo:size": "631 B",
+			"rdf:type": "http://xmlns.com/foaf/0.1/Document",
+			"dc:identifier": "A08g-plain.txt",
+			"dc:title": "A08g#Text",
+			"dc:extent": "631",
+			"dc:type": "Text"
+		}, {
+			"alveo:url": "https://app.alveo.edu.au/catalog/ace/A08g/document/ace_a.txt",
+			"dc:type": "Original",
+			"alveo:size": null,
+			"rdf:type": "http://xmlns.com/foaf/0.1/Document",
+			"dc:identifier": "ace_a.txt",
+			"dc:title": "A08g#Original",
+			"dc:extent": "579959",
+			"dc:type": "Original"
+		}, {
+			"alveo:url": "https://app.alveo.edu.au/catalog/ace/A08g/document/A08g-raw.txt",
+			"dc:type": "Raw",
+			"alveo:size": "739 B",
+			"rdf:type": "http://xmlns.com/foaf/0.1/Document",
+			"dc:identifier": "A08g-raw.txt",
+			"dc:title": "A08g#Raw",
+			"dc:extent": "739",
+			"dc:type": "Raw"
+		}]
 	}
 	</CODE>
 </pre>
@@ -234,16 +259,16 @@ Item list can be retrieved as JSON, ZIP or WARC format. The JSON format will onl
 </tr>
 <tr> 
 <td> Get primary text </td>
-<td> /catalog/{item_id}/primary_text </td>
+<td> /catalog/{collection_name}/{item_id}/primary_text </td>
 <td> GET </td>
 <td> Content of item's primary_text </td>
 <td> This starts a download using the primary_text content with the filename as the label attached during ingest. </td>
 </tr>
 <tr> 
 <td> Get document </td>
-<td> /catalog/{item_id}/document/{filename}
+<td> /catalog/{collection_name}/{item_id}/document/{filename}
 <br>Example:
-<br>/catalog/hcsvlab:5031/document/MECG4MB_Sanitised-raw.txt </td>
+<br>/catalog/ace/A08g/document/A08g-raw.txt </td>
 <td> GET </td>
 <td> Specified document that belongs to the Item </td>
 <td> This sends the file as listed in the SOURCE metadata. 
@@ -282,8 +307,8 @@ Item list can be retrieved as JSON, ZIP or WARC format. The JSON format will onl
 </tr>
 <tr> 
 <td> Get annotations </td>
-<td> /catalog/{item_id}/annotations
-<br>/catalog/{item_id}/annotations?type=phonetic&label=s </td>
+<td>/catalog/{collection_name}/{item_id}/annotations
+<br>/catalog/{collection_name}/{item_id}/annotations.json?type=maus:phonetic&label=s</td>
 <td> GET </td>
 <td> Annotations from this item's annotation file </td>
 <td> Queries the item's annotation file for all annotations (label, start/end times). Type and label can be passed in to narrow the query </td>
@@ -294,24 +319,25 @@ Item list can be retrieved as JSON, ZIP or WARC format. The JSON format will onl
 <pre>
 	<CODE>
 	{
-		"@context":"http://localhost:3000/schema/json-ld",
-		"commonProperties":{"annotates":"http://localhost:3000/catalog/hcsvlab:4/document/S1224s1.wav"}
-		"annotations":[
- 			{
- 				"@type":"MillisecondAnnotation",
-				"@id":"http://ns.ausnc.org.au/corpora/mitcheldelbridge/annotation/26047",
-				"type": "phonetic",
- 				"label":"s",
- 				"start":6.6895,
- 				"end":6.7145
- 			},
- 			{ 
- 				"type": "phonetic",
- 				"label":"s",
- 				"start":7.7895,
- 				"end":7.8145
- 			}
-		]
+		@context: "https://app.alveo.edu.au/schema/json-ld",
+		commonProperties: {
+			alveo: annotates: "https://app.alveo.edu.au/catalog/mitcheldelbridge/S1224s1/document/S1224s1.wav"
+		},
+		alveo: annotations: [{@
+			id: "http://ns.ausnc.org.au/corpora/mitcheldelbridge/annotation/302021",
+			label: "s",
+			type: "http://ns.ausnc.org.au/schemas/annotation/maus/phonetic",
+			@type: "dada:SecondAnnotation",
+			end: "2.21",
+			start: "2.18"
+		}, {@
+			id: "http://ns.ausnc.org.au/corpora/mitcheldelbridge/annotation/302024",
+			label: "s",
+			type: "http://ns.ausnc.org.au/schemas/annotation/maus/phonetic",
+			@type: "dada:SecondAnnotation",
+			end: "3.31",
+			start: "3.28"
+		}]
 	}
 	</CODE>
 </pre>
@@ -319,7 +345,7 @@ Item list can be retrieved as JSON, ZIP or WARC format. The JSON format will onl
 </tr>
 <tr> 
 <td> Get annotation types </td>
-<td> /catalog/{item_id}/annotations/types
+<td> /catalog/{collection_name}/{item_id}/annotations/types
 <td> GET </td>
 <td> Annotation types from this item's annotations </td>
 <td> Queries the item's annotations to return all the different annotation types for the item </td>
@@ -329,7 +355,7 @@ Item list can be retrieved as JSON, ZIP or WARC format. The JSON format will onl
 <td colspan=4>
 <pre>
 {
-  item_url: "http://localhost:3000/catalog/cooee:4-340",
+  item_url: "https://app.alveo.edu.au/catalog/cooee:4-340",
   annotation_types: [
     "http://ns.ausnc.org.au/schemas/annotation/cooee/ellipsis",
     "http://ns.ausnc.org.au/schemas/annotation/cooee/pageno"
@@ -344,12 +370,12 @@ Item list can be retrieved as JSON, ZIP or WARC format. The JSON format will onl
 <td> POST </td>
 <td> Download a file in the specified format containing the item's documents and metadata </td>
 <td> This is a post request that requires a JSON set of items sent with it. Hence, cannot be replicated through a browser but through curl this can be done with something akin to:
-<br>curl -H "X-API-KEY: <key>" -H "Accept: application/<format>" -H "Content-Type: application/json" -X POST -d '{"items":["<host>/catalog/hcsvlab:2","<host>/catalog/hcsvlab:4"]}' <host>/catalog/download_items
+<br>curl -H "X-API-KEY: <key>" -H "Accept: application/<format>" -H "Content-Type: application/json" -X POST -d '{"items":["<host>/catalog/cooee/2-015","<host>/catalog/cooee/2-021"]}' <host>/catalog/download_items
 <br>Allowed formats = zip, warc.
 <br>If format is not specified, zip will be set by default
 <br>You can also specify the file format using as follow:
-<br>curl -H "X-API-KEY: <key>" -H "Content-Type: application/json" -X POST -d '{"items":["<host>/catalog/hcsvlab:2","<host>/catalog/hcsvlab:4"]}' <host>/catalog/download_items.<format>
-<br>curl -H "X-API-KEY: <key>" -H "Content-Type: application/json" -X POST -d '{"items":["<host>/catalog/hcsvlab:2","<host>/catalog/hcsvlab:4"]}' <host>/catalog/download_items?format=<format>
+<br>curl -H "X-API-KEY: <key>" -H "Content-Type: application/json" -X POST -d '{"items":["<host>/catalog/cooee/2-015","<host>/catalog/cooee/2-021"]}' <host>/catalog/download_items.<format>
+<br>curl -H "X-API-KEY: <key>" -H "Content-Type: application/json" -X POST -d '{"items":["<host>/catalog/cooee/2-015","<host>/catalog/cooee/2-021"]}' <host>/catalog/download_items?format=<format>
 </td>
 </tr>
 <tr>
@@ -359,10 +385,10 @@ Item list can be retrieved as JSON, ZIP or WARC format. The JSON format will onl
 	<CODE>
 	{
 		"items":[
-			"http://localhost:3000/catalog/hcsvlab:2253",
-			"http://localhost:3000/catalog/hcsvlab:2258",
-			"http://localhost:3000/catalog/hcsvlab:2267",
-			"http://localhost:3000/catalog/hcsvlab:2271"
+			"https://app.alveo.edu.au/catalog/cooee/2-036",
+			"https://app.alveo.edu.au/catalog/cooee/2-037",
+			"https://app.alveo.edu.au/catalog/cooee/2-038",
+			"https://app.alveo.edu.au/catalog/cooee/2-040"
 		]
 	} 
 	</CODE>
@@ -382,7 +408,7 @@ Item list can be retrieved as JSON, ZIP or WARC format. The JSON format will onl
 <pre>
 	<CODE>
 	{
-		"collection_url":"http://localhost:3000/collections/hcsvlab:1086",
+		"collection_url":"https://app.alveo.edu.au/catalog/monash",
 		"collection_name":"monash",
 		"metadata": {
  			"RDF_type":"Collection",
@@ -403,7 +429,7 @@ Item list can be retrieved as JSON, ZIP or WARC format. The JSON format will onl
 <td> 
 	/catalog/search?metadata=&lt;query&gt;
 	<br>Example:<br>
-	/catalog/search?metadata=HCSvLab_collection_facet:cooee 
+	/catalog/search?metadata=collection_name:cooee 
 </td>
 <td> GET </td>
 <td> List of search results </td>
@@ -417,10 +443,10 @@ Item list can be retrieved as JSON, ZIP or WARC format. The JSON format will onl
 	{
 		"num_results":4,
 		"items":[
-			"http://localhost:3000/catalog/hcsvlab:2253",
-			"http://localhost:3000/catalog/hcsvlab:2258",
-			"http://localhost:3000/catalog/hcsvlab:2267",
-			"http://localhost:3000/catalog/hcsvlab:2271"
+			"https://app.alveo.edu.au/catalog/cooee/2-036",
+			"https://app.alveo.edu.au/catalog/cooee/2-037",
+			"https://app.alveo.edu.au/catalog/cooee/2-038",
+			"https://app.alveo.edu.au/catalog/cooee/2-040"
 		]
 	}
 	</CODE>
@@ -434,7 +460,7 @@ Item list can be retrieved as JSON, ZIP or WARC format. The JSON format will onl
 <td> POST </td>
 <td> Result of item list operation (error/success) </td>
 <td> This is a post request that requires a JSON set of items sent with it. Hence, cannot be replicated through a browser but through curl this can be done with something akin to:
-<br>curl -H "X-API-KEY: <key>" -H "Content-Type: application/json" -H "Accept: application/json" -X POST -d '{"num_results":2,"items":["<host>/catalog/hcsvlab:2","<host>/catalog/hcsvlab:4"]}' <host>/item_lists?name=A
+<br>curl -H "X-API-KEY: <key>" -H "Content-Type: application/json" -H "Accept: application/json" -X POST -d '{"num_results":2,"items":["<host>/catalog/cooee/2-015","<host>/catalog/cooee/2-021"]}' <host>/item_lists?name=A
 <br>Note: the name doesn't have to be sent in as a parameter attached to the URL, it can also be sent in as part of the JSON
 </td>
 </tr>
@@ -447,10 +473,12 @@ Item list can be retrieved as JSON, ZIP or WARC format. The JSON format will onl
 		"name":"New Item List",
 		"num_results":4,
 		"items":[
-			"http://localhost:3000/catalog/hcsvlab:2253",
-			"http://localhost:3000/catalog/hcsvlab:2258",
-			"http://localhost:3000/catalog/hcsvlab:2267",
-			"http://localhost:3000/catalog/hcsvlab:2271"
+			"https://app.alveo.edu.au/catalog/cooee/2-036",
+			"https://app.alveo.edu.au/catalog/cooee/2-037",
+			"https://app.alveo.edu.au/catalog/cooee/2-038",
+			"https://app.alveo.edu.au/catalog/cooee/2-040"
+]
+
 		]
 	}
 	</CODE>
@@ -459,10 +487,12 @@ Item list can be retrieved as JSON, ZIP or WARC format. The JSON format will onl
 	<CODE>
 	{
 		"items":[
-			"http://localhost:3000/catalog/hcsvlab:2253",
-			"http://localhost:3000/catalog/hcsvlab:2258",
-			"http://localhost:3000/catalog/hcsvlab:2267",
-			"http://localhost:3000/catalog/hcsvlab:2271"
+			"https://app.alveo.edu.au/catalog/cooee/2-036",
+			"https://app.alveo.edu.au/catalog/cooee/2-037",
+			"https://app.alveo.edu.au/catalog/cooee/2-038",
+			"https://app.alveo.edu.au/catalog/cooee/2-040"
+]
+
 		]
 	} 
 	</CODE>
@@ -507,9 +537,11 @@ Item list can be retrieved as JSON, ZIP or WARC format. The JSON format will onl
 		"name":"Jared's Item List 2",
 		"num_items":3,
 		"items":[
-			"http://ic2-hcsvlab-staging2-vm.intersect.org.au/catalog/hcsvlab:17862",
-			"http://ic2-hcsvlab-staging2-vm.intersect.org.au/catalog/hcsvlab:21953",
-			"http://ic2-hcsvlab-staging2-vm.intersect.org.au/catalog/hcsvlab:22175"
+			"https://app.alveo.edu.au/catalog/cooee/2-037",
+			"https://app.alveo.edu.au/catalog/cooee/2-038",
+			"https://app.alveo.edu.au/catalog/cooee/2-040"
+]
+
 		]
 	} 
 	Failure:
@@ -524,7 +556,7 @@ Item list can be retrieved as JSON, ZIP or WARC format. The JSON format will onl
 </tr>
 <tr> 
 	<td> Upload Annotation </td>
-	<td> /catalog/{item_id}/annotations</td>
+	<td> /catalog/{collection_name}/{item_id}/annotations</td>
 	<td> POST </td>
 	<td> Result of item list operation (error/success) </td>
 	<td> This is a post request that requires a file sent with it. Hence, cannot be replicated through a browser but through curl this can be done with something akin to:
