@@ -524,7 +524,7 @@ Item list can be retrieved as JSON, ZIP or WARC format. The JSON format will onl
 <td> PUT </td>
 <td> Item list if successful/error message if failure </td>
 <td> This is a put request that takes the new name of the item list. Example curl command:
-<br>curl -H "X-API-KEY:&lt;api_key&gt;" -H "Accept: application/json" -X PUT -d "name=&lt;new name&gt;" &lt;host&gt;/item_lists/:id
+<br>curl -H "X-API-KEY:&lt;api_key&gt;" -H "Accept: application/json" -X PUT -d '{"name":"&lt;new name&gt;"}' &lt;host&gt;/item_lists/:id
 </td>
 </tr>
 <tr>
