@@ -218,7 +218,7 @@ Item list can be retrieved as JSON, ZIP or WARC format. The JSON format will onl
 			"alveo:date_group": "1980 - 1989",
 			"alveo:display_document": "A08g#Text",
 			"alveo:indexable_document": "A08g#Text",
-			"alveo:full_text": "BOY DROWNS TRYING TO SAVE PET DOG A BOY drowned today when he plunged into rough seas at Blackpool in a bid to save his terrier dog. It happened almost at the same spot where, three years ago, three police officers died in a bid to save a holidaymaker who drowned attempting to rescue his dog, also a terrier. Today, a man had to be held back by police and coastguards from plunging in after the boy, Mark Philip Watts, 11 who could be seen floating out of the range of lifebelt and grappling hook. They watched helplessly as Mark, from Blackpool, disappeared from sight, dragged down by the undertow.",
+			"alveo:full_text": "BOY DROWNS TRYING TO SAVE PET DOG A BOY drowned...",
 			"alveo:handle": "ace:A08g",
 			"alveo:sparqlEndpoint": "https://app.alveo.edu.au/sparql/ace"
 		},
