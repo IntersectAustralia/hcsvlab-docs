@@ -397,7 +397,7 @@ Item list can be retrieved as JSON, ZIP or WARC format. The JSON format will onl
 </tr>
 <tr> 
 <td> Get collection </td>
-<td> /collections/{collection_id} </td>
+<td> /catalog/{collection_name} </td>
 <td> GET </td>
 <td> Collection url, name and metadata </td>
 <td />
