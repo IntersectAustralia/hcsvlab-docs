@@ -396,6 +396,33 @@ Item list can be retrieved as JSON, ZIP or WARC format. The JSON format will onl
 </td>
 </tr>
 <tr> 
+<td> Get collections list</td>
+<td> /catalog </td>
+<td> GET </td>
+<td> Number of collections, and collections list </td>
+<td />
+</tr>
+<tr>
+<td> Example Response </td>
+<td colspan=4>
+<pre>
+	<CODE>
+	{
+		"num_collections":6,
+		"collections":[
+		        "ace",
+		        "austlit",
+		        "cooee",
+		        "gcsause",
+		        "ice",
+		        "monash"
+		]
+	}
+	</CODE>
+</pre>
+</td>
+</tr>
+<tr> 
 <td> Get collection </td>
 <td> /catalog/{collection_name} </td>
 <td> GET </td>
