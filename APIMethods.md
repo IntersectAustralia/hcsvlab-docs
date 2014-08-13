@@ -178,6 +178,29 @@ Item list can be retrieved as JSON, ZIP or WARC format. The JSON format will onl
 </td>
 </tr>
 <tr> 
+<td> Delete Item List </td>
+<td> /item_lists/{id} </td>
+<td> DELETE </td>
+<td> Specified Item List of the user (name, list of items) </td>
+<td>
+Item list can be deleted via HTTP DELETE mehod with the same endpoint as get items from item list
+<br>Requests example:
+<br>	curl -X DELETE -H "X-API-KEY: &lt;key&gt;" -H "Accept: application/&lt;json&gt;" &lt;server&gt;/item_lists/{id}
+</td>
+</tr>
+<tr>
+<td> Example Response </td>
+<td colspan=4>
+<pre>
+	<CODE>
+	{
+		"success":"item list test deleted successfully"
+	} 
+	</CODE>
+</pre>
+</td>
+</tr>
+<tr> 
 <td> Get item metadata </td>
 <td> /catalog/{collection_name}/{item_id} </td>
 <td> GET </td>
