@@ -185,7 +185,7 @@ Item list can be retrieved as JSON, ZIP or WARC format. The JSON format will onl
 <td>
 Item list can be deleted via HTTP DELETE mehod with the same endpoint as get items from item list
 <br>Requests example:
-<br>	curl -X DELETE -H "X-API-KEY: &lt;key&gt;" -H "Accept: application/&lt;json&gt;" &lt;server&gt;/item_lists/{id}
+<br>	curl -X DELETE -H "X-API-KEY: &lt;key&gt;" -H "Accept: application/json" &lt;server&gt;/item_lists/{id}
 </td>
 </tr>
 <tr>
@@ -195,6 +195,52 @@ Item list can be deleted via HTTP DELETE mehod with the same endpoint as get ite
 	<CODE>
 	{
 		"success":"item list test deleted successfully"
+	} 
+	</CODE>
+</pre>
+</td>
+</tr>
+<tr> 
+<td> Share Item List </td>
+<td> /item_lists/{id}/share </td>
+<td> POST </td>
+<td> Specified Item List of the user (name, list of items) </td>
+<td>
+Item list can be shareed via HTTP POST mehod
+<br>Requests example:
+<br>	curl -X POST -d "" -H "X-API-KEY: &lt;key&gt;" -H "Accept: application/json" &lt;server&gt;/item_lists/{id}/share
+</td>
+</tr>
+<tr>
+<td> Example Response </td>
+<td colspan=4>
+<pre>
+	<CODE>
+	{
+		"success":"Item list test is shared. Any user in the application will be able to see it."
+	} 
+	</CODE>
+</pre>
+</td>
+</tr>
+<tr> 
+<td> Unshare Item List </td>
+<td> /item_lists/{id}/unshare </td>
+<td> POST </td>
+<td> Specified Item List of the user (name, list of items) </td>
+<td>
+Item list can be unshareed via HTTP POST mehod
+<br>Requests example:
+<br>	curl -X POST -d "" -H "X-API-KEY: &lt;key&gt;" -H "Accept: application/json" &lt;server&gt;/item_lists/{id}/unshare
+</td>
+</tr>
+<tr>
+<td> Example Response </td>
+<td colspan=4>
+<pre>
+	<CODE>
+	{
+		"success":"Item list test is not being shared anymore."
 	} 
 	</CODE>
 </pre>
