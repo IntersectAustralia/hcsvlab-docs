@@ -433,12 +433,12 @@ Item list can be deleted via HTTP DELETE mehod with the same endpoint as get ite
 	{
 		"num_collections":6,
 		"collections":[
-		        "ace",
-		        "austlit",
-		        "cooee",
-		        "gcsause",
-		        "ice",
-		        "monash"
+		        "https://app.alveo.edu.au/catalog/ace",
+		        "https://app.alveo.edu.au/catalog/austlit",
+		        "https://app.alveo.edu.au/catalog/cooee",
+		        "https://app.alveo.edu.au/catalog/gcsause",
+		        "https://app.alveo.edu.au/catalog/ice",
+		        "https://app.alveo.edu.au/catalog/monash"
 		]
 	}
 	</CODE>
