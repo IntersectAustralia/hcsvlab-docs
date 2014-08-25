@@ -247,6 +247,29 @@ Item list can be unshareed via HTTP POST mehod
 </td>
 </tr>
 <tr> 
+<td> Clear Item List </td>
+<td> /item_lists/{id}/clear </td>
+<td> POST </td>
+<td> Specified Item List of the user (name, list of items) </td>
+<td>
+Item list can be unshareed via HTTP POST mehod
+<br>Requests example:
+<br>	curl -X POST -d "" -H "X-API-KEY: &lt;key&gt;" -H "Accept: application/json" &lt;server&gt;/item_lists/{id}/clear
+</td>
+</tr>
+<tr>
+<td> Example Response </td>
+<td colspan=4>
+<pre>
+	<CODE>
+	{
+		"success":"2 cleared from item list test"
+	} 
+	</CODE>
+</pre>
+</td>
+</tr>
+<tr> 
 <td> Get item metadata </td>
 <td> /catalog/{collection_name}/{item_id} </td>
 <td> GET </td>
