@@ -68,9 +68,9 @@ $ sudo yum install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-dev
 ##### Download Build and Install Python 2.7 #####
 
 ```
-$ curl -O http://python.org/ftp/python/2.7.5/Python-2.7.5.tgz
-$ tar xvf Python-2.7.5.tgz
-$ cd Python-2.7.5
+$ curl -O https://www.python.org/ftp/python/2.7.8/Python-2.7.8.tgz
+$ tar xvf Python-2.7.8.tgz
+$ cd Python-2.7.8
 $ ./configure --prefix=/usr/local
 $ sudo make && sudo make altinstall
 ```
