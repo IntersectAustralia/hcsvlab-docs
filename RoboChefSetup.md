@@ -90,6 +90,7 @@ git clone git@github.com:IntersectAustralia/hcsvlab_robochef.git
    Next, create a VirtualEnv for RoboChef in its directory:
 
 ```
+   $ cd ~
    $ virtualenv hcsvlab_robochef/
    $ cd hcsvlab_robochef/
    $ source bin/activate
