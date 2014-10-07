@@ -109,6 +109,7 @@ git clone git@github.com:IntersectAustralia/hcsvlab_robochef.git
    ## Generating RDF with HCSvLab RoboChef ##
    
    Copy the config file e.g.: 
+   
    $ cp config.ini.dist config.ini
 
    Edit the new `config.ini` file to point to the corpora and the desired output directory, e.g:
