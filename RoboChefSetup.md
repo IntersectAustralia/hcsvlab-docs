@@ -107,8 +107,11 @@ git clone git@github.com:IntersectAustralia/hcsvlab_robochef.git
    NOTE: `pyparsing` currently defaults to v2.0 which only works with Python 3
 
    ## Generating RDF with HCSvLab RoboChef ##
+   
+   Copy the config file e.g.: 
+   $ cp config.ini.dist config.ini
 
-   Edit the `config.ini` file to point to the corpora and the desired output directory, e.g:
+   Edit the new `config.ini` file to point to the corpora and the desired output directory, e.g:
 
 ```
    CORPUS_BASEDIR = /Users/ilya/workspace/corpora/
