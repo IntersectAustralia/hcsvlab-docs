@@ -26,12 +26,15 @@ Unfortunately, installing with MacPorts is not recommended.
 
 **In Mac OS X**
 
-MAC OS X often comes with its own postgres, so ensure any other version is stopped or uninstalled
+The easiest way to set up Postgres on Mac OS X is to download from http://postgresapp.com/ and follow the "Installing Postgres.app instructions at http://postgresapp.com/documentation/install.html.
 
-    $ brew install postgres
-    $ initdb /usr/local/var/postgres -E utf8
-    $ postgres -D /usr/local/var/postgres
-
+***After installation***
+1. Run `echo 'export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.3/bin' > ~/.bash_profile` in the terminal. This will give you access to the command line tools.
+2. Open Postgres.app from Applications. You should see an elephant icon on the menu bar.
+3. Left click on the elephant icon and go the Preferences
+4. Uncheck "Show Welcome Window..."
+5. Check "Start Postgres automatically after login"
+    
 ###Create Database User
 **In Ubuntu**
 
@@ -39,16 +42,13 @@ MAC OS X often comes with its own postgres, so ensure any other version is stopp
 
 **In Mac OS X**
 
-    $ sudo -u <home_user> createuser hcsvlab # with password hcsvlab
-    $ psql
-    $ ALTER USER hcsvlab CREATEDB;
-    $ \q
+    $ createuser -sP hcsvlab # use hcsvlab as password
 
 ###Clone HCSVLab
 **In Ubuntu and Mac OS X**
 
-    $ rvm install ruby-2.0.0-p0
-    $ rvm use ruby-2.0.0-p0@hcsvlab \--create
+    $ rvm install ruby-2.1.4
+    $ rvm use ruby-2.1.4@hcsvlab \--create
     $ git clone git@github.com:IntersectAustralia/hcsvlab.git
     
 ###Install ImageMagick (required for the rmagick gem)
@@ -79,9 +79,7 @@ MAC OS X often comes with its own postgres, so ensure any other version is stopp
     $ git submodule update
     $ bundle install
     $ rake db:create db:migrate db:seed db:populate
-    $ rake jetty:config
-    $ rake jetty:start
-    $ rake a13g:start_pollers
+    $ rake jetty:reset_all
     $ rails s
     
 ###Setup https for AAF
