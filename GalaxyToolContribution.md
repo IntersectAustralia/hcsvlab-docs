@@ -36,3 +36,5 @@ The following steps detail how to upload a tool to the Toolshed:
 3. Enter a name and description for your repository. A repository is what Toolshed uses to store files and metadata for your tool. In the backend, it is actually a Mercurial repository, so additions and updates to your tool can be seen through changesets. 
 4. Click "Upload Files to Repository" button from the top right of the repository page.
 5. Upload files to repository. This can be done by uploading a tarball containing all files for your tool, or single files at a time. 
+
+That's it! Now your tool is ready to be reviewed and tested by the Alveo team before possible inclusion into the Alveo Galaxy system to be made available to all users. 
