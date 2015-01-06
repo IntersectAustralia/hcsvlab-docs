@@ -1,6 +1,6 @@
 ### Background
 
-These instructions describe the process of installing and configuring the HCSvLab web application and it components on a CentOS machine
+These instructions describe the process of installing and configuring the ALVEO (was HCSvLab) web application and it components on a CentOS machine
 
 ### Assumptions
 * You have a fresh CentOS machine. 
