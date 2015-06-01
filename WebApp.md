@@ -91,7 +91,17 @@ Configure
         <Directory /home/devel/hcsvlab-web/current/public>
                 AllowOverride all
                 Options -MultiViews
-                Header set Access-Control-Allow-Origin http://json-ld.org
+                
+                # Allow CORS (javascript cross-site) requests
+            	Header always set Access-Control-Allow-Origin "*"
+            	Header always set Access-Control-Max-Age "1000"
+            	Header always set Access-Control-Allow-Headers "X-Requested-With, Content-Type, Origin, Authorization, Accept, Client-Security-Token, Accept-Encoding, X-API-KEY"
+            	Header always set Access-Control-Allow-Methods "POST, GET, OPTIONS, DELETE, PUT"
+
+            	# Make sure OPTIONS response returns 200
+            	RewriteEngine On
+            	RewriteCond %{REQUEST_METHOD} OPTIONS
+            	RewriteRule ^(.*)$ $1 [R=200,L]
         </Directory>
     </VirtualHost>
     ...
