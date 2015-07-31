@@ -82,6 +82,19 @@ The easiest way to set up Postgres on Mac OS X is to download from http://postgr
     $ rake jetty:reset_all
     $ rails s
     
+###Setup Data Directory
+**For Ubuntu and Mac OS X**
+
+    $ mkdir -p /data/contributed_annotations
+    $ chown -R <user>:<user> /data
+    
+###Run Tests
+**For Ubuntu and Mac OS X**
+
+    $ cd ~/hcsvlab
+    $ rspec spec
+    $ cucumber features
+    
 ###Setup https for AAF
 **For Mac OS X**
 
