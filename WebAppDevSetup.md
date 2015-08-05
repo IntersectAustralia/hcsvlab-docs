@@ -79,7 +79,7 @@ The easiest way to set up Postgres on Mac OS X is to download from http://postgr
     $ git submodule update
     $ bundle install
     $ rake db:create db:migrate db:seed db:populate
-    $ rake jetty:reset_all
+    $ rake jetty:reset_all # only run this command the first time for subsequent starts run $ rake jetty:start a13g:start_pollers
     $ rails s
     
 ###Setup Data Directory
