@@ -21,16 +21,10 @@ These are instructions to setup a new Nectar VM with Galaxy and Cloudman install
 6. Password: Choose a password.  Whatever you want, just remember it. This is the password you will use to log into the Cloudman instance
 7. Instance Type: Choose Medium (2 vcpu / 8GB RAM) CPU/RAM size.
 8. Expand 'Show Advanced Startup Options
-9. Image: GVL-2.09 (November 16, 2013) (ami-00001303)
-10. Press 'Start an Instance'
-11. Wait for launcher to finish booting up the machine and take note of the IP address it creates
-
-**Start a Galaxy instance**
-
-1. Using the IP address obtained previously go to <IP address>/cloud
-2. Log in to Cloudman using username ‘ubuntu’ and the password you chose on the launch page. You are now taken to the Cloudman Admin Console page
-3. Cloudman will ask which type of cluster you want to start. Select ‘Galaxy Cluster’ and ‘Transient Storage’
-4. Press “Choose Platform Type’
+9. Image: Alveo 1.00 (ami-00003389)
+10. Cloudman will ask which type of cluster you want to start. Select ‘Galaxy Cluster’ and ‘Transient Storage’
+11. Press 'Start an Instance'
+12. Wait for launcher to finish booting up the machine and take note of the IP address it creates
 
 ####Configure Galaxy Instance
 
