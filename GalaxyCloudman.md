@@ -28,6 +28,38 @@ These are instructions to setup a new Nectar VM with Galaxy and Cloudman install
 
 ####Configure Galaxy Instance
 
+You can not SSH into your machine using the `ubuntu` user and the password you specified on the launch page.
+
+**Updating Galaxy**
+
+When you SSH into the machine, and old version of Galaxy will be mounted on `/msn/galaxy/galaxy-app`. To update the Galaxy version we first need to create a Galaxy user:
+
+```
+$ sudo adduser galaxy sudo
+# if you are not prompted for a password:
+$ sudo passwd galaxy
+```
+
+Now switch to the galaxy user:
+
+```
+$ su galaxy
+```
+
+Go to the mounted drive and clone the new Galaxy:
+
+```
+$ cd /mnt/galaxy
+$ git clone https://github.com/galaxyproject/galaxy.git
+```
+
+Then checkout the desired release by tag, e.g:
+
+```
+$ cd galaxy
+$ git checkout tags/v15.05
+```
+
 **Install the tool wrappers and customisations from Github**
 
 Get version of Galaxy that our changes work with (our changes to the galaxy core won't work on newer galaxy versions):
