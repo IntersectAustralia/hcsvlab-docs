@@ -60,6 +60,30 @@ $ cd galaxy
 $ git checkout tags/v15.05
 ```
 
+For convenience, softlink the galaxy directory to the galaxy user's home directory:
+
+```
+$ cd ~
+$ ln -s /mnt/galaxy/galaxy galaxy
+```
+
+
+**Galaxy Configuration**
+
+TODO
+
+**Running Galaxy as a Service**
+
+Copy the galaxy startup script to the service script directory:
+
+```
+$ sudo cp ~/galaxy/contrib/galaxy.debian-init /etc/init.d/galaxy
+$ sudo chmod +x /etc/init.d/galaxy
+```
+
+Then edit the script to makes sure that paths point to galaxy. Copy the script and call it `galaxy-toolshed`
+
+
 **Install the tool wrappers and customisations from Github**
 
 Get version of Galaxy that our changes work with (our changes to the galaxy core won't work on newer galaxy versions):
