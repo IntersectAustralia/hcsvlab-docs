@@ -196,9 +196,9 @@ Restart apache
 
     sudo apachectl restart
 
-**Set up proxies for galaxy and toolshed**
+**Set up Proxies for Galaxy and teh Toolshed**
 
-Ssh into the server where the webapp is
+SSH into the server running the Galaxy proxy, and edit the following:
 
     sudo nano /etc/httpd/conf.d/galaxy_vhost.conf
 
@@ -234,12 +234,6 @@ Add the following lines to `/etc/httpd/conf.d/galaxy_vhost.conf`
 
 where you replace `<SERVER_NAME>` with the server you're on (where the webapp is) and `<NECTAR_VM_IP>` with the IP address of the nectar VM with Galaxy w/ cloudman installed
 
-**Redeploy Galaxy**
-
-In your deploy server, update the Capistrano deploy config (eg `config/deploy/production.rb`) with the Galaxy URLs.
-Run `cap production deploy:redeploy_galaxy`.
-
-Galaxy and Toolshed will take a few minutes to be up and running. Visit `<NECTAR_VM_IP>:8080` and `<NECTAR_VM_IP>:9009` to check that they are running.
 
 ### Smoke Test
 You can verify that your install has been successful by executing these tests:
