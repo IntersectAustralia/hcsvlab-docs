@@ -67,7 +67,6 @@ $ cd ~
 $ ln -s /mnt/galaxy/galaxy galaxy
 ```
 
-
 **Galaxy Configuration**
 
 TODO
@@ -81,11 +80,29 @@ $ sudo cp ~/galaxy/contrib/galaxy.debian-init /etc/init.d/galaxy
 $ sudo chmod +x /etc/init.d/galaxy
 ```
 
-Then edit the script to makes sure that paths point to galaxy. Copy the script and call it `galaxy-toolshed`
+Then edit the script to makes sure that paths point to galaxy. Copy the script and call it `galaxy-toolshed`, once again editing it to make sure the paths now point to the galaxy toolshed. Now start the services:
 
+```
+$ sudo service galaxy start
+$ sudo service galaxy-toolshed start
+```
 
+Install Run-level configuration for SysV like init scripts
 
-**Set up for displaying parse trees**
+```
+$ sudo apt-get install sysv-rc-config
+```
+
+Enable Galaxy and the Toolshed to run on system startup:
+
+```
+$ sudo sysv-rc-config galaxy on
+$ sudo sysv-rc-config galaxy-toolshed on
+```
+
+### Manually Installed Tool Dependencies
+
+**Set up XFVB for displaying NLTK's parse trees**
 
     sudo apt-get install xvfb -y
     export DISPLAY=:1
@@ -93,7 +110,7 @@ Then edit the script to makes sure that paths point to galaxy. Copy the script a
     sudo xhost +
     sudo echo "export DISPLAY=:1" >> ~/.bashrc
 
-**Install PsySound**
+**Install the Matlab Runtime for running PsySound Tools**
 
 Grab a copy of MCRInstaller.zip from the shared drive (or any existing server with the MCR installed). This is a large file (~400MB). Copy MCRInstaller.zip to the target server under the directory /mnt/galaxy/MATLAB. The file can be transferred using SCP or a similar mechanism. This will install MATLAB into /usr/local/MATLAB.
 
