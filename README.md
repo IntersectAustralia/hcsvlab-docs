@@ -1,7 +1,7 @@
 This contains install and other technical documentation for the HCSvLab project. This is a work in progress.
 
 Installation Instructions:
-* [Galaxy](Galaxy.md)
+* [Galaxy](GalaxyCloudman.md)
 * [Web Application](WebApp.md)
 * [RoboChef Setup](RoboChefSetup.md)
 
