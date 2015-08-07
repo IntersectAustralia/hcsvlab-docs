@@ -102,15 +102,20 @@ $ sudo sysv-rc-config galaxy-toolshed on
 
 ### Manually Installed Tool Dependencies
 
-**Set up XFVB for displaying NLTK's parse trees**
+**Set up XFVB, TkInter and ImageMagick for displaying NLTK's parse trees**
 
+    sudo apt-get install python-tk -y
+    sudo apt-get install imagemagick
     sudo apt-get install xvfb -y
     export DISPLAY=:1
     Xvfb :1 -screen 0 1024x768x24 &
     sudo xhost +
     sudo echo "export DISPLAY=:1" >> ~/.bashrc
 
-**Install the Matlab Runtime for running PsySound Tools**
+**Install LibX and the Matlab Runtime for running PsySound Tools**
+
+    sudo apt-get install libxt-dev
+    sudo apt-get install libxmu-dev
 
 Grab a copy of MCRInstaller.zip from the shared drive (or any existing server with the MCR installed). This is a large file (~400MB). Copy MCRInstaller.zip to the target server under the directory /mnt/galaxy/MATLAB. The file can be transferred using SCP or a similar mechanism. This will install MATLAB into /usr/local/MATLAB.
 
