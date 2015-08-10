@@ -45,6 +45,8 @@ The easiest way to set up Postgres on Mac OS X is to download from http://postgr
     $ createuser -sP hcsvlab # use hcsvlab as password
 
 ###Clone HCSVLab
+If Ruby Version Manager is not already installed on the development environment follow the instructions at https://rvm.io/rvm/install
+
 **In Ubuntu and Mac OS X**
 
     $ rvm install ruby-2.1.4
