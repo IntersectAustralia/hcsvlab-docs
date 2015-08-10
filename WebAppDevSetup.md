@@ -63,7 +63,7 @@ The easiest way to set up Postgres on Mac OS X is to download from http://postgr
 ###Install ActiveMQ
 **In Ubuntu and Mac OS X**
 
-    $ curl http://mirror.mel.bkb.net.au/pub/apache/activemq/apache-activemq/5.8.0/apache-activemq-5.8.0-bin.tar.gz | tar xvz
+    $ curl http://archive.apache.org/dist/activemq/apache-activemq/5.8.0/apache-activemq-5.8.0-bin.tar.gz | tar xvz
  
 ***#set configuration, using provided file from HCSVLab project***
 
