@@ -86,6 +86,10 @@ If running `$ bin/activemq start` in Ubuntu results in an error message `ERROR: 
     $ rake jetty:reset_all # only run this command the first time for subsequent starts run $ rake jetty:start a13g:start_pollers
     $ rails s
     
+If running `$ bundle install` results in the following error, then try installing the bundler gem `$ gem install bundler`.
+
+    .../kernel_require.rb:54:in `require': cannot load such file -- bundler (LoadError)
+
 ###Setup Data Directory
 **For Ubuntu and Mac OS X**
 
