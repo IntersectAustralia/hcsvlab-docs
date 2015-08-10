@@ -73,6 +73,8 @@ If Ruby Version Manager is not already installed on the development environment 
     $ cp <hcsvlab folder>/activemq_conf/activemq.xml conf/activemq.xml
     $ bin/activemq start
 
+If running `$ bin/activemq start` in Ubuntu results in an error message `ERROR: Configuration variable JAVA_HOME or JAVACMD is not defined correctly.`, then it is likely that no Java Runtime Environment is installed. If `$ java -version` doesn't list an installed java version, then install the latest version of the JRE using `$ sudo apt-get install default-jre`.
+
 ###Setup HCSVLAB
 **For Ubuntu and Mac OS X**
 
