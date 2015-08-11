@@ -40,6 +40,15 @@ The easiest way to set up Postgres on Mac OS X is to download from http://postgr
 
     $ sudo -u postgres createuser -P # create a new user called hcsvlab (enable create databases) with password hcsvlab
 
+If you already have a "postgres" user you may get the following error `$ createuser: creation of new role failed: ERROR:  role "postgres" already exists`. This means that a new user with the name hcsvlab won't be created which can cause the database rake in later steps to result in an error. To resolve this you need to open psql as the postgres user and add a new role with the name "hcsvlab" and the relevant permissions.
+
+    $ sudo su - postgres # log into postgres user
+    $ psql # open psql console
+    # CREATE ROLE hcsvlab WITH LOGIN CREATEDB;
+    # \du
+    # \q
+    $ exit
+
 **In Mac OS X**
 
     $ createuser -sP hcsvlab # use hcsvlab as password
