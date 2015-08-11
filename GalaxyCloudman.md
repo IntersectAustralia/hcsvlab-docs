@@ -30,6 +30,8 @@ These are instructions to setup a new Nectar VM with Galaxy and Cloudman install
 
 You can not SSH into your machine using the `ubuntu` user and the password you specified on the launch page.
 
+NOTE: Much of the installation has been automated with an [Ansible Script](https://github.com/IntersectAustralia/aepm). This is now the preferred method of installing Galaxy.
+
 **Updating Galaxy**
 
 When you SSH into the machine, and old version of Galaxy will be mounted on `/msn/galaxy/galaxy-app`. To update the Galaxy version we first need to create a Galaxy user:
@@ -86,7 +88,28 @@ Install postfix to send email notifications (e..g password resets)
 $ sudo apt-get install postfix
 ```
 
-Then follow the on-screen prompts.      
+Then follow the on-screen prompts.
+
+Create a directory for log files, e.g:
+
+```
+$ mkdir log
+```
+
+Also make sure the directory is specified in `galaxy.ini` and `tool_shed.ini`
+
+Setup log rotation:
+
+```
+/home/galaxy/galaxy/log/*.log {
+  weekly
+  rotate 8
+  copytruncate
+  compress
+  missingok
+  notifempty
+}
+```
 
 **Running Galaxy as a Service**
 
@@ -125,6 +148,7 @@ Enable Galaxy and the Toolshed to run on system startup:
 $ sudo sysv-rc-config galaxy on
 $ sudo sysv-rc-config galaxy-toolshed on
 ```
+
 
 ### Manually Installed Tool Dependencies
 
@@ -173,56 +197,6 @@ Add the following line to `~/.ssh/environment`
 
 ```
 GALAXY_HOME=/mnt/galaxy/galaxy-app
-```
-
-Configure Apache
-
-```
-sudo update-rc.d toolshed defaults
-sudo a2enmod rewrite
-sudo sysv-rc-conf apache2 on
-```
-
-Add the following lines to `/etc/apache2/conf.d/toolshed.conf`
-
-```
-RewriteEngine on
-RewriteRule ^/static/style/(.*) /home/toolshed/galaxy-dist/static/june_2007_style/blue/$1 [L]
-RewriteRule ^/static/scripts/(.*) /home/toolshed/galaxy-dist/static/scripts/packed/$1 [L]
-RewriteRule ^/static/(.*) /home/toolshed/galaxy-dist/static/$1 [L]
-RewriteRule ^/favicon.ico /home/toolshed/galaxy-dist/static/favicon.ico [L]
-RewriteRule ^/robots.txt /home/toolshed/galaxy-dist/static/robots.txt [L]
-RewriteRule ^(.*) http://localhost:9009$1 [P]
-```
-
-Configure tool shed server
-
-```
-sudo cp tool_sheds_conf.xml.sample tool_sheds_conf.xml
-sudo cp shed_tool_conf.xml.sample shed_tool_conf.xml
-sudo vi tool_sheds_conf.xml
-```
-
-Add the following inside the `toolsheds` tag
-
-```
-<tool_shed name="HCS vLab tool shed" url="__TOOL_SHED_URL__"/>
-```
-
-Start it up
-
-```
-sudo service toolshed start
-```
-
-Turn off port listening on port 80
-    sudo vi /etc/apache2/ports.conf
-Remove the two lines NameVirtualHost:80 and Listen 80.
-
-Restart apache
-
-```
-sudo apachectl restart
 ```
 
 **Set up Proxies for Galaxy and the Toolshed**
