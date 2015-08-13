@@ -102,6 +102,10 @@ $ sudo sysv-rc-config galaxy-toolshed on
 
 ### Manually Installed Tool Dependencies
 
+**Set up libcurl so that pycurl can be built in the Alveo Importer tool**
+
+    sudo apt-get install libcurl4-openssl-dev
+
 **Set up XFVB, TkInter and ImageMagick for displaying NLTK's parse trees**
 
     sudo apt-get install python-tk -y
