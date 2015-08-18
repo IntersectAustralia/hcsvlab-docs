@@ -30,6 +30,8 @@ These are instructions to setup a new Nectar VM with Galaxy and Cloudman install
 
 You can not SSH into your machine using the `ubuntu` user and the password you specified on the launch page.
 
+NOTE: Much of the installation has been automated with an [Ansible Script](https://github.com/IntersectAustralia/aepm). This is now the preferred method of installing Galaxy.
+
 **Updating Galaxy**
 
 When you SSH into the machine, and old version of Galaxy will be mounted on `/msn/galaxy/galaxy-app`. To update the Galaxy version we first need to create a Galaxy user:
@@ -71,6 +73,44 @@ $ ln -s /mnt/galaxy/galaxy galaxy
 
 TODO
 
+Generate an `id_secret` using the recommended method:
+
+```
+$ python -c 'import time; print time.time()' | md5sum | cut -f 1 -d ' '
+```
+
+and add it to both the `galaxy.ini` and `tool_shed.ini`.
+
+
+Install postfix to send email notifications (e..g password resets)
+
+```
+$ sudo apt-get install postfix
+```
+
+Then follow the on-screen prompts.
+
+Create a directory for log files, e.g:
+
+```
+$ mkdir log
+```
+
+Also make sure the directory is specified in `galaxy.ini` and `tool_shed.ini`
+
+Setup log rotation:
+
+```
+/home/galaxy/galaxy/log/*.log {
+  weekly
+  rotate 8
+  copytruncate
+  compress
+  missingok
+  notifempty
+}
+```
+
 **Running Galaxy as a Service**
 
 Copy the galaxy startup script to the service script directory:
@@ -80,7 +120,16 @@ $ sudo cp ~/galaxy/contrib/galaxy.debian-init /etc/init.d/galaxy
 $ sudo chmod +x /etc/init.d/galaxy
 ```
 
-Then edit the script to makes sure that paths point to galaxy. Copy the script and call it `galaxy-toolshed`, once again editing it to make sure the paths now point to the galaxy toolshed. Now start the services:
+Then edit the `/etc/init.d/galaxy` script to makes sure that paths point to galaxy, .e.g: 
+
+```
+SERVICE_NAME="galaxy"
+RUN_AS="galaxy"
+RUN_IN="/home/galaxy/galaxy"
+```
+
+Copy the script and call it `galaxy-toolshed`, once again editing it to make sure the paths now point to the galaxy toolshed. Now start the services:
+
 
 ```
 $ sudo service galaxy start
@@ -100,6 +149,7 @@ $ sudo sysv-rc-config galaxy on
 $ sudo sysv-rc-config galaxy-toolshed on
 ```
 
+
 ### Manually Installed Tool Dependencies
 
 **Set up libcurl so that pycurl can be built in the Alveo Importer tool**
@@ -108,140 +158,97 @@ $ sudo sysv-rc-config galaxy-toolshed on
 
 **Set up XFVB, TkInter and ImageMagick for displaying NLTK's parse trees**
 
-    sudo apt-get install python-tk -y
-    sudo apt-get install imagemagick
-    sudo apt-get install xvfb -y
-    export DISPLAY=:1
-    Xvfb :1 -screen 0 1024x768x24 &
-    sudo xhost +
-    sudo echo "export DISPLAY=:1" >> ~/.bashrc
+```
+$ sudo apt-get install python-tk -y
+$ sudo apt-get install imagemagick
+$ sudo apt-get install xvfb -y
+$ export DISPLAY=:1
+$ Xvfb :1 -screen 0 1024x768x24 &
+$ sudo xhost +
+$ sudo echo "export DISPLAY=:1" >> ~/.bashrc
+```
 
 **Install LibX and the Matlab Runtime for running PsySound Tools**
 
     sudo apt-get install libxt-dev
     sudo apt-get install libxmu-dev
 
-Grab a copy of MCRInstaller.zip from the shared drive (or any existing server with the MCR installed). This is a large file (~400MB). Copy MCRInstaller.zip to the target server under the directory /mnt/galaxy/MATLAB. The file can be transferred using SCP or a similar mechanism. This will install MATLAB into /usr/local/MATLAB.
+Grab a copy of MCRInstaller.zip from the shared drive (or any existing server with the MCR installed). This is a large file (~400MB). This will install MATLAB into /usr/local/MATLAB.
 
-    cd /mnt/galaxy/MATLAB
-    unzip MCRInstaller.zip
-    sudo ./install -mode silent
+```
+$ mkdir mcrinstaller
+$ unzip MCRInstaller.zip -d mcrinstaller
+$ cd mcrinstaller
+$ sudo ./install -mode silent
+```
 
 **Set up server environment variable configuration**
 
-    sudo vi /etc/ssh/sshd_config
+```
+$ sudo vi /etc/ssh/sshd_config
+```
 
 Add the following line to `/etc/ssh/sshd_config`
 
-    PermitUserEnvironment yes
+```
+PermitUserEnvironment yes
+```
 
 Then run the following:
 
-    sudo service ssh restart
-    mkdir ~/.ssh
-    sudo vi ~/.ssh/environment
+```
+$ sudo service ssh restart
+$ mkdir ~/.ssh
+$ nano ~/.ssh/environment
+```
 
 Add the following line to `~/.ssh/environment`
 
-    GALAXY_HOME=/mnt/galaxy/galaxy-app
+```
+GALAXY_HOME=/mnt/galaxy/galaxy-app
+```
 
-**Set up Toolshed**
-
-    sudo apt-get install sysv-rc-conf -y
-    sudo createuser -U postgres -P toolshed
-    sudo createdb -U postgres toolshed
-
-    cd /mnt/galaxy/galaxy-app
-    sudo cp contrib/galaxy.fedora-init /etc/init.d/toolshed
-    sudo chmod 0755 /etc/init.d/toolshed
-    sudo sysv-rc-conf toolshed on
-    sudo vi /etc/init.d/toolshed
-
-Modify the following lines in `/etc/init.d/toolshed`
-
-    SERVICE_NAME="toolshed"
-    RUN_AS="galaxy"
-    RUN_IN="/mnt/galaxy/galaxy-app"
-
-Replace all `run.sh` with `run_tool_shed`
-
-    sudo sed -i 's/run\.sh/run_tool_shed\.sh/g' /etc/init.d/toolshed
-
-Configure apache
-
-    sudo update-rc.d toolshed defaults
-    sudo a2enmod rewrite
-    sudo sysv-rc-conf apache2 on
-
-Add the following lines to `/etc/apache2/conf.d/toolshed.conf`
-
-    RewriteEngine on
-    RewriteRule ^/static/style/(.*) /home/toolshed/galaxy-dist/static/june_2007_style/blue/$1 [L]
-    RewriteRule ^/static/scripts/(.*) /home/toolshed/galaxy-dist/static/scripts/packed/$1 [L]
-    RewriteRule ^/static/(.*) /home/toolshed/galaxy-dist/static/$1 [L]
-    RewriteRule ^/favicon.ico /home/toolshed/galaxy-dist/static/favicon.ico [L]
-    RewriteRule ^/robots.txt /home/toolshed/galaxy-dist/static/robots.txt [L]
-    RewriteRule ^(.*) http://localhost:9009$1 [P]
-
-Configure tool shed server
-
-    sudo cp tool_sheds_conf.xml.sample tool_sheds_conf.xml
-    sudo cp shed_tool_conf.xml.sample shed_tool_conf.xml
-    sudo vi tool_sheds_conf.xml
-
-Add the following inside the `toolsheds` tag
-
-    <tool_shed name="HCS vLab tool shed" url="__TOOL_SHED_URL__"/>
-
-Start it up
-
-    sudo service toolshed start
-
-Turn off port listening on port 80
-    sudo vi /etc/apache2/ports.conf
-Remove the two lines NameVirtualHost:80 and Listen 80.
-
-Restart apache
-
-    sudo apachectl restart
-
-**Set up Proxies for Galaxy and teh Toolshed**
+**Set up Proxies for Galaxy and the Toolshed**
 
 SSH into the server running the Galaxy proxy, and edit the following:
 
-    sudo nano /etc/httpd/conf.d/galaxy_vhost.conf
+```
+sudo nano /etc/httpd/conf.d/galaxy_vhost.conf
+```
 
 Add the following lines to `/etc/httpd/conf.d/galaxy_vhost.conf`
 
-    ## Galaxy Proxy
-    Listen 8081
-    NameVirtualHost *:8081
-    <VirtualHost *:8081>
-         ServerName <SERVER_NAME>
+```
+## Galaxy Proxy
+Listen 8081
+NameVirtualHost *:8081
+<VirtualHost *:8081>
+     ServerName <SERVER_NAME>
 
-         <Proxy *>
-                Order deny,allow
-                Allow from all
-         </Proxy>
-         ProxyPass / http://<NECTAR_VM_IP>:8080/
-         ProxyPassReverse / http://<NECTAR_VM_IP>:8080/
-    </VirtualHost>
+     <Proxy *>
+            Order deny,allow
+            Allow from all
+     </Proxy>
+     ProxyPass / http://<NECTAR_VM_IP>:8080/
+     ProxyPassReverse / http://<NECTAR_VM_IP>:8080/
+</VirtualHost>
 
-    ## Toolshed Proxy
-    Listen 9009
-    NameVirtualHost *:9009
-    <VirtualHost *:9009>
-         ServerName <SERVER_NAME>
+## Toolshed Proxy
+Listen 9009
+NameVirtualHost *:9009
+<VirtualHost *:9009>
+     ServerName <SERVER_NAME>
 
-         <Proxy *>
-                Order deny,allow
-                Allow from all
-         </Proxy>
-         ProxyPass / http://<NECTAR_VM_IP>:9009/
-         ProxyPassReverse / http://<NECTAR_VM_IP>:9009/
-    </VirtualHost>
+     <Proxy *>
+            Order deny,allow
+            Allow from all
+     </Proxy>
+     ProxyPass / http://<NECTAR_VM_IP>:9009/
+     ProxyPassReverse / http://<NECTAR_VM_IP>:9009/
+</VirtualHost>
+```
 
-where you replace `<SERVER_NAME>` with the server you're on (where the webapp is) and `<NECTAR_VM_IP>` with the IP address of the nectar VM with Galaxy w/ cloudman installed
+where you replace `<SERVER_NAME>` with the server that you're on and `<NECTAR_VM_IP>` with the IP address of the nectar VM with Galaxy w/ cloudman installed
 
 
 ### Smoke Test
