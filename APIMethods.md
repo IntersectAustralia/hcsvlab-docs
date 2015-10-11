@@ -933,5 +933,66 @@ Success:
 	</td>
 </tr>
 
+<tr>
+<td>Add a document to an owned item</td>
+<td>/catalog/{collection_id}/{item_id}</td>
+<td>POST</td>
+<td>Result of operation (error/success)</td>
+<td>
+Notes:
+<ol>
+<li>Users are only authorised to add documents to existing items in collections which they own.</li>
+<li>When adding a document a shortened form of the "@id" which specifies the document URI needs to be supplied. This will be automatically converted into Alveo catalog URLs. For example, if adding a document named "document1.txt" then the shortened document URI <code>"@id":"document1.txt"</code> should be supplied and will be automatically converted to <code>"@id":"http://app.alveo.edu.au/catalog/test/item1/document/document1"</code>.</li>
+<li>The identifiers in the supplied document metadata should have matching values, specifically the "@id" and the "dcterms:identifier" or "dc:identifier". This also applies to the document filename if a file is uploaded or a referenced file is used.</li>
+<li> When uploading files or including the document content as JSON the document source metadata  <code>"dcterms:source":{"@id":"&ltfile_or_http_uri&gt"}</code> does not need to be supplied. Instead the system will automatically assign a location for these document files and generate this metadata accordingly. However it is essential to include the document source metadata term for any documents referenced with "file://" or "http://".</li>
+<li>This is a POST request that requires a JSON-LD set of document metadata to be sent with it. Hence, cannot be replicated through a browser but through curl this can be done with something akin to the following.
+<ul>
+<li>If adding a a document referenced (with "file://" or "http://"): <code>curl -X POST -H "X-API-KEY: &ltkey&gt" -H "Accept: application/json" -H "Content-Type: application/json"  -d '{"metadata":{&ltitem_metadata&gt}' &ltserver&gt/catalog/&ltcollection_id&gt/&ltitem_id&gt</code></li>
+<li>If adding a document whose content is embedded in JSON:
+<code>curl -X POST -H "X-API-KEY: &ltkey>" -H "Accept: application/json" -H "Content-Type: application/json"  -d '{"document_content": "&ltdocument_content&gt", "metadata":{&ltitem_metadata&gt}' &ltserver&gt/catalog/&ltcollection_id&gt/&ltitem_id&gt</code></li>
+<li>If adding an item with a single document uploaded as part of the HTTP request:
+<code>curl -X POST -H "X-API-KEY: &ltkey&gt" -H "Accept: application/json" -F file=@"&ltfile_location&gt" -F metadata='{&ltitem_metadata&gt}' &ltserver&gt/catalog/&ltcollection_id&gt/&ltitem_id&gt</code></li>
+</ul>
+</li>
+</ol>
+</td>
+</tr>
+</tr>
+<td>Example Input</td>
+<td colspan=4>
+<ul>
+<li>If adding a document referenced (with "file://" or "http://"): <code>-d '{ "metadata": { "@context": { "dcterms": "http://purl.org/dc/terms/", "foaf": "http://xmlns.com/foaf/0.1/" }, "@id": "document2.txt", "@type": "foaf:Document", "dcterms:identifier": "document2.txt", "dcterms:title": "document2#Text", "dcterms:type": "Text", "dcterms:source": { "@id": "file:///data/test_collections/ausnc/test/document2.txt" } } }'</code></li>
+<li>If adding a document whose contents are embedded in the JSON: <code>-d '{ "document_content": "Hello World!", "metadata": { "@context": { "dcterms": "http://purl.org/dc/terms/", "foaf": "http://xmlns.com/foaf/0.1/" }, "@id": "document2.txt", "@type": "foaf:Document", "dcterms:identifier": "document2.txt", "dcterms:title": "document2#Text", "dcterms:type": "Text" } }'</code></li>
+<li>If adding a document uploaded as part of the HTTP request: <code>-F file=@"document2.txt" -F metadata='{ "@context": { "dcterms": "http://purl.org/dc/terms/", "foaf": "http://xmlns.com/foaf/0.1/" }, "@id": "document2.txt", "@type": "foaf:Document", "dcterms:identifier": "document2.txt", "dcterms:title": "document2#Text", "dcterms:type": "Text" }'</code></li>
+</ul>
+</td>
+</tr>
+<tr>
+<td>Example Response</td>
+<td colspan=4>
+<br>Success:
+<br>{"success":"Added the document &ltdocument_filename&gt to item &ltitem_id&gt in collection &ltcollection_id&gt"}
+<br>Failure:
+<br>{"error":"User is unauthorised"}
+<br>or
+<br>{"error":"Requested collection not found"}
+<br>or
+<br>{"error":"Requested item not found"}
+<br>or
+<br>{"error":"JSON-LD formatted item metadata must be sent with the api request"}
+<br>or
+<br>{"error":"JSON item metadata is ill-formatted"}
+<br>or
+<br>{"error":"The document &ltdocument_id&gt already exists in the collection &ltcollection_name&gt"}
+<br>or
+<br>{"error":"content missing from document &ltdocument_id&gt"}
+<br>or
+<br>{"error":"The file &ltfilename&gt has already been uploaded to the collection &ltcollection_name&gt"}
+<br>or
+<br>{"error":"Error in file parameter."}
+<br>or
+<br>{"error":"Uploaded file is not present or empty."}
+</td>
+</tr>
 
 </table>
