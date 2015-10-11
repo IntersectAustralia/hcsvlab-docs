@@ -981,6 +981,94 @@ Success:
 </tr>
 
 <tr>
+<td>Add items with documents to an owned collection</td>
+<td>/catalog/{collection_id}</td>
+<td>POST</td>
+<td>Result of operation (error/success) and a list of item ids for each item added</td>
+<td>Notes:
+<ol>
+<li>Users are only authorised to add items to a collection which they own.</li>
+<li>The expected format for adding a document is to have the metadata for that document nested within the item level metadata. See the example input for examples of this.</li>
+<li>When adding items or documents, the "@id" that specifies the URI of the item/document needs to be supplied. This  will then be automatically converted into Alveo catalog URLs. For example:
+<br>When adding an item to a test collection if the user specifies <code>"@id":"item1"</code> then the system will convert this into <code>"@id":"http://app.avleo.edu.au/catalog/test/item1"</code>. 
+<br>Similarly a document with <code>"@id":"document1"</code> will be converted to <code>"@id":"http://app.alveo.edu.au/catalog/test/item1/document/document1"</code>.
+</li>
+<li>The document metadata term <code>"dcterms:source":{"@id":"&ltfile_or_http_uri&gt"}</code> does not need to be provided for any documents whose contents are embedded in the JSON item metadata or are uploaded as part of the HTTP request. This is since the server will assign a location for uploaded documents and modify the aforementioned metadata document source term appropriately. However it is essential to include the document source metadata term for any documents referenced with "file://" or "http://".</li>
+<li>For document files uploaded as part of the HTTP request or whose content is embedded in the JSON item metadata, for that document content or file to be associated with the metadata of a particular document the value given to the <code>"dcterms:identifier"</code> within the document metadata needs to match the name of the uploaded file or identifier of the embedded document content. For example: <br>a document with metadata containing <code>"dcterms:identifier":"sample.txt"</code> will be associated with the uploaded file "sample.txt".</li>
+<li>The <code>"dcterms:isPartOf":{"@id":"corpus:&ltcollection_name&gt"}</code> should not be supplied when adding an item to a collection. This metadata will be automatically generated and will correspond with the collection that the item is being added to. If this metadata is supplied it will be overwritten when the system generates it for the corresponding corpus.</li>
+<li>If an item being added contains invalid metadata that item will not be added to the collection but all other valid items shall  continue to be added to the collection. The API response will contain a list of ids of each item that was successfully added to the collection.</li>
+<li>
+This is a POST request that requires a JSON-LD set of collection metadata to be sent with it.
+Hence, cannot be replicated through a browser but through curl this can be done with something akin to the following:
+<ul>
+<li>If adding an item with document(s) that are referenced (with "file://" or "http://"):
+<br><code>curl -X POST -H "X-API-KEY: &ltkey&gt" -H "Accept: application/json" -H "Content-Type: application/json"  -d '{"items":[{"metadata":{&ltitem_metadata&gt}'}]}' &ltserver&gt/catalog/&ltcollection_id&gt</code>
+</li>
+<li>If adding an item with document(s) whose contents are embedded in the JSON item metadata:
+<br><code>curl -X POST -H "X-API-KEY: &ltkey&gt" -H "Accept: application/json" -H "Content-Type: application/json"  -d '{"items":[{"documents":[{&ltdocument_metadata&gt}], "metadata":{&ltitem_metadata&gt}'}]}' &ltserver&gt/catalog/&ltcollection_id&gt</code>
+</li>
+<li>If adding an item with a single document uploaded as part of the HTTP request:
+<br><code>curl -X POST -H "X-API-KEY: &ltkey&gt" -H "Accept: application/json" -F file=@"&ltfile_location&gt" -F items='[{&ltitem_metadata&gt}]' &ltserver&gt/catalog/&ltcollection_id&gt</code>
+</li>
+<li>If adding an item with multiple documents uploaded as part of the HTTP request:
+<br><code>curl -X POST -H "X-API-KEY: &ltkey&gt" -H "Accept: application/json" -F file[]=@"&ltfile_1_location&gt" -F file[]=@"&ltfile_2_location&gt" -F items='[{&ltitem_metadata&gt}]' &ltserver&gt/catalog/&ltcollection_id&gt</code>
+</li>
+</ul>
+</li>
+</ol>
+</td>
+</tr>
+<td>Example Input</td>
+<td colspan=4> 
+<ul>
+<li>If adding an item with document(s) that are referenced (with "file://" or "http://"):
+<br><code>-d '{ "items": [ { "metadata": { "@context": { "ausnc": "http://ns.ausnc.org.au/schemas/ausnc_md_model/", "corpus": "http://ns.ausnc.org.au/corpora/", "dc": "http://purl.org/dc/terms/", "dcterms": "http://purl.org/dc/terms/", "foaf": "http://xmlns.com/foaf/0.1/", "hcsvlab": "http://hcsvlab.org/vocabulary/" }, "@graph": [ { "@id": "item1", "@type": "ausnc:AusNCObject", "ausnc:document": [ { "@id": "document1", "@type": "foaf:Document", "dcterms:extent": 1234, "dcterms:identifier": "document1.txt", "dcterms:source": { "@id": "file:///data/test_collections/ausnc/test/document2.txt" }, "dcterms:title": "document1#Text", "dcterms:type": "Text" } ], "dcterms:identifier": "item1", "hcsvlab:indexable_document": { "@id": "document1.txt" }, "hcsvlab:display_document": { "@id": "document1.txt" } } ] } } ] }'</code>
+</li>
+<li>If adding an item with document(s) whose contents are embedded in the JSON item metadata:
+<br><code>-d '{"items": [ { "documents": [ { "identifier": "document1.txt", "content": "This document had its content provided as part of the JSON request." } ], "metadata": { "@context": { "ausnc": "http://ns.ausnc.org.au/schemas/ausnc_md_model/", "corpus": "http://ns.ausnc.org.au/corpora/", "dc": "http://purl.org/dc/terms/", "dcterms": "http://purl.org/dc/terms/", "foaf": "http://xmlns.com/foaf/0.1/", "hcsvlab": "http://hcsvlab.org/vocabulary/" }, "@graph": [ { "@id": "item1", "@type": "ausnc:AusNCObject", "ausnc:document": [ { "@id": "document1.txt", "@type": "foaf:Document", "dcterms:extent": 72636, "dcterms:identifier": "document1.txt", "dcterms:title": "document1#Text", "dcterms:type": "Text" } ], "dcterms:identifier": "item1", "hcsvlab:display_document": { "@id": "document1.txt" }, "hcsvlab:indexable_document": { "@id": "document1.txt" } } ] } } ] }'
+</code>
+</li>
+<li>If adding an item with a single document uploaded as part of the HTTP request:
+<br><code>-F file=@"1-001-plain.txt" -F items='[ { "metadata": { "@context": { "ausnc": "http://ns.ausnc.org.au/schemas/ausnc_md_model/", "corpus": "http://ns.ausnc.org.au/corpora/", "dc": "http://purl.org/dc/terms/", "dcterms": "http://purl.org/dc/terms/", "foaf": "http://xmlns.com/foaf/0.1/", "hcsvlab": "http://hcsvlab.org/vocabulary/" }, "@graph": [ { "@id": "item1", "@type": "ausnc:AusNCObject", "ausnc:document": [ { "@id": "1-001-plain.txt", "@type": "foaf:Document", "dcterms:extent": 72636, "dcterms:identifier": "1-001-plain.txt", "dcterms:title": "document1#Text", "dcterms:type": "Text" } ], "dcterms:identifier": "item1", "hcsvlab:display_document": { "@id": "1-001-plain.txt" }, "hcsvlab:indexable_document": { "@id": "1-001-plain.txt" } } ] } } ]'</code>
+</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td>Example Response</td>
+<td colspan=4> 
+<br>Success:
+<br>{"success":["&ltitem_1_id&gt", "&ltitem_2_id&gt"]}
+<br>or
+<br>{"success":["&ltitem_id&gt"], "failures":["Unknown item contains invalid metadata"]}
+<br>Failure:
+<br>{"error":"JSON-LD formatted item metadata must be sent with the api request"}
+<br>or
+<br>{"error":"JSON item metadata is ill-formatted"}
+<br>or
+<br>{"error":"Requested collection not found"}
+<br>or
+<br>{"error":"User is unauthorised"}
+<br>or
+<br>{"error":"The item &ltitem_id&gt already exists in the collection &ltcollection_name&gt"}
+<br>or
+<br>{"error":"identifier missing from document"}
+<br>or
+<br>{"error":"The identifier "&ltdocument_id&gt" is used for multiple documents"}
+<br>or
+<br>{"error":"content missing from document &ltdocument_id&gt"}
+<br>or
+<br>{"error":"The file &ltfilename&gt has already been uploaded to the collection &ltcollection_name&gt"}
+<br>or
+<br>{"error":"Error in file parameter."}
+<br>or
+<br>{"error":"Uploaded file is not present or empty."}
+<br>or
+<br>{"error":"No items were added"}
+</td>
+</tr>
+
+<tr>
 <td>Update an item</td>
 <td>/catalog/{collection_name}/{item_name}</td>
 <td>PUT</td>
@@ -988,7 +1076,7 @@ Success:
 <td>Notes:
 <ol>
 <li>Users are only authorised to update an item from collection which they own.</li>
-<li>This is a delete request. Hence, cannot be replicated through a browser but through curl this can be done with something akin to the following.
+<li>This is a PUT request. Hence, cannot be replicated through a browser but through curl this can be done with something akin to the following.
 <ul>
 <li><code>curl -H "X-API-KEY: &ltkey&gt" -H "Content-Type: application/json" -H "Accept: application/json" -X PUT -d '{"metadata": &ltitem_metadata&gt}' &ltserver&gt/catalog/&ltcollection_id&gt/&ltitem_id&gt</code></li>
 </ul>
@@ -1031,7 +1119,7 @@ The following is an example of expected input for &ltitem_metadata&gt:
 <ol>
 <li>Users are only authorised to delete an item from collection which they own.</li>
 <li>Deleting an item from a collection also deletes all of that items documents and the corresponding document audits.</li>
-<li>This is a delete request. Hence, cannot be replicated through a browser but through curl this can be done with something akin to the following.
+<li>This is a DELETE request. Hence, cannot be replicated through a browser but through curl this can be done with something akin to the following.
 <ul>
 <li><code>curl -H "X-API-KEY: &ltapi_key&gt" -H "Accept: application/json" -X DELETE &ltserver&gt/catalog/&ltcollection_id&gt/&ltitem_id&gt</code></li>
 </ul>
@@ -1123,7 +1211,7 @@ Notes:
 <td>Notes:
 <ol>
 <li>Users are only authorised to delete documents from items in collections which they own.</li>
-<li>This is a delete request. Hence, cannot be replicated through a browser but through curl this can be done with something akin to the following.
+<li>This is a DELETE request. Hence, cannot be replicated through a browser but through curl this can be done with something akin to the following.
 <ul>
 <li><code>curl -H "X-API-KEY: &ltapi_key&gt"  -H "Accept: application/json" -X DELETE &ltserver&gt/catalog/&ltcollection_id&gt/&ltitem_id&gt/document/&ltdocument_filename&gt</code></li>
 </ul>
