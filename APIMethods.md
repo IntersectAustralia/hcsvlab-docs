@@ -934,6 +934,48 @@ Success:
 </tr>
 
 <tr>
+<td>Update an item</td>
+<td>/catalog/{collection_name}/{item_name}</td>
+<td>PUT</td>
+<td>Result of operation (error/success)</td>
+<td>Notes:
+<ol>
+<li>Users are only authorised to update an item from collection which they own.</li>
+<li>This is a delete request. Hence, cannot be replicated through a browser but through curl this can be done with something akin to the following.
+<ul>
+<li><code>curl -H "X-API-KEY: &ltkey&gt" -H "Content-Type: application/json" -H "Accept: application/json" -X PUT -d '{"metadata": &ltitem_metadata&gt}' &ltserver&gt/catalog/&ltcollection_id&gt/&ltitem_id&gt</code></li>
+</ul>
+</li>
+</ol>
+</td>
+</tr>
+<tr>
+<td>Example Input</td>
+<td colspan=4> 
+The following is an example of expected input for &ltitem_metadata&gt:
+<ul>
+<li><code>{"http://ns.ausnc.org.au/schemas/ausnc_md_model/mode":"An updated test mode"}</code></li>
+<li><code>{"@context":{"ausnc":"http://ns.ausnc.org.au/schemas/ausnc_md_model/"}, "ausnc:speech_style":"An updated speech style"}</code></li>
+</ul>
+</td>
+</tr>
+<tr>
+<td>Example Response</td>
+<td colspan=4> 
+<br>Success:
+<br>{"success":"Updated item &ltitem_id&gt in collection &ltcollection_id&gt"}
+<br>Failure:
+<br>{"error":"Requested collection not found"}
+<br>or
+<br>{"error":"Requested item not found"}
+<br>or
+<br>{"error":"User is unauthorised"}
+<br>or
+<br>{"error":"Invalid metadata"}
+</td>
+</tr>
+
+<tr>
 <td>Delete an item from an owned collection</td>
 <td>/catalog/{collection_id}/{item_id}</td>
 <td>DELETE</td>
