@@ -934,6 +934,37 @@ Success:
 </tr>
 
 <tr>
+<td>Delete an item from an owned collection</td>
+<td>/catalog/{collection_id}/{item_id}</td>
+<td>DELETE</td>
+<td>Result of operation (error/success)</td>
+<td>Notes:
+<ol>
+<li>Users are only authorised to delete an item from collection which they own.</li>
+<li>Deleting an item from a collection also deletes all of that items documents and the corresponding document audits.</li>
+<li>This is a delete request. Hence, cannot be replicated through a browser but through curl this can be done with something akin to the following.
+<ul>
+<li><code>curl -H "X-API-KEY: &ltapi_key&gt" -H "Accept: application/json" -X DELETE &ltserver&gt/catalog/&ltcollection_id&gt/&ltitem_id&gt</code></li>
+</ul>
+</li>
+</ol>
+</td>
+</tr>
+<tr>
+<td>Example Response</td>
+<td colspan=4> 
+<br>Success:
+<br>{"success":"Deleted the item &ltitem_id&gt (and its documents) from collection &ltcollection_id&gt"}
+<br>Failure:
+<br>{"error":"User is unauthorised"}
+<br>or
+<br>{"error":"Requested collection not found"}
+<br>or
+<br>{"error":"Requested item not found"}
+</td>
+</tr>
+
+<tr>
 <td>Add a document to an owned item</td>
 <td>/catalog/{collection_id}/{item_id}</td>
 <td>POST</td>
