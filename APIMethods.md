@@ -995,4 +995,37 @@ Notes:
 </td>
 </tr>
 
+<tr>
+<td>Delete a document from an owned item</td>
+<td>/catalog/{collection_id}/{item_id}/document/{document_filename}</td>
+<td>DELETE</td>
+<td>Result of operation (error/success)</td>
+<td>Notes:
+<ol>
+<li>Users are only authorised to delete documents from items in collections which they own.</li>
+<li>This is a delete request. Hence, cannot be replicated through a browser but through curl this can be done with something akin to the following.
+<ul>
+<li><code>curl -H "X-API-KEY: &ltapi_key&gt"  -H "Accept: application/json" -X DELETE &ltserver&gt/catalog/&ltcollection_id&gt/&ltitem_id&gt/document/&ltdocument_filename&gt</code></li>
+</ul>
+</li>
+</ol>
+</td>
+</tr>
+<tr>
+<td>Example Response</td>
+<td colspan=4> 
+<br>Success:
+<br>{"success":"Deleted the document &ltdocument_filename&gt from item &ltitem_id&gt in collection &ltcollection_id&gt"}
+<br>Failure:
+<br>{"error":"User is unauthorised"}
+<br>or
+<br>{"error":"Requested collection not found"}
+<br>or
+<br>{"error":"Requested item not found"}
+<br>or
+<br>{"error":"Requested document not found"}
+</td>
+</tr>
+
+
 </table>
