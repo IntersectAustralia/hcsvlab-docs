@@ -934,6 +934,53 @@ Success:
 </tr>
 
 <tr>
+<td>Edit a Collection</td>
+<td>/catalog/{collection_name}</td>
+<td>PUT</td>
+<td>Result of operation (error/success)</td>
+<td>Notes:
+<ol>
+<li>Users are only authorised to edit a collection which they own.</li>
+<li>It is not neccessary to include the collection URI within the JSON-LD metadata <code>("@id":"&ltcollection_uri&gt")</code> as this will be automatically generated.</li>
+<li>The "replace" JSON parameter indicates whether or not the provided metadata should replace the existing collection metadata. 
+<ul>
+<li>If replace is true then the entire existing collection metadata (including the context) will be replaced with the provided metadata.</li>
+<li>If replace is false or unsupplied then the collection metadata will be updated with the provided metadata.</li>
+</ul>
+</li>
+<li>This is a PUT request. Hence, cannot be replicated through a browser but through curl this can be done with something akin to the following.
+<ul>
+<li><code>curl -H "X-API-KEY: &ltkey&gt"  -H "Content-Type: application/json" -H "Accept: application/json" -X PUT -d '{ "replace": &lttrue/false&gt, "collection_metadata": &ltcollection_metadata&gt}' &ltserver&gt/catalog/&ltcollection_id&gt</code></li>
+</ul>
+</li>
+</ol>
+</td>
+</tr>
+<tr>
+<td>Example Input</td>
+<td colspan=4> 
+<ul>
+<li>When updating collection metadata without specifying the "replace" parameter: <br><code>{ "collection_metadata": {"http://purl.org/dc/elements/1.1/title": "An updated test collection"}}</code></li>
+<li>When updating collection metadata by setting the "replace" parameter to false: <br><code>{ "replace": false, "collection_metadata": {"http://purl.org/dc/elements/1.1/title": "An updated test collection"}}</code></li>
+<li>When overwriting collection metadata by setting the "replace" parameter to true: <br><code>{ "replace": true, "collection_metadata": {"@context": {"dc": "http://purl.org/dc/elements/1.1/", "dcmitype": "http://purl.org/dc/dcmitype/"}, "@type": "dcmitype:Collection", "dc:title": "An updated test collection", "dc:subject": "English Language", "dc:creator": "Test User"}}</code></li>
+</ul>
+</td>
+</tr>
+<tr>
+<td>Example Response</td>
+<td colspan=4> 
+<br>Success:
+<br>{"success":"Updated collection &ltcollection_name&gt"}
+<br>Failure:
+<br>{"error":"Requested collection not found"}
+<br>or
+<br>{"error":"User is unauthorised"}
+<br>or
+<br>{"error":"Invalid metadata"}
+</td>
+</tr>
+
+<tr>
 <td>Update an item</td>
 <td>/catalog/{collection_name}/{item_name}</td>
 <td>PUT</td>
