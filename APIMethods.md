@@ -817,104 +817,50 @@ Item list can be unshareed via HTTP POST mehod
 	</pre>
 	</td>
 </tr>
-<tr> 
-	<td>Add a Collection and Collection Metadata (only available to Alveo users with "Data Owner" or "Admin" roles).
-	<br>Note: Adding items to the collection is a separate request.</td>
-	<td> /catalog
-</td>
-	<td> POST </td>
-	<td> Result of item list operation (error/success)
-</td>
-	<td> 
-		Notes: 
-<br>1. Only users with the 'admin' or 'data owner' role are authorised to perform this action. 
-<br>2. To derive <insert user API KEY>, log in to Alveo and select your user name from the top bar, then “API Key”, and generate and copy your API key from there.
-<br>3. The “name” (Collection name) doesn't have to be sent in as a parameter attached to the URL, it can also be sent in as part of the JSON 
-<br>4. Ensure all apostrophe/quotation marks used are true apostrophe quotation mark format i.e. ' or " (json will not accept similar accent/double prime/grave characters). To assure the formatting is verifiable, go to http://jsonlint.com/ or a similar json validator and paste the part of the command that starts  '{ "collection_metadata":  … TO …. "}}' i.e. from after … Accept: application/json" -X POST -d UP TO (but not including) … /catalog?name=<Collection name>  or /catalog
-<br>
-<br>This is a post request that requires a JSON set of collection metadata to be sent with it. It cannot be replicated through a browser but through curl this can be done like: 
-<CODE>
-<br>curl -H "X-API-KEY: <insert user API KEY>" -H "Content-Type: application/json" -H "Accept: application/json" -X POST -d '{ "collection_metadata": {"@context": {"TEST": “<Unique to Alveo URI in format like http://test.uri>”, "dc": "http://purl.org/dc/elements/1.1/", "dcmitype": "http://purl.org/dc/dcmitype/", "marcrel": "http://www.loc.gov/loc.terms/relators/", "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#", "rdfs": "http://www.w3.org/2000/01/rdf-schema#", "xsd": "http://www.w3.org/2001/XMLSchema#" }, "@id": "http://test.uri", "@type": "dcmitype:Collection", "dc:creator": "Data Owner", "dc:rights": "All rights reserved to Data Owner", "dc:subject": "English Language", "dc:title": "Test", "marcrel:OWN": "Data Owner"}}' /catalog?name=Test
- </CODE>
-<br>
 
-	</td>
+<tr>
+<td>Create a collection</td>
+<td>/catalog</td>
+<td>POST</td>
+<td>Result of operation (error/success)</td>
+<td>
+<ol>
+<li>Users are only authorised to create a collection if they have the role of 'admin' or 'data owner'.</li>
+<li>When creating a collection, the "@id" which specifies the URI of the collection needs to be supplied. Unlike other API calls this URI will <em>NOT</em> be automatically converted into the corresponding Alveo catalog URL.</li>
+<li>The collection name can either be supplied as a JSON parameter or as a URL paramaeter. See the example input for examples of this.</li>
+<li>
+This is a POST request that requires a JSON-LD set of collection metadata to be sent with it.
+Hence, cannot be replicated through a browser but through curl this can be done with something akin to the following:
+<ul>
+<li>When creating a collection with the collection name supplied as a URL parameter:
+<br><code>curl -X POST -H "X-API-KEY: &ltkey&gt" -H "Content-Type: application/json" -H "Accept: application/json" -d '{ "collection_metadata": &ltcollection_metadata&gt}' &ltserver&gt/catalog?name=&ltcollection_name&gt</code>
+</li>
+<li>When creating a collection with the collection name supplied as a JSON parameter:
+<br><code>curl -X POST -H "X-API-KEY: &ltkey&gt" -H "Content-Type: application/json" -H "Accept: application/json" -d '{ "collection_metadata": &ltcollection_metadata&gt, "name":"&ltcollection_name&gt"}' &ltserver&gt/catalog</code>
+</li>
+</ul>
+</li>
+</ol>
+</td>
+</tr>
+<td>Example Input</td>
+<td colspan=4> 
+The following is an example of expected input for &ltcollection_metadata&gt:
+<ul>
+<li><code>{ "@context": { "dc": "http://purl.org/dc/terms/", "dcterms": "http://purl.org/dc/terms/", "dcmitype": "http://purl.org/dc/dcmitype/" }, "@id": "http://colllection.name.uri", "@type": "dcmitype:Collection", "dc:creator": "Data Owner", "dc:rights": "All rights reserved to Data Owner", "dc:subject": "English Language", "dc:title": "Test" }</code></li>
+</ul>
+</td>
 </tr>
 <tr>
-	<td> Examples of the Create new collection & Metadata request </td>
-	<td colspan=4>	
-	<pre>
-<br>Example Inputs
-<br>Sample 1:
-<CODE>
-<br>curl -H "X-API-KEY:<insert user API KEY>" -H "Content-Type: application/json" -H "Accept: application/json" -X POST -d '
-{ 
-	"collection_metadata": {
-		"@context": {
-			“<metadata label name>”: “<metadata value>”, 
-			"dc": "http://purl.org/dc/elements/1.1/", 
-			"dcmitype": "http://purl.org/dc/dcmitype/", 
-			"marcrel": "http://www.loc.gov/loc.terms/relators/", 
-			"rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#", 
-			"rdfs": "http://www.w3.org/2000/01/rdf-schema#", 
-			"xsd": "http://www.w3.org/2001/XMLSchema#" 
-		}, 
-		"@id": "<Unique to system URI formatted like http://test.uri>", 
-		"@type": "dcmitype:Collection", 
-		"dc:creator": "Data Owner", 
-		"dc:rights": "All rights reserved to Data Owner", 
-		"dc:subject": "English Language", 
-		"dc:title": "Test", 
-		"marcrel:OWN": "Data Owner"
-	}
-}
-‘ /catalog?name=”<Unique to Alveo Collection Name e.g. Test Study>”
- </CODE>
-<br>
-<br>OR if name is specified as a json parameter, as shown in the Sample 2 below:
-<br>
-<br>Sample 2:
-<CODE>
-<br>curl -H "X-API-KEY:<insert user API KEY>" -H "Content-Type: application/json" -H "Accept: application/json" -X POST -d '
-{ 
-	"collection_metadata": {
-		"@context": {
-			“<metadata label name>”: “<metadata value>”, 
-			"dc": "http://purl.org/dc/elements/1.1/", 
-			"dcmitype": "http://purl.org/dc/dcmitype/", 
-			"marcrel": "http://www.loc.gov/loc.terms/relators/", 
-			"rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#", 
-			"rdfs": "http://www.w3.org/2000/01/rdf-schema#", 
-			"xsd": "http://www.w3.org/2001/XMLSchema#" 
-		}, 
-		"@id": "<Unique to system URI formatted like http://test.uri>", 
-		"@type": "dcmitype:Collection", 
-		"dc:creator": "Data Owner", 
-		"dc:rights": "All rights reserved to Data Owner", 
-		"dc:subject": "English Language", 
-		"dc:title": "Test", 
-		"marcrel:OWN": "Data Owner"
-	},
-           “name”: =”<Unique to Alveo Collection Name e.g. Test Study>”
-}
-‘ /catalog
- </CODE>
-	</pre>
-	</td>
-</tr>
-<tr>
-	<td> Example Response </td>
-	<td colspan=4>	
-	<pre>
-<CODE>
-Success:
-<br>{"success":"New collection '<collection name>' (http:// <collection uri>.uri) created"}
-<br>
+<td>Example Response</td>
+<td colspan=4> 
+<br>Success:
+<br>{"success":"New collection '&ltcollection_name&gt' (&ltcollection_URI&gt) created"}
 <br>Failure:
 <br>{"error":"Permission Denied: Your role within the system does not have sufficient privileges to be able to create a collection. Please contact an Alveo administrator."}
 <br>or
 <br>{"error":"name parameter not found"}
-<br> or
+<br>or
 <br>{"error":"metatdata parameter not found"}
 <br>or
 <br>{"error":"name and metadata parameters not found"}
@@ -923,14 +869,8 @@ Success:
 <br>or
 <br>{"error":"JSON-LD formatted metadata must be sent to the add collection api call as a POST request"}
 <br>or
-<br>{"error":"Collection 'Test' (http://test.uri) already exists in the system - skipping"}
-<br>or
-<br>{"error":"Invalid authentication token."}
-<br>or
-<br>{"error":"Collection '<collection name>' (http://k<collection_uri>.uri) already exists in the system - skipping"}
-    </CODE>
-	</pre>
-	</td>
+<br>{"error":"Collection '&lcollection_namet&gt' (&ltcollection_URI&gt) already exists in the system - skipping"}
+</td>
 </tr>
 
 <tr>
