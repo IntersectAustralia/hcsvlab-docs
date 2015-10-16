@@ -462,12 +462,14 @@ Item list can be unshareed via HTTP POST mehod
 <td> POST </td>
 <td> Download a file in the specified format containing the item's documents and metadata </td>
 <td> This is a post request that requires a JSON set of items sent with it. Hence, cannot be replicated through a browser but through curl this can be done with something akin to:
-<br>curl -H "X-API-KEY: <key>" -H "Accept: application/<format>" -H "Content-Type: application/json" -X POST -d '{"items":["<host>/catalog/cooee/2-015","<host>/catalog/cooee/2-021"]}' <host>/catalog/download_items
+<br>curl -H "X-API-KEY: &ltkey&gt" -H "Accept: application/&ltformat&gt" -H "Content-Type: application/json" -X POST -d '{"items":["&lthost&gt/catalog/cooee/2-015","&lthost&gt/catalog/cooee/2-021"]}' &lthost&gt/catalog/download_items
 <br>Allowed formats = zip, warc.
 <br>If format is not specified, zip will be set by default
 <br>You can also specify the file format using as follow:
-<br>curl -H "X-API-KEY: <key>" -H "Content-Type: application/json" -X POST -d '{"items":["<host>/catalog/cooee/2-015","<host>/catalog/cooee/2-021"]}' <host>/catalog/download_items.<format>
-<br>curl -H "X-API-KEY: <key>" -H "Content-Type: application/json" -X POST -d '{"items":["<host>/catalog/cooee/2-015","<host>/catalog/cooee/2-021"]}' <host>/catalog/download_items?format=<format>
+<br>curl -H "X-API-KEY: &ltkey&gt" -H "Content-Type: application/json" -X POST -d '{"items":["&lthost&gt/catalog/cooee/2-015","&lthost&gt/catalog/cooee/2-021"]}' &lthost&gt/catalog/download_items.&ltformat&gt
+<br>curl -H "X-API-KEY: &ltkey&gt" -H "Content-Type: application/json" -X POST -d '{"items":["&lthost&gt/catalog/cooee/2-015","&lthost&gt/catalog/cooee/2-021"]}' &lthost&gt/catalog/download_items?format=&ltformat&gt
+<br>To save the retrieved zip file the API call output needs to be redirected to a file. This can be achieved using the '&gt' character at the end of the API call similar to the following:
+<br>"X-API-KEY: &ltkey&gt" -H "Accept: application/&ltformat&gt" -H "Content-Type: application/json" -X POST -d '{"items":["&lthost&gt/catalog/cooee/2-015","&lthost&gt/catalog/cooee/2-021"]}' &lthost&gt/catalog/download_items &gt items.zip
 </td>
 </tr>
 <tr>
