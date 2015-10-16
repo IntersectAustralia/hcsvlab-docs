@@ -1097,11 +1097,11 @@ Notes:
 <li> When uploading files or including the document content as JSON the document source metadata  <code>"dcterms:source":{"@id":"&ltfile_or_http_uri&gt"}</code> does not need to be supplied. Instead the system will automatically assign a location for these document files and generate this metadata accordingly. However it is essential to include the document source metadata term for any documents referenced with "file://" or "http://".</li>
 <li>This is a POST request that requires a JSON-LD set of document metadata to be sent with it. Hence, cannot be replicated through a browser but through curl this can be done with something akin to the following.
 <ul>
-<li>If adding a a document referenced (with "file://" or "http://"): <code>curl -X POST -H "X-API-KEY: &ltkey&gt" -H "Accept: application/json" -H "Content-Type: application/json"  -d '{"metadata":{&ltitem_metadata&gt}' &ltserver&gt/catalog/&ltcollection_id&gt/&ltitem_id&gt</code></li>
+<li>If adding a a document referenced (with "file://" or "http://"): <code>curl -X POST -H "X-API-KEY: &ltkey&gt" -H "Accept: application/json" -H "Content-Type: application/json"  -d '{"metadata":{&ltidocument_metadata&gt}' &ltserver&gt/catalog/&ltcollection_id&gt/&ltitem_id&gt</code></li>
 <li>If adding a document whose content is embedded in JSON:
-<code>curl -X POST -H "X-API-KEY: &ltkey>" -H "Accept: application/json" -H "Content-Type: application/json"  -d '{"document_content": "&ltdocument_content&gt", "metadata":{&ltitem_metadata&gt}' &ltserver&gt/catalog/&ltcollection_id&gt/&ltitem_id&gt</code></li>
+<code>curl -X POST -H "X-API-KEY: &ltkey>" -H "Accept: application/json" -H "Content-Type: application/json"  -d '{"document_content": "&ltdocument_content&gt", "metadata":{&ltdocument_metadata&gt}' &ltserver&gt/catalog/&ltcollection_id&gt/&ltitem_id&gt</code></li>
 <li>If adding an item with a single document uploaded as part of the HTTP request:
-<code>curl -X POST -H "X-API-KEY: &ltkey&gt" -H "Accept: application/json" -F file=@"&ltfile_location&gt" -F metadata='{&ltitem_metadata&gt}' &ltserver&gt/catalog/&ltcollection_id&gt/&ltitem_id&gt</code></li>
+<code>curl -X POST -H "X-API-KEY: &ltkey&gt" -H "Accept: application/json" -F file=@"&ltfile_location&gt" -F metadata='{&ltdocument_metadata&gt}' &ltserver&gt/catalog/&ltcollection_id&gt/&ltitem_id&gt</code></li>
 </ul>
 </li>
 </ol>
