@@ -1154,6 +1154,7 @@ Notes:
 <ol>
 <li>Users are only authorised to delete documents from items in collections which they own.</li>
 <li>This is a DELETE request. Hence, cannot be replicated through a browser but through curl this can be done with something akin to the following.
+<li>If the source for the document is a file, e.g. on upload was sourced at: { "dcterms:source": { "@id": "file:///home/devel/<file_name>.txt"}, on API delete document call, the ORIGINAL SOURCE file is deleted.
 <ul>
 <li><code>curl -H "X-API-KEY: &ltapi_key&gt"  -H "Accept: application/json" -X DELETE &ltserver&gt/catalog/&ltcollection_id&gt/&ltitem_id&gt/document/&ltdocument_filename&gt</code></li>
 </ul>
