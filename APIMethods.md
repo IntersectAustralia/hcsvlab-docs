@@ -461,15 +461,21 @@ Item list can be unshareed via HTTP POST mehod
 <td> /catalog/download_items </td>
 <td> POST </td>
 <td> Download a file in the specified format containing the item's documents and metadata </td>
-<td> This is a post request that requires a JSON set of items sent with it. Hence, cannot be replicated through a browser but through curl this can be done with something akin to:
-<br>curl -H "X-API-KEY: &ltkey&gt" -H "Accept: application/&ltformat&gt" -H "Content-Type: application/json" -X POST -d '{"items":["&lthost&gt/catalog/cooee/2-015","&lthost&gt/catalog/cooee/2-021"]}' &lthost&gt/catalog/download_items
-<br>Allowed formats = zip, warc.
+<td> 
+<ul>
+<li>This is a post request that requires a JSON set of items sent with it. Hence, cannot be replicated through a browser but through curl this can be done with something akin to:
+<br><code>curl -H "X-API-KEY: &ltkey&gt" -H "Accept: application/&ltformat&gt" -H "Content-Type: application/json" -X POST -d '{"items":["&lthost&gt/catalog/cooee/2-015","&lthost&gt/catalog/cooee/2-021"]}' &lthost&gt/catalog/download_items</code>
+</li>
+<li>Allowed formats = zip, warc.
 <br>If format is not specified, zip will be set by default
 <br>You can also specify the file format using as follow:
-<br>curl -H "X-API-KEY: &ltkey&gt" -H "Content-Type: application/json" -X POST -d '{"items":["&lthost&gt/catalog/cooee/2-015","&lthost&gt/catalog/cooee/2-021"]}' &lthost&gt/catalog/download_items.&ltformat&gt
-<br>curl -H "X-API-KEY: &ltkey&gt" -H "Content-Type: application/json" -X POST -d '{"items":["&lthost&gt/catalog/cooee/2-015","&lthost&gt/catalog/cooee/2-021"]}' &lthost&gt/catalog/download_items?format=&ltformat&gt
-<br>To save the retrieved zip file the API call output needs to be redirected to a file. This can be achieved using the '&gt' character at the end of the API call similar to the following:
-<br>"X-API-KEY: &ltkey&gt" -H "Accept: application/&ltformat&gt" -H "Content-Type: application/json" -X POST -d '{"items":["&lthost&gt/catalog/cooee/2-015","&lthost&gt/catalog/cooee/2-021"]}' &lthost&gt/catalog/download_items &gt items.zip
+<br><code>curl -H "X-API-KEY: &ltkey&gt" -H "Content-Type: application/json" -X POST -d '{"items":["&lthost&gt/catalog/cooee/2-015","&lthost&gt/catalog/cooee/2-021"]}' &lthost&gt/catalog/download_items.&ltformat&gt</code>
+<br><code>curl -H "X-API-KEY: &ltkey&gt" -H "Content-Type: application/json" -X POST -d '{"items":["&lthost&gt/catalog/cooee/2-015","&lthost&gt/catalog/cooee/2-021"]}' &lthost&gt/catalog/download_items?format=&ltformat&gt</code>
+</li>
+<li>To save the retrieved zip file the API call output needs to be redirected to a file. This can be achieved using the '&gt' character at the end of the API call similar to the following:
+<br><code>"X-API-KEY: &ltkey&gt" -H "Accept: application/&ltformat&gt" -H "Content-Type: application/json" -X POST -d '{"items":["&lthost&gt/catalog/cooee/2-015","&lthost&gt/catalog/cooee/2-021"]}' &lthost&gt/catalog/download_items &gt items.zip</code>
+</li>
+<li>A document filter can be applied to limit the type of item documents downloaded. This is used by providing a glob to the JSON parameter <code>doc_filter</code>. If no glob filter is provided then this API call will download all item documents by default.</li>
 </td>
 </tr>
 <tr>
@@ -483,7 +489,8 @@ Item list can be unshareed via HTTP POST mehod
 			"https://app.alveo.edu.au/catalog/cooee/2-037",
 			"https://app.alveo.edu.au/catalog/cooee/2-038",
 			"https://app.alveo.edu.au/catalog/cooee/2-040"
-		]
+		],
+		"doc_filter":"*.txt"
 	} 
 	</CODE>
 </pre>
