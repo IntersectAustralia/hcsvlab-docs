@@ -835,7 +835,6 @@ Item list can be unshareed via HTTP POST mehod
 <td>
 <ol>
 <li>Users are only authorised to create a collection if they have the role of 'admin' or 'data owner'.</li>
-<li>When creating a collection, the "@id" which specifies the URI of the collection needs to be supplied. Unlike other API calls this URI will <em>NOT</em> be automatically converted into the corresponding Alveo catalog URL.</li>
 <li>The collection name can either be supplied as a JSON parameter or as a URL paramaeter. See the example input for examples of this.</li>
 <li>
 This is a POST request that requires a JSON-LD set of collection metadata to be sent with it.
@@ -856,7 +855,7 @@ Hence, cannot be replicated through a browser but through curl this can be done 
 <td colspan=4> 
 The following is an example of expected input for &ltcollection_metadata&gt:
 <ul>
-<li><code>{ "@context": { "dc": "http://purl.org/dc/terms/", "dcterms": "http://purl.org/dc/terms/", "dcmitype": "http://purl.org/dc/dcmitype/" }, "@id": "http://colllection.name.uri", "@type": "dcmitype:Collection", "dc:creator": "Data Owner", "dc:rights": "All rights reserved to Data Owner", "dc:subject": "English Language", "dc:title": "Test" }</code></li>
+<li><code>{ "@context": { "dc": "http://purl.org/dc/terms/", "dcterms": "http://purl.org/dc/terms/", "dcmitype": "http://purl.org/dc/dcmitype/" }, "@type": "dcmitype:Collection", "dc:creator": "Data Owner", "dc:rights": "All rights reserved to Data Owner", "dc:subject": "English Language", "dc:title": "Test" }</code></li>
 </ul>
 </td>
 </tr>
