@@ -476,6 +476,16 @@ Item list can be unshareed via HTTP POST mehod
 <br><code>"X-API-KEY: &ltkey&gt" -H "Accept: application/&ltformat&gt" -H "Content-Type: application/json" -X POST -d '{"items":["&lthost&gt/catalog/cooee/2-015","&lthost&gt/catalog/cooee/2-021"]}' &lthost&gt/catalog/download_items &gt items.zip</code>
 </li>
 <li>A document filter can be applied to limit the type of item documents downloaded. This is used by providing a glob to the JSON parameter <code>doc_filter</code>. If no glob filter is provided then this API call will download all item documents by default.</li>
+<li>Note that Glob is used for filtering rather than Regular Expressions. This affects usage as the syntax for glob and regex are similar but different (i.e. a valid regex is not always a valid glob).
+Basic glob syntax can be found on wikipedia: https://en.wikipedia.org/wiki/Glob_(programming)
+The exact syntax as used in implementation: http://ruby-doc.org/core-2.2.0/File.html#method-c-fnmatch
+Some example globs are:
+*.wav
+*.txt
+*-raw.txt
+myDocument.*
+*.{wav,mp3}
+</li>
 </td>
 </tr>
 <tr>
@@ -493,6 +503,12 @@ Item list can be unshareed via HTTP POST mehod
 		"doc_filter":"*.txt"
 	} 
 	</CODE>
+	<li>Another way to download, using Aspera Connect secure download, (Aspera will prompt user to download Aspera Connect if user doesn't already have it)
+Example Aspera transfer download API call:
+</li>
+        <code>
+        curl -H "X-API-KEY: &ltkey&gt" -H "Content-Type: application/json" -X POST -d '{"doc_filter":"*.txt"}' &ltserverurl&gt/item_lists/3/aspera_transfer_spec
+        </code>
 </pre>
 </td>
 </tr>
