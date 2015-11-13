@@ -30,6 +30,9 @@ These are instructions to setup a new Nectar VM with Galaxy and Cloudman install
 
 The instructions below are outdated, and will install Galaxy on a machine running CloudMan, but will not have it running in a way that it is managed by CloudMan. Rebooting the machine cause CloudMan to install conflicting configuration that will break the installed Galaxy.
 
+A CloudMan instance consists of two major components, the base image and the Galaxy filesystem (GalaxyFS). The base image contains most of the service dependences that CloudMan needs to run, while the GalaxyFS contains Galaxy, the Database, and the various Galaxy configurations. When a CloudMan instance is launched, a VM is instantiated from the base image, then the specified GalaxyFS is copied across and Galaxy is started. The GalaxyFS is typically an archive located in a NeCTAR object store container.
+
+Building a base image and GalaxyFS is quite an involved process, but there are ansible scripts for managing this. [The Galaxy Cloudman Playbook](https://github.com/galaxyproject/galaxy-cloudman-playbook) is the main repository for building such artifacts, however the GVL project has developed some more [specialised scripts](https://github.com/gvlproject/gvl.ansible.playbook) that specifically target NeCTAR and are more appropriate for customisation.
 
 
 ####Configure Galaxy Instance
