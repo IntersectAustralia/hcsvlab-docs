@@ -26,6 +26,12 @@ These are instructions to setup a new Nectar VM with Galaxy and Cloudman install
 11. Press 'Start an Instance'
 12. Wait for launcher to finish booting up the machine and take note of the IP address it creates
 
+## NOTE
+
+The instructions below are outdated, and will install Galaxy on a machine running CloudMan, but will not have it running in a way that it is managed by CloudMan. Rebooting the machine cause CloudMan to install conflicting configuration that will break the installed Galaxy.
+
+
+
 ####Configure Galaxy Instance
 
 You can not SSH into your machine using the `ubuntu` user and the password you specified on the launch page.
