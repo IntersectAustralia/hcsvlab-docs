@@ -36,7 +36,7 @@ Building a base image and GalaxyFS is quite an involved process, but there are a
 
 An import thing to note is that while the GVL launcher allows custom build images located on NeCTAR to be launched from their launcher by the image ID, the image ID referred to here is not the NeCTAR image ID. CloudMan was initially designed to launch images on AWS, and the OpenStack compatibility was implemented with a compatibility layer, the image ID actually refers to the Amazon Machine Image (ami) ID. *It is not possible to determine the ami ID of an image on NeCTAR via the NeCTAR Dashboard*. Instead you must run a script which uses the [boto client](https://github.com/boto/boto) to access the OpenStack via its API to get this ID:
 
-`
+```
 import boto
 from boto.ec2.connection import EC2Connection
 from boto.ec2.regioninfo import RegionInfo
@@ -49,7 +49,7 @@ images = conn.get_all_images()
 
 for img in images:
   print img.id, img.name
-`
+```
 
 
 ####Configure Galaxy Instance
