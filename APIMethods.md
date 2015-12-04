@@ -844,6 +844,36 @@ Example Aspera transfer download API call:
 </tr>
 
 <tr>
+<td>Get licences</td>
+<td>/licences</td>
+<td>GET</td>
+<td>List of licences in the system, their name and ID</td>
+<td />
+<tr>
+<td> Example Response </td>
+<td colspan=4> 
+	<pre>
+	<CODE>
+	[
+		{
+			"name":"Creative Commons",
+			"id": 1
+		},
+		{
+			"name":"AusNC Terms of Use",
+			"id": 2
+		},
+		{
+			"name":"Creative Commons V3",
+			"id": 3
+		}
+	] 
+	</CODE>
+	</pre>
+</td>
+</tr>
+
+<tr>
 <td>Create a collection</td>
 <td>/catalog</td>
 <td>POST</td>
