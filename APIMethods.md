@@ -795,7 +795,7 @@ Example Aspera transfer download API call:
 		curl -g -H "X-API-KEY: &lt;API_KEY&gt;" -H "Accept: application/json" "&lt;host&gt;/sparql/&lt;collection-name&gt;?query=&lt;sparql-query&gt;"
 		<br>
 		Example:<br>
-		curl -g -H "X-API-KEY: &lt;API_KEY&gt;" -H "Accept: application/json" "&lt;host&gt;/sparql/cooee?query=select * where {?s &lt;http://purl.org/dc/terms/isPartOf&gt; ?o}"
+		curl -g -H "X-API-KEY: &lt;API_KEY&gt;" -H "Accept: application/json" "&lt;host&gt;/sparql/cooee?query=select * where {?s &lt;http://purl.org/dc/terms/isPartOf&gt; ?o}"  (e.g.curl -H "X-API-KEY:<APIkey>" -H "Content-Type: application/json" -H "Accept: application/json" https://<serverurl>/licences
 	</td>
 </tr>
 <tr>
