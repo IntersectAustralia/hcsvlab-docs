@@ -882,16 +882,16 @@ Example Aspera transfer download API call:
 <ol>
 <li>Users are only authorised to create a collection if they have the role of 'admin' or 'data owner'.</li>
 <li>The collection name can either be supplied as a JSON parameter or as a URL paramaeter. See the example input for examples of this.</li>
-<li>A licence can be assigned to the collection by passing in the licence_id parameter. As with the collection name, this can either be supplied as a JSON parameter or as a URL paramaeter.</li>
-<li>
-This is a POST request that requires a JSON-LD set of collection metadata to be sent with it.
+<li>A licence can be assigned to the collection by passing in the <code>licence_id</code> parameter. As with the collection name, this can either be supplied as a JSON parameter or as a URL parameter.</li>
+<li>Collection privacy can be set to change whether or not approval is required for other users to access the collection, by passing in the <code>private</code> parameter set to either <code>true</code> or <code>false</code>. By default this is set to true so that approval is required for collection access. As with the collection name and licence, this can either be supplied as a JSON parameter or as a URL parameter.
+<li>This is a POST request that requires a JSON-LD set of collection metadata to be sent with it.
 Hence, cannot be replicated through a browser but through curl this can be done with something akin to the following:
 <ul>
 <li>When creating a collection with the collection name supplied as a URL parameter:
-<br><code>curl -X POST -H "X-API-KEY: &ltkey&gt" -H "Content-Type: application/json" -H "Accept: application/json" -d '{ "collection_metadata": &ltcollection_metadata&gt}' &ltserver&gt/catalog?name=&ltcollection_name&gt&licence_id=1</code>
+<br><code>curl -X POST -H "X-API-KEY: &ltkey&gt" -H "Content-Type: application/json" -H "Accept: application/json" -d '{ "collection_metadata": &ltcollection_metadata&gt}' '&ltserver&gt/catalog?name=&ltcollection_name&gt&licence_id=1&private=true'</code>
 </li>
 <li>When creating a collection with the collection name supplied as a JSON parameter:
-<br><code>curl -X POST -H "X-API-KEY: &ltkey&gt" -H "Content-Type: application/json" -H "Accept: application/json" -d '{ "collection_metadata": &ltcollection_metadata&gt, "name":"&ltcollection_name&gt", "licence_id":1}' &ltserver&gt/catalog</code>
+<br><code>curl -X POST -H "X-API-KEY: &ltkey&gt" -H "Content-Type: application/json" -H "Accept: application/json" -d '{ "collection_metadata": &ltcollection_metadata&gt, "name":"&ltcollection_name&gt", "licence_id":1, "private":true}' &ltserver&gt/catalog</code>
 </li>
 </ul>
 </li>
