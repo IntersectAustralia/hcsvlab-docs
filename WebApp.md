@@ -672,11 +672,13 @@ Log out and then log in as another user. You should arrive at the webapp's home 
 
 Now go to the Discover page by clicking on the "Discover" link in the gold banner of the webapp. You should now see a list of search facets at the left of the page. Confirm that the collection is searchable by: clicking on "Collection" to expand that facet and then clicking on the name of the test collection. The page should show a table of the Items in the collection.
 
-**Sample Item List**
+**Sample Item List & Galaxy check**
 
-Test 1. From the Discover tab, do a search for "Test". Select "Add all to List" -> "Create New List" -> & enter Item list name: "Search Test all" & select "Create List". User should land on the Item list page with "Search Test all" highlighted & ~209 Items in list. Select a different Item List (any). Whilst timing the response, select the previous Item list "Search Test all". List should load in LESS THAN 2 SECONDS. 
-Test 2. From there, click on "Item List Actions" and select "Use in Galaxy". Verify that the application opens a new tab to the Galaxy application production site at http://galaxy.alveo.edu.au/ with the previous Item Lists' url in the "Item List URL" field, your user's API Key auto filled in the "API Key" field, and "Test Search All (DD/MM/20YY HH:MM:SS am/pm)" in the "Supply a name..." field. Select "Execute". History Entries should show as green.
-Test 3. From the Discover tab, filter by Language (ISO 639-3 Code) = "Eng". Select "Add all to List" -> "Create New List" -> & enter Item list name: "English all" & select "Create List". User should land on the Item list page with "English all" highlighted & ~12910 Items in list. Select a different Item List (any). Whilst timing the response, select the previous Item list "Search Test all". List should load in LESS THAN 63 SECONDS (Note: If this time improves significantly, update this Benchmark!).
+*Test 1.* From the Discover tab, do a search for "Test". Select "Add all to List" -> "Create New List" -> & enter Item list name: "Search Test all" & select "Create List". User should land on the Item list page with "Search Test all" highlighted & ~209 Items in list. Select a different Item List (any). Whilst timing the response, select the previous Item list "Search Test all". List should load in LESS THAN 2 SECONDS. 
+
+*Test 2.* From there, click on "Item List Actions" and select "Use in Galaxy". Verify that the application opens a new tab to the Galaxy application production site at http://galaxy.alveo.edu.au/ with the previous Item Lists' url in the "Item List URL" field, your user's API Key auto filled in the "API Key" field, and "Test Search All (DD/MM/20YY HH:MM:SS am/pm)" in the "Supply a name..." field. Select "Execute". History Entries should show as green.
+
+*Test 3.* From the Discover tab, filter by Language (ISO 639-3 Code) = "Eng". Select "Add all to List" -> "Create New List" -> & enter Item list name: "English all" & select "Create List". User should land on the Item list page with "English all" highlighted & ~12910 Items in list. Select a different Item List (any). Whilst timing the response, select the previous Item list "Search Test all". List should load in LESS THAN 63 SECONDS (Note: If this time improves significantly, update this Benchmark!).
 
 **EOPAS Connection** - (NOT IN PRODUCTION ALVEO AT 20.1.2016)
 
