@@ -674,9 +674,11 @@ Now go to the Discover page by clicking on the "Discover" link in the gold banne
 
 **Sample Item List**
 
-Create a small Item List using the facilities of the Discover page, and then create a new Item List from a small number of Items. When the Item List is created, a page is shown with its contents. From there, click on "Item List Actions" and select "Use Item List in Galaxy". This should redirect the app to the Item List's page. There, click on "Item List Actions" and select "Use Item List in Galaxy". Verify that the application redirects to the Galaxy application.
+Test 1. From the Discover tab, do a search for "Test". Select "Add all to List" -> "Create New List" -> & enter Item list name: "Search Test all" & select "Create List". User should land on the Item list page with "Search Test all" highlighted & ~209 Items in list. Select a different Item List (any). Whilst timing the response, select the previous Item list "Search Test all". List should load in LESS THAN 2 SECONDS. 
+Test 2. From there, click on "Item List Actions" and select "Use in Galaxy". Verify that the application opens a new tab to the Galaxy application production site at http://galaxy.alveo.edu.au/ with the previous Item Lists' url in the "Item List URL" field, your user's API Key auto filled in the "API Key" field, and "Test Search All (DD/MM/20YY HH:MM:SS am/pm)" in the "Supply a name..." field. Select "Execute". History Entries should show as green.
+Test 3. From the Discover tab, filter by Language (ISO 639-3 Code) = "Eng". Select "Add all to List" -> "Create New List" -> & enter Item list name: "English all" & select "Create List". User should land on the Item list page with "English all" highlighted & ~12910 Items in list. Select a different Item List (any). Whilst timing the response, select the previous Item list "Search Test all". List should load in LESS THAN 63 SECONDS (Note: If this time improves significantly, update this Benchmark!).
 
-**EOPAS Connection**
+**EOPAS Connection** - (NOT IN PRODUCTION ALVEO AT 20.1.2016)
 
 This test is only possible if suitable data has been ingested. There are suitable Items in the qa_eopas collection.
 
