@@ -589,7 +589,7 @@ If you ever need to redeploy, make sure you run the following command to stop th
 
     $ bundle exec cap production deploy:stop_services
 
-### Verifying the deployment, aka running the "Smoke Test"
+### Verifying the deployment, aka running the "Smoke Test" - This must be conducted for each release to Production
 
 There are several steps to this, but together they exercise all key parts of the deployment and, if passed, give a good degree of confidence that the deployment has worked.
 
@@ -674,13 +674,13 @@ Now go to the Discover page by clicking on the "Discover" link in the gold banne
 
 **Sample Item List & Galaxy check**
 
-*Test 1.* From the Discover tab, do a search for "Test". Select "Add all to List" -> "Create New List" -> & enter Item list name: "Search Test all" & select "Create List". User should land on the Item list page with "Search Test all" highlighted & ~209 Items in list. Select a different Item List (any). Whilst timing the response, select the previous Item list "Search Test all". List should load in LESS THAN 2 SECONDS. 
+*Test 1.* From the Discover tab, do a search for "Test". Select "Add all to List" -> "Create New List" -> & enter Item list name: "Search Test all" & select "Create List". User should land on the Item list page with "Search Test all" highlighted & ~209 Items in list. Select a different Item List (any). Whilst timing the response, select the previous Item list "Search Test all". List should load in LESS THAN 1 SECOND. 
 
 *Test 2.* From there, click on "Item List Actions" and select "Use in Galaxy". Verify that the application opens a new tab to the Galaxy application production site at http://galaxy.alveo.edu.au/ with the previous Item Lists' url in the "Item List URL" field, your user's API Key auto filled in the "API Key" field, and "Test Search All (DD/MM/20YY HH:MM:SS am/pm)" in the "Supply a name..." field. Select "Execute". History Entries should show as green.
 
-*Test 3.* From the Discover tab, filter by Language (ISO 639-3 Code) = "Eng". Select "Add all to List" -> "Create New List" -> & enter Item list name: "English all" & select "Create List". User should land on the Item list page with "English all" highlighted & ~12910 Items in list. Select a different Item List (any). Whilst timing the response, select the previous Item list "Search Test all". List should load in LESS THAN 63 SECONDS (Note: If this time improves significantly, update this Benchmark!).
+*Test 3.* From the Discover tab, filter by Language (ISO 639-3 Code) = "Eng". Select "Add all to List" -> "Create New List" -> & enter Item list name: "English all" & select "Create List". User should land on the Item list page with "English all" highlighted & ~12910 Items in list. Select a different Item List (any). Whilst timing the response, select the previous Item list "Search Test all". List should load in LESS THAN 4 SECONDS (Benchmark from Production 22.1.2016).
 
-**EOPAS Connection** - (NOT IN PRODUCTION ALVEO AT 20.1.2016)
+**EOPAS Connection** - (NOTE: NOT IN PRODUCTION ALVEO AT 20.1.2016)
 
 This test is only possible if suitable data has been ingested. There are suitable Items in the qa_eopas collection.
 
