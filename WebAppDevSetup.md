@@ -60,6 +60,7 @@ If Ruby Version Manager is not already installed on the development environment 
 
     $ rvm install ruby-2.1.4
     $ rvm use ruby-2.1.4@hcsvlab \--create
+    $ gem install bundler
     $ git clone git@github.com:IntersectAustralia/hcsvlab.git
     
 ###Install ImageMagick (required for the rmagick gem)
