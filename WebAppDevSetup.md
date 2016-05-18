@@ -1,3 +1,30 @@
+### Developer Setup - Virtual Environment
+
+The HCSVLAB web app developer installation instructions assume an OSX or Ubuntu environment. To set up an Ubuntu virtual machine run through the following steps. If planning to use an OSX environment ignore this section and continue at the Developer Setup - Web App section.
+
+**Install Virtualbox**
+
+Virtualbox will be used to set up virtual machines on your computer. It can be found at https://www.virtualbox.org/
+A user manual containing installation instructions can be found at https://www.virtualbox.org/manual/UserManual.html however installation should be as simple as downloading and clicking the installer.
+
+**Obtain an Ubuntu image**
+
+An Ubuntu image will need to be provided to virtual box for it to be able to install Ubuntu onto a virtual machine. Either the desktop version http://www.ubuntu.com/download/desktop or server version http://www.ubuntu.com/download/server can be used.
+
+**Create a new Virtual Machine**
+
+Once the Ubuntu image is downloaded open Virtualbox and click to create a new vm. Give it some appropriate name such as HCSVLab, set its type to "Linux" and version to "Ubuntu (64-bit)". Allocate the VM 1024 mb of RAM, and use the default options to create a dynamically allocated physical hard disk.
+
+Configure the settings of the VM within Virtualbox to have two network adapters. The first should be a bridged adapter and the second a Host-only adapter. This will allow the vm to access the internet and allow ssh'ing into the vm from the host machine.
+
+To make development easier it is handy to clone the HCSVLAB repository onto the host machine (desktop) and set up a shared drive to the cloned repo. This allows code changes to be made to the cloned repo within the desktop and still have the changes take effect within the vm. When creating the shared drive ensure to enable the settings "Make permanent" and "Auto mount".
+
+Once the virtual machine has been created start it up and select the downloaded Ubuntu image file when prompted for a virtual disk. Run through the Ubuntu setup, making sure to give the user a memorable name and password ("devel" is normally used as it aligns with our server environments). Once setup is complete and you have logged in install guest additions onto the vm by clicking "Devices > Insert Guest Additions CD Image" within the Virtualbox menu toolbar and follow the instructions within the VM. Once guest additions are installed add your Ubuntu user to the vboxsf group so that they can access the shared folder:
+
+    $ sudo usermod -aG vboxsf $(whoami)
+    
+After logging out and in again you should be able to access the shared folder at "/media/sf_<shared folder name>". Setup of the Ubuntu virtual machine should now be complete. 
+
 ### Developer Setup - Web App
 ### Install PhantomJS
 For more info, visit: http://phantomjs.org/download.html
