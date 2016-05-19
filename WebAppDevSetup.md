@@ -139,6 +139,7 @@ If running `$ bundle install` results in the following error, then try installin
 **For Ubuntu and Mac OS X**
 
     $ cd ~/hcsvlab
+    $ RAILS_ENV=test rake db:drop db:create db:migrate
     $ rspec spec
     $ cucumber features
     
