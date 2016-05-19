@@ -13,7 +13,7 @@ An Ubuntu image will need to be provided to virtual box for it to be able to ins
 
 **Create a new Virtual Machine**
 
-Once the Ubuntu image is downloaded open Virtualbox and click to create a new vm. Give it some appropriate name such as HCSVLab, set its type to "Linux" and version to "Ubuntu (64-bit)". Allocate the VM 1024 mb of RAM, and use the default options to create a dynamically allocated physical hard disk.
+Once the Ubuntu image is downloaded open Virtualbox and click to create a new vm. Give it some appropriate name such as HCSVLab, set its type to "Linux" and version to "Ubuntu (64-bit)". Allocate the VM at least 2048 mb of RAM, and use the default options to create a dynamically allocated physical hard disk.
 
 Configure the settings of the VM within Virtualbox to have two network adapters. The first should be a bridged adapter and the second a Host-only adapter. This will allow the vm to access the internet and allow ssh'ing into the vm from the host machine.
 
@@ -134,12 +134,16 @@ If running `$ bundle install` results in the following error, then try installin
 
     $ mkdir -p /data/contributed_annotations
     $ chown -R <user>:<user> /data
+
+###Setup database for running tests
+**For Ubuntu and Mac OS X**
+
+    $ RAILS_ENV=test bundle exec rake db:create db:migrate db:test:prepare
     
 ###Run Tests
 **For Ubuntu and Mac OS X**
 
     $ cd ~/hcsvlab
-    $ RAILS_ENV=test rake db:drop db:create db:migrate
     $ rspec spec
     $ cucumber features
     
@@ -235,12 +239,6 @@ Add the following lines to `/etc/apache2/httpd.conf`
 Then restart apace
     
     sudo apachectl -k restart
-
-
-###Setup HCSVLAB cucumber test setup
-**For Ubuntu and Mac OS X**
-
-    $ RAILS_ENV=test bundle exec rake db:create db:migrate db:test:prepare
 
 ###Ingest an AusNC Corpus into Fedora
 For example data, see Download the Corpus in Installing AusNC.
