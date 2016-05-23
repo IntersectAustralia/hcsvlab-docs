@@ -123,6 +123,8 @@ If running `$ bin/activemq start` in Ubuntu results in an error message `ERROR: 
     $ rake jetty:reset_all # only run this command the first time for subsequent starts run $ rake jetty:start a13g:start_pollers
     $ rails s
 
+As mentioned in the calls above, `$ rake jetty:reset_all` should be run the first time when setting up HCSVLAB. It can also be used to reset Solr and Sesame when required.
+
 To check that the required processes are running, the script `/hcsvlab/script/system_check.sh` can be run.
     
 If running `$ bundle install` results in the following error, then try installing the bundler gem `$ gem install bundler`.
