@@ -881,7 +881,7 @@ Example Aspera transfer download API call:
 <td>
 <ol>
 <li>Users are only authorised to create a collection if they have the role of 'admin' or 'data owner'.</li>
-<li>The collection name can either be supplied as a JSON parameter or as a URL paramaeter. See the example input for examples of this. NOTE: Collection names currently can not contain a colon (`:`) in the name as it causes an error. This is a known issue which will be dealt  with in subsequent releases.</li>
+<li>The collection name can either be supplied as a JSON parameter or as a URL paramaeter. See the example input for examples of this. NOTE: Collection names currently can not contain a colon (<code>:</code>) in the name as it causes an error. This is a known issue which will be dealt  with in subsequent releases.</li>
 <li>A licence can be assigned to the collection by passing in the <code>licence_id</code> parameter. As with the collection name, this can either be supplied as a JSON parameter or as a URL parameter.</li>
 <li>Collection privacy can be set to change whether or not approval is required for other users to access the collection, by passing in the <code>private</code> parameter set to either <code>true</code> or <code>false</code>. By default this is set to true so that approval is required for collection access. As with the collection name and licence, this can either be supplied as a JSON parameter or as a URL parameter.
 <li>This is a POST request that requires a JSON-LD set of collection metadata to be sent with it.
